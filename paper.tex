@@ -1,0 +1,565 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage{fullpage,amsmath, amssymb, amsthm,stmaryrd}
+\usepackage{a4wide}
+\ifx\pdfpageheight\undefined
+   \usepackage[dvips,colorlinks=true,linkcolor=blue,citecolor=red,
+      urlcolor=green]{hyperref}
+   \usepackage[dvips]{graphicx}
+   \makeatletter
+   \edef\Gin@extensions{\Gin@extensions,.mps}
+   \DeclareGraphicsRule{.mps}{eps}{*}{}
+   \makeatother
+\else
+   \usepackage[pdftex]{graphicx}
+   \usepackage[bookmarksopen=false,pdftex=true,breaklinks=true,
+       hyperindex=true,pdfstartview=FitH,colorlinks=true,
+      pdfpagelabels=true,colorlinks=true,linkcolor=blue,
+      citecolor=red,urlcolor=green,hypertexnames=false
+      ]
+   {hyperref}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\usepackage{algorithm}
+ \usepackage{algorithmic}
+\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}
+\floatname{algorithm}{Algorithm}
+\usepackage{algorithmic}
+\newcommand{\forbody}[1]{ #1 \ENDFOR }
+\newcommand{\ifbody}[1]{ #1  \ENDIF}
+\newcommand{\comment}[1]{#1}
+\newcommand{\whilebody}[1]{ #1  \ENDWHILE}
+\renewcommand{\algorithmicprint}{\textbf{draw}}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{df}{Definition}
+\newtheorem{Algo}{Algorithm}
+\newtheorem{ex}{Example}
+\newtheorem{rem}{Remark}
+\newtheorem{lem}{Lemma}
+
+
+\newenvironment{Alg}
+       {\noindent  {\bf Algorithm} \hspace*{0.05cm}}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{ {\rm K}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\tbigO}{\widetilde{\mathcal{O}}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\ocL}{\overline{\mathcal{L}}}
+\newcommand{\tcL}{\widetilde{\mathcal{L}}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\oA}{\overline{A}}
+\newcommand{\GL}{{\rm GL}\,}
+\newcommand{\rank}{{\rm rank}\,}
+\newcommand{\diag}{{\rm diag}\,}
+\newcommand{\val}{{\rm val}\,}
+\newcommand{\ord}{{\rm ord}\,}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+\newcommand{\Return}{\textbf{Return}}
+\newcommand{\While}{\textbf{While}}
+\newcommand{\For}{\textbf{For}}
+\newcommand{\If}{\textbf{If}}
+\newcommand{\nv}{\textbf{MatrixPolynomialInverse}}
+\newcommand{\then}{\textbf{then}}
+\newcommand{\ddo}{\textbf{do}}
+\newcommand{\edo}{\textbf{end do}}
+\newcommand{\eif}{\textbf{end if}}
+\newcommand{\cdim}{{\rm coldim}}
+\newcommand{\tO}{O^{\sim}}
+
+\def\StorjohannTransform{\qopname\relax n{StorjohannTransform}}
+\def\TransformUnbalanced{\qopname\relax n{TransformUnbalanced}}
+\def\rowDimension{\qopname\relax n{rowDimension}}
+\def\columnDimension{\qopname\relax n{columnDimension}}
+\DeclareMathOperator{\re}{rem}
+\DeclareMathOperator{\coeff}{coeff}
+\DeclareMathOperator{\lcoeff}{lcoeff}
+\DeclareMathOperator{\inv}{inverse}
+\DeclareMathOperator{\rev}{rev}
+\DeclareMathOperator{\colRev}{colRev}
+\DeclareMathOperator{\rowRev}{rowRev}
+\DeclareMathOperator{\unimodularCompletion}{unimodularCompletion}
+\DeclareMathOperator{\hermiteDiagonal}{hermiteDiagonal}
+\DeclareMathOperator{\mnbr}{minimaKernelBasisReversed}
+\DeclareMathOperator{\mnbrp}{minimalKernelBasisWithRankProfile}
+\DeclareMathOperator{\colBasis}{colBasis}
+\DeclareMathOperator{\rankProfile}{rankProfile}
+\def\mab{\qopname\relax n{OrderBasis}}
+\def\mnbrs{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
+\def\mmab{\qopname\relax n{FastBasis}}
+\def\umab{\qopname\relax n{UnbalancedFastBasis}}
+\def\mnb{\qopname\relax n{MinimalKernelBasis ~ }}
+\newcommand{\bb}{\\}
+
+
+
+
+\title{An optimal, deterministic algorithm for inversion of a matrix polynomial}
+
+\author{
+Wei Zhou, George Labahn, Arne Storjohann
+         \thanks{
+             Cheriton School of Computer Science, University of Waterloo, 
+             Waterloo ON, Canada N2L 3G1 \texttt{\{w2zhou,glabahn,astorjoh\}@uwaterloo.ca}
+          }
+}
+\begin{document}
+%
+
+\date{}
+\maketitle 
+\begin{abstract}
+In this paper we present a deterministic algorithm for the computation of the inverse of 
+an $n\times n$ matrix of polynomials over a field. The algorithm is deterministic with complexity  $O^{\sim}\left(n^{\omega-1}\xi\right)$ field operations. Here $\omega$ is the exponent of matrix multiplication, $\xi$ is the minimum of the  
+sum of the column degrees and the sum of the row degrees of the input matrix and $O^{\sim}$ is just $O$ with log factors omitted. In addition, our algorithm can also be used to find the largest invariant factor of a polynomial matrix, again deterministically, with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$.
+\footnote{Do I have the correct complexity here?}
+\end{abstract}
+%
+
+\section{Introduction}
+
+Let $\mathbf{A} \in \mathbb{K}\left[x\right]^{n\times n}$ be an $n \times n$ matrix of polynomials over an abstract field $\mathbb{K}$. When $\mathbf{A}$ is nonsingular then (using Cramer's rule) the
+number of elements required to represent its inverse is $O(n^3 d)$ where $d$ is the degree of $\mathbf{A}$. Jeannerod and Villard \cite{jeannerod-villard:05} give a deterministic algorithm for determing the inverse for a large class of polynomial matrices using roughly the same number of operations as required to represent the inverse. More specifically, for generic polynomial matrices with size $n$ being a power of $2$ their algorithm has a complexity $O^{\sim}\left(n^{3} d \right)$ field operations, where  $O^{\sim}$ is just $O$ with log factors omitted. Such complexity is essentially optimal for the generic case. %since the same number of operations are needed to represent the inverse matrix polynomial. 
+Previous to this the fastest deterministic algorithms for matrix polynomial inversion had complexity $O^{\sim}\left(n^{\omega + 1} d \right)$ \cite{burgisser,storjohannPhD}.
+
+In this paper we extend the algorithm of Jeannerod and Villard to one which is deterministic  and has complexity $O^{\sim}\left(n^{\omega-1}\xi\right)$ for arbitrary input matrix polynomials. Here $\omega$ is the exponent of matrix multiplication and $\xi$ is the minimum of the sum of the column degrees and the sum of the row degrees of the input matrix. This complexity is also essentially optimal for arbitrary
+invertible matrix polynomials. Note that in the special case when all the rows and columns of 
+$\mathbf{A}$  have at least one term of highest degree $d$ then $\xi = n d$ and the complexity of inversion becomes $O^{\sim}\left(n^{\omega} d \right)$. The motivation for finding deterministic
+algorithms is the fact that many other basic linear algebra problems for polynomial matrices have known optimal complexity. We mention for example linear solving with complexity $O^{\sim}\left(n^{3} d \right)$ in \cite{dixon82,moenck} and complexity $O^{\sim}\left(n^{\omega} d \right)$ in \cite{storjohan2002}, determinant  \cite{storjohan2002} and column reduction \cite{Giorgi2003}
+both with complexity $O^{\sim}\left(n^{\omega} d \right)$.
+
+Our algorithm makes use of a similar reduction used by Jeannerod and Villard \cite{jeannerod-villard:05} which uses a sequence of minimal nullspace basis computations to reduce inversion to the inversion of a diagonal matrix.  Our extension makes use of {\em shifted} minimal nullspace bases combined with an alternate method for measuring size during the reduction. This allows us to replace the nullspace basis computation and the matrix multiplications with the new algorithms from \cite{zhou-labahn-storjohann:12}. In addition, whereas the algorithm of Jeannerod and Villard returns two matrices $\mathbf{B},\mathbf{C}$ satisfying $\mathbf{A}^{-1} = \mathbf{C}\mathbf{B}^{-1}$, our algorithm instead returns a list of matrices $\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+satisfying $\mathbf{A}^{-1} = \mathbf{C}_{1}\cdots\mathbf{C}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$.
+We can then compute the product $\mathbf{C}=\mathbf{C}_{1}\cdots\mathbf{C}_{\left\lceil \log n\right\rceil }$
+with a cost of $O^{\sim}\left(n^{2}\xi\right)$. It is interesting
+to note that the output $\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+takes only $O(n\xi\log n)$ space, but the product $\mathbf{C}=\mathbf{C}_{1}\cdots\mathbf{C}_{\left\lceil \log n\right\rceil }$
+takes $O(n^{2}\xi)$ space. 
+
+As an added contribution we show that the reduction also allows us to determine the largest invariant factor of a matrix of polynomials. This largest invariant factor is the smallest polynomial $s$ such that $s \cdot \mathbf{A}^{-1}$ has only polynomial entries. When viewed in terms of the determinant the largest invariant factor plays the same role as the minimal polynomial of a scalar matrix ploynomial when compared to the charistic polynomial.\footnote{ This sentence leaves a bit to be desired. Improvements welcome. }
+In fact, when ${\mathbf{A}} = x I - V$ for some $V \in \mathbb{K}^{n\times n}$ then the largest invariant factor of ${\mathbf{A}}$ is the same as the minimal polynomial of $V$.
+
+The remainder of this paper is as follows. The inversion algorithm is included in the next section followed in Section \ref{sec:complexity} by the theorems giving the new complexity results. Section \ref{sec:invariants} then gives our contribution with respect to the largest invariant factor. The paper ends with a conclusion and topics for future research.
+
+\section{The Algorithm}
+
+\subsection{The Reduction}
+
+The computation of the inverse of the matrix polynomial $\mathbf{A}$ takes advantage of the 
+reduction
+\begin{equation}\label{recurs}
+\mathbf{A} \cdot \mathbf{C} = \left[ \begin{array}{c} A_u \\ \hline  A_d \end{array} \right]
+ \cdot \left[ C_d , C_u \right] = \left[ \begin{array}{cc} B_u & 0 \\ 0 & B_d \end{array} \right] ~.
+\end{equation}
+Here $A_u$ and $A_d$ represent the upper $\lceil n/2 \rceil$ and lower $\left\lfloor n/2 \right \rfloor$ rows of $\mathbf{A}$, respectively.  $C_d \in \mathbb{K}\left[x\right]^{n\times \lceil n/2 \rceil }$ is a nullspace basis of $A_d$, that is, a basis of the nullspace of $A_d$ considered as a module over $\K[x]$, 
+while $C_u$ is a nullspace basis with $\lfloor n/2 \rfloor$ columns for $A_u$.  The reduction 
+(\ref{recurs}) results in a sequence of matrices $\mathbf{C}_1,~\ldots~,~\mathbf{C}_{\lceil \log n \rceil}$ such that
+$\mathbf{A} \cdot \mathbf{C}_1 \cdots \mathbf{C}_{\lceil \log n \rceil} = \mathbf{B}$ where $\mathbf{B}$ is a diagonal matrix. The inverse is then given by $\mathbf{A}^{-1} = \mathbf{C}_1 \cdots \mathbf{C}_{\lceil \log n \rceil} \cdot \mathbf{B}^{-1}$.
+
+The reduction (\ref{recurs}) results in a sequence of matrices $\mathbf{B}^{(k)}, ~\mathbf{C}^{(k)}$ and $ \mathbf{D}^{(k)}$ satisfying
+\begin{eqnarray}
+\mathbf{C}^{(k)} & = & \mathbf{C}_1 \cdots \mathbf{C}_k = [ C_1^{(k)} , ~\ldots , ~ C_{2^k}^{(k)} ] \nonumber \\
+\mathbf{B}^{(k)} & = & \mbox{ diag } ( B_1^{(k)} , ~\ldots , ~ B_{2^k}^{(k)} ) \nonumber \\
+\mathbf{D}^{(k)} & = & \mbox{ diag } ( D_1^{(k)} , ~\ldots , ~ D_{2^k}^{(k)} ) \nonumber
+\end{eqnarray}
+such that
+\begin{eqnarray}\label{iter}
+\mathbf{A} \cdot \mathbf{C}^{(k)} & = &  \mathbf{B}^{(k)}, ~~~~ \mathbf{B}^{(k+1)} = \mathbf{B}^{(k)} \cdot \mathbf{D}^{(k)} 
+~~ \mbox{ and } ~~ \mathbf{C}^{(k+1)} = \mathbf{C}^{(k)} \cdot \mathbf{D}^{(k)} ~.
+\end{eqnarray}
+Individually, the computations proceed via
+\begin{eqnarray}\label{update}
+B_i^{(k)} \cdot D_i^{(k)} & = &  B_i^{(k)} \cdot [ D_{2i-1}^{(k+1)} , ~ D_{2i}^{(k+1)} ] = \mbox{ diag } ( B_{2i-1}^{(k+1)} ,~ B_{2i}^{(k+1)} ) 
+%~~ \mbox{ and } ~~  C_i^{(k)} \cdot D_i^{(k)} = [ ~ C_{2i-1}^{(k+1)} , ~ C_{2i}^{(k+1)} ~ ] ~
+\end{eqnarray}
+with each $D_i^{(k)}$  following reduction (\ref{recurs}) along with the update
+\begin{eqnarray}\label{update2}
+ C_i^{(k)} \cdot D_i^{(k)} & = &  [ ~ C_{2i-1}^{(k+1)} , ~ C_{2i}^{(k+1)} ~ ] ~.
+\end{eqnarray} 
+
+\subsection{Controlling Size via Shifted Minimal Nullspace Bases}
+
+Note that the choice of nullspace bases in reduction (\ref{recurs}) is not unique. Jeannerod and Villard \cite{jeannerod-villard:05} made use of this reduction subject to $n$ being a power of two (in which case $\lceil n/2 \rceil = \lfloor n/2 \rfloor$) and assuming that the input matrix was {\em generic}. The genericity of $\mathbf{A}$ was needed in order to ensure that it would be possible to control the degrees of the nullspace bases in $\mathbf{C}$. Basically in the generic case one could always expect to find minimal nullspace bases having degrees bounded by $d$, the degree of the input matrix polynomial.
+
+In our case we make use of the notion of a {\em shifted column degree} of a matrix polynomial~(c.f.~\cite{BecLabVil99}). If
+$\vec s = (s_1, \ldots , s_m) \in \Z^m$ and  $\mathbf{P} = [ p_{ij} ] \in \mathbb{K}\left[x\right]^{m \times n}$,  then the $\vec s$- column degree of $\mathbf{P}$  is defined as 
+$$
+cdeg_{\vec s} ~\mathbf{P} := ( ~\max_i \{~s_i + \mbox{ deg} ( {p}_{i,1}) \} , ~ \ldots ,~ \max_i \{~s_i + \mbox{ deg} ( {p}_{i,n})  \} ~).
+$$
+For the nullspace bases in $\mathbf{C}$ we use $\vec s$- minimal nullspace bases for both $A_d$ and $A_u$, where $\vec s$ bounds the vector of column degrees of $\mathbf{A}$. Rather than using the degree of a matrix polynomial as our measure of size we use an upper bound $\xi$ of the sum of the shift $\vec s$. The initial choice for a shift is the column degree of $\mathbf{A}$.
+
+The fact that this provides a recursive control for the size comes from the following two results from \cite[page 368]{zhou-labahn-storjohann:12}.
+
+\begin{lem}[Lemma 3.1 of \cite{zhou-labahn-storjohann:12}]\label{thm:1}
+Let $\vec{s}$ be a shift whose entries bound the corresponding column degrees of $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$. Then for any polynomial matrix $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times k}$ the column degrees of
+$\mathbf{F} \mathbf{N}$ are bounded by the corresponding $\vec s$-column degrees of $\mathbf{N}$ .
+\end{lem}
+
+\begin{thm}[Theorem 3.4 of \cite{zhou-labahn-storjohann:12}]\label{thm:2}
+\label{thm:boundOfSumOfShiftedDegreesOfKernelBasis}
+Suppose $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$ and $\vec{s}\in\mathbb{Z}$ 
+is a shift with entries bounding the corresponding column degrees of $\mathbf{F}$. Then the sum of
+the $\vec{s}$-column degrees of any $\vec{s}$-minimal kernel basis of $\mathbf{F}$ is bounded by $\xi=\sum\vec{s}$.
+\end{thm}
+
+Lemma \ref{thm:1} implies that the matrix polynomial $\mathbf{B}_u$ (respectively $\mathbf{B}_d$) has its column degrees bounded by the $\vec{s}$-column degrees of $\mathbf{C}_d$ (respectively $\mathbf{C}_u$). Theorem \ref{thm:2} then implies that in each case the sum of the column degrees of
+$\mathbf{B}_u$ and $\mathbf{B}_d$ will be bounded by the original sum bound $\xi$.
+
+The constructions (\ref{iter}) and (\ref{update}) provide a sequence of shifts $\vec{s}_i^{~(k)}$ (starting with $\vec{s}_0^{~(0)}$, 
+the column degree of $\mathbf{A}$) defined by 
+$$
+\vec{s}_i^{~(k)} := \mbox{ cdeg } ( D_i^{(k)} )
+$$
+which, for each $i$ and $k$, satisfy
+\begin{eqnarray}
+%\mbox{ cdeg ( diag } ( B_{2i-1}^{(k+1)}, B_{2i}^{(k+1)} ) ~ )  \leq \mbox{cdeg}_{ ~ \vec{s}_i^{~(k)}} ( D_i^{(k)} ) ~~ \mbox{ and } ~~ \sum_j [ \vec{s}_i^{~(k)} ]_j \leq \xi ~.
+\mbox{ cdeg ( diag } ( B_{2i-1}^{(k+1)}, B_{2i}^{(k+1)} ) ~ )  \leq \mbox{cdeg}_{ ~ \vec{s}_i^{~(k)}} ( D_i^{(k)} ) ~. \nonumber
+% = \mbox{cdeg}_{ ~ \vec{s}_i^{~(k)}} ( D_{2i-1}^{(k+1)} ), \mbox{cdeg}_{ ~ \vec{s}_{2i}^{~(k)}} ( D_i^{(k+1)} ) ~~ \mbox{ and } ~~ \sum_j [ \vec{s}_i^{~(k)} ]_j \leq \xi ~.
+\end{eqnarray}
+Since 
+\begin{eqnarray}
+\mbox{cdeg}_{ ~ \vec{s}_i^{~(k)}} ( D_i^{(k)} )
+& = &  [ ~ \mbox{cdeg}_{ ~ \vec{s}_i^{~(k)}} ( D_{2i-1}^{(k+1)} ), ~\mbox{cdeg}_{ ~ \vec{s}_{2i}^{~(k)}} ( D_i^{(k+1)} ) ~] \nonumber
+\end{eqnarray}
+ this implies that 
+\begin{eqnarray}
+\mbox{ cdeg } ( B_i^{(k+1)} ) & \leq&  \vec{s}_i^{~(k)} ~~ \mbox{ and } ~~ \sum_j [ \vec{s}_i^{~(k)} ]_j \leq \xi ~ \nonumber
+\end{eqnarray}
+for all $k$ and $i$.
+ 
+\begin{algorithm}[t]
+\caption{$\nv(\mathbf{A},\vec{s})$}
+\label{alg:matrixInverse}
+
+\begin{algorithmic}
+[1]\REQUIRE{Matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$, shift  $\vec{s}$. \\ 
+\hspace{0.53cm} The shift $\vec{s}$ is
+initially set to the column degrees of $\mathbf{A}$.}% It keeps track of the degrees.}
+
+\ENSURE{$~\mathcal{C}=\left[\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil }\right],\mathbf{B}$
+with $\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil },\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times n}$
+such that \\ \hspace{1cm} $\mathbf{A}^{-1} = \mathbf{C}_{1}\dots\mathbf{C}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
+if $\mathbf{A}$ is nonsingular, or fail if $\mathbf{A}$ is singular.}
+
+\STATE{$\mathbf{A} = \left[ \begin{array}{c} \mathbf{A}_{u} \\ \mathbf{A}_{d} \end{array} \right]$ 
+with $\mathbf{A}_{u}$ consisting of the upper $\left\lceil n/2\right\rceil $
+rows of $\mathbf{A}$;}
+
+\STATE{\textbf{if }$\mathbf{A}=0$ \textbf{then} fail \textbf{endif};
+}
+
+\STATE{
+\textbf{if }$n=1$ \textbf{then} \textbf{return} $\left\{ 1,\mathbf{A}\right\} $;
+\textbf{endif};}
+
+\label{line:nullspaceBasisComputation}\STATE{$\mathbf{C}_{u}:=\mnb(\mathbf{A}_{u},\vec{s})$;\\$ \mathbf{C}_{d}:=\mnb(\mathbf{A}_{d},\vec{s})$;}
+
+
+\STATE{\textbf{if }$\columnDimension(\mathbf{C}_{u})\ne\left\lfloor n/2 \right\rfloor $
+\OR{} $\columnDimension(\mathbf{C}_{d})\ne\left\lceil n/2 \right\rceil $
+\textbf{then} fail; \textbf{endif};}
+
+\STATE{$\mathbf{B}_{u}:=\mathbf{A}_{u}\mathbf{C}_{d}$;\\$ \mathbf{B}_{d}:=\mathbf{A}_{d}\mathbf{C}_{u}$;}\label{line:multiplyFN}
+
+\STATE{$\left\{ \mathcal{C}^{(1)},\mathbf{H}_{1}\right\} :=\nv(\mathbf{B}_{u}  
+,\deg_{\vec{s}}\mathbf{C}_{d})$;\\
+$\left\{ \mathcal{C}^{(2)},\mathbf{H}_{2}\right\} :=\nv(\mathbf{B}_{d},\deg_{\vec{s}}\mathbf{C}_{u})$;}
+
+\STATE{$\mathcal{C}:=\left[\left[\mathbf{C}_{d},\mathbf{C}_{u}\right],\diag(\mathcal{C}_{1}^{(1)},\mathcal{C}_{1}^{(2)}),\dots,\diag(\mathcal{C}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{C}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$}
+
+\label{line:multiplyNG}\STATE{\textbf{return} $\left\{ \mathcal{C},\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)\right\} $;}
+\end{algorithmic}
+\end{algorithm}
+
+
+\section{Complexity}\label{sec:complexity}
+
+The dominate costs of Algorithm \ref{alg:matrixInverse} come from the minimal nullspace basis computation and the matrix multiplications. These are handled by the following lemmas, with 
+$\xi$ denoting the minimum of the sum of the column degrees and the sum of the row degrees of the input matrix.
+\begin{lem}
+The nullspace basis computations at line (4) %(\ref{line:nullspaceBasisComputation})
+costs $O^{\sim}(n^{\omega-1}\xi)$.
+\end{lem}
+\begin{proof}
+This follows from the minimal nullspace algorithm for matrix polynomials with a shift recently reported by the authors 
+\cite{zhou-labahn-storjohann:12}. Here the shift is set to
+the column degrees of the input matrix.
+\end{proof}
+
+For the matrix multiplications in Algorithm \ref{alg:matrixInverse} we make use of the following result from \cite[page 369]{zhou-labahn-storjohann:12}.
+
+\begin{thm}[Theorem 3.7 \cite{zhou-labahn-storjohann:12}]
+\label{thm:multiplyUnbalancedMatrices} 
+Let $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$, $\vec{s}$ a shift with entries bounding 
+the column degrees of $\mathbf{F}$ and $\xi$, a bound on the sum of the entries of $\vec{s}$. Let $\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times k}$ with $k\in O\left(m\right)$ and the sum 
+$\theta$ of its $\vec{s}$-column degrees satisfying $\theta\in O\left(\xi\right)$. Then we can multiply $\mathbf{F} \cdot \mathbf{G}$ with a cost of $O^{\sim}(nm^{\omega-2}\xi)$.
+\end{thm}
+
+\begin{lem}
+The multiplications $\mathbf{B}_{u}:=\mathbf{A}_{u}\mathbf{C}_{d}$
+and $\mathbf{B}_{d}:=\mathbf{A}_{d}\mathbf{C}_{u}$ at line (\ref{line:multiplyFN})
+cost $O^{\sim}(n^{\omega-1}\xi)$.
+\end{lem}
+\begin{proof}
+Theorem \ref{thm:2} implies that the sum of the 
+$\vec{s}$-column degrees of $\mathbf{C}_{u}$ and that of $\mathbf{C}_{d}$ are both bounded 
+by $\xi$. The result then follows directly from Theorem \ref{thm:multiplyUnbalancedMatrices}.
+\end{proof}
+
+The main result of this section is:
+
+\begin{thm}
+\label{thm:inverseCost}
+Algorithm \ref{alg:matrixInverse} costs $O^{\sim}\left(n^{\omega-1}\xi\right)$
+field operations to compute an inverse of a nonsingular matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$,
+where $\xi$ is the minimum of the sum of the column degrees and the
+sum of the row degrees of the input matrix.\end{thm}
+\begin{proof}
+Let us assume that $\xi$ is the sum of the column degrees, since if the sum of the row degrees is smaller then we can just transpose the matrix. Let the cost of inversion be $g(n,\xi)$. Then we have the following recurrence
+relation:
+\begin{eqnarray*}
+g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi)+2g(\left\lceil n/2\right\rceil ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi).
+\end{eqnarray*}
+Note that always rounding up $n/2$ to $\left\lceil n/2\right\rceil $
+is no worse than assuming $n$ is a power of $2$. In other words,
+the entries in the sequence $\left[\left\lceil n/2\right\rceil ,\left\lceil n/4\right\rceil ,\dots,1\right]$
+are not larger than the corresponding entries in the sequence $\left[m/2,m/4,\dots,1\right]$,
+where $m =2^{\left\lceil \log_{2}n\right\rceil }$ is the smallest power of $2$ that is not less than $n$.
+\end{proof}
+
+%\section{Complexity for determining $\mathbf{C}$}
+Finally, let us consider the cost of multiplying the matrices $\mathbf{C}_i$.
+
+\begin{lem}\label{Cmultiply}
+The multiplications $\mathbf{C}=\mathbf{C}_{1}\dots\mathbf{C}_{\left\lceil \log n\right\rceil }$
+can be done with a cost of $O^{\sim}(n^{2}\xi)$.
+\end{lem}
+\begin{proof}
+By Theorem \ref{thm:multiplyUnbalancedMatrices} the cost of determining each 
+$C_i^{(k)} \cdot D_i^{(k)} = [ ~ C_{2i-1}^{(k+1)} , ~ C_{2i}^{(k+1)} ~ ]$ has complexity
+$O^{\sim}(n_i^{(k)} n^{\omega-2} \xi)$ where $n_i^{(k)}$ is the column dimension of $C_i^{(k)}$.
+Therefore the cost of multiplying
+$\mathbf{C}^{(k+1)} = \mathbf{C}^{(k)} \cdot \mathbf{D}^{(k)}$ is
+$$
+\sum_{i=1}^{2^k} O^{\sim}(n_i^{(k)} n^{\omega-2} \xi) = O^{\sim}(n^{\omega-1}\xi).
+$$
+Determining $\mathbf{C}=\mathbf{C}_{1}\dots\mathbf{C}_{\left\lceil \log n\right\rceil }$ is therefore
+the same since the $\left\lceil \log n\right\rceil$ terms is absorbed by the use of $O^{\sim}$.
+\footnote{Question for Wei : why do you then set $\omega = 3$ to get your complexity rather than just leaving the smaller complexity?}
+\end{proof}
+
+
+
+\section{Largest Invariant Factors}\label{sec:invariants}
+
+The largest invariant factor of a matrix of polynomials ${\bf A}$ is the minimal degree monic polynomial $s$ having the property that $s \cdot {\bf A}^{-1}$ is a matrix polynomial. Alternative it is defined as the ratio of the determinant and the gcd of all $n-1$ minors of $\mathbf{A}$ and  coincides with the last diagonal entry of the Smith normal form of ${\bf A}$. For generic matrices this is the same as the determinant while when $\mathbf{A} = x I - V$ for a scalar matrix $V$ then the largest invariant factor is the same as the minimal polynomial of $V$. In this section we will show how the largest invariant factor can be determined from the matrix ${\bf B}$ of Algorithm \ref{alg:matrixInverse}. We make use of the well-known fact that the largest invariant factor is the least common denominator of $\mathbf{A}^{-1}$.
+
+\begin{thm}
+Suppose that ${\mathbf{B}} = \mbox{ diag }( b_1, \ldots , b_n)$ denotes the final diagonal matrix polynomial  in Algorithm \ref{alg:matrixInverse}. Then
+$$
+\mbox{ Largest Invariant Factor of } {\mathbf{A}} = \mbox{lcm}( b_{1}, \ldots , b_{n} ).
+$$
+\end{thm}
+\begin{proof}
+Let ${\mathbf{A}_i} \in \mathbb{K}\left[x\right]^{(n-1)\times n}$ denote the matrix ${\mathbf{A}}$ with row $i$ removed. Then there exists a unimodular matrix ${\mathbf{U}} \in \mathbb{K}\left[x\right]^{n \times n}$ and ${\mathbf{D}_i} \in \mathbb{K}\left[x\right]^{(n-1)\times (n-1)}$ such that
+$$
+{\mathbf{A}_i} \cdot {\mathbf{U}} = [ ~0, ~{\mathbf{D}_i}].
+$$
+In this case one then obtains
+$$
+{\mathbf{A}} \cdot {\mathbf{U}} = [ ~{\mathbf{b}}_i, ~{\mathbf{D}}] \mbox{ where } {\mathbf{b}}_i = [~0, \ldots , ~0,~ b_{i}, ~0, \ldots,~ 0~]
+$$
+where ${\mathbf{D}} \in \mathbb{K}\left[x\right]^{n\times (n-1)}$ is the same as ${\mathbf{D}_i}$
+except for an additional row of zeros inserted into row $i$. Therefore for each $i$ 
+$$
+ \mbox{ det }({\mathbf{A}})  = \pm ~ b_{i}  \mbox{ det }({\mathbf{D}_i} )
+$$
+and hence
+$$
+\mbox{lcm}( b_{1}, \ldots , b_{n} ) = \frac{ \mbox{ det }({\mathbf{A}}) }{\mbox{ gcd}(
+\mbox{ det }({\mathbf{D}_1} ), \ldots , \mbox{ det }({\mathbf{D}_n} ) ) }.
+$$
+\end{proof}
+
+\section{Conclusion}
+
+In this paper we have extended the algorithm of Jeannerod and Villard for the inversion of a matrix polynomial. The algorithm is deterministic and has essentially optimal complexity for inversion. In addition, we show how the algorithm can also be used to find the largest invariant factor of a matrix of polynomials.
+
+\bibliographystyle{abbrv}
+\begin{thebibliography}{22}
+
+
+\bibitem{BecLab97}
+B. Beckermann and G. Labahn.
+\newblock Recursiveness in Matrix Rational Interpolation Problems.
+\newblock {\em Journal of Computational and Applied Mathematics}, 77:5-34, 1997.
+
+\bibitem{BecLabVil99}
+B. Beckermann, G. Labahn and G. Villard.
+\newblock Recursiveness in Matrix Rational Interpolation Problems.
+\newblock \emph{Proceedings of the International Symposium on Symbolic and
+  Algebraic Computation}, 155--162, 1999.
+  
+\bibitem{burgisser}
+P. B\"urgisser, M. Clausen, M.A. Shokrollahi, Algebraic Complexity Theory, Vol. 315, 
+\newblock Grundlehren der Mathematischen Wissenschaften, Springer, Berlin, 1997.
+
+\bibitem{dixon82}
+J.D. Dixon.
+\newblock Exact solutions of linear equations using $p$-adic expansions,
+\newblock Numerische Math 40 137--141, 1982.
+
+\bibitem{Giorgi2003}
+P.~Giorgi, C.-P. Jeannerod, and G.~Villard.
+\newblock On the complexity of polynomial matrix computations.
+\newblock \emph{{Proceedings of the International Symposium on Symbolic and
+  Algebraic Computation, Philadelphia, Pennsylvania, USA}}, 135--142. ACM
+  Press, 2003.
+
+\bibitem{GS2011}
+S.~Gupta and A.~Storjohann.
+\newblock Computing {H}ermite forms of polynomial matrices.
+\newblock \emph{Proceedings of the International Symposium on Symbolic and
+  Algebraic Computation}, 155--162, 2011.
+
+\bibitem{GSSV2012}
+S.~Gupta, S.~Sarkar, A.~Storjohann, and J.~Valeriote.
+\newblock Triangular x-basis decompositions and derandomization of linear
+  algebra algorithms over k[x].
+\newblock \emph{Journal of Symbolic Computation: Special issue in honour of the
+  research and influence of Joachim von zur Gathen at 60}, 47(4):\penalty0
+  422--453, 2012.
+  
+\bibitem{jeannerod-villard:05}
+C.-P. Jeannerod and G.~Villard.
+\newblock Essentially optimal computation of the inverse of generic polynomial matrices.
+\newblock {\em Journal of Complexity}, 21:72--86, 2005.
+
+\bibitem{moenck}
+R.T. Moenck, J.H. Carter,
+\newblock Approximate algorithms to derive exact solutions to systems of linear equations,
+\newblock \emph{Proceedings of the second ACM Symposium on Symbolic and Algebraic Manipulations}, 63--73, 1979.
+
+\bibitem{storjohannPhD}
+A. Storjohann. 
+\newblock Algorithms for matrix canonical forms. 
+\newblock Ph.D. Thesis, ETH - Swiss Federal Institute of Technology, Z\"urich, December 2000.
+
+\bibitem{MulSto03}
+T. Mulders and A. Storjohann.
+\newblock On lattice reduction for polynomial matrices.
+\newblock {\em Journal of Symbolic Computation}, 35:377-401, 2003.
+
+\bibitem{storjohan2002}
+A. Storjohann,
+\newblock Higher Order Lifting,
+\newblock \emph{Proceedings of the International Symposium on Symbolic and
+  Algebraic Computation},  246--254, 2002.
+
+\bibitem{zhou-labahn-storjohann:12}
+W. Zhou, G. Labahn and A. Storjohann.
+\newblock Computing minimal nullspace bases.
+\newblock \emph{Proceedings of the International Symposium on Symbolic and
+  Algebraic Computation},  366--373, 2012.
+
+\end{thebibliography}
+
+\newpage
+\appendix
+
+\section{Original Wei Thesis Proof of Lemma \ref{Cmultiply}}
+\begin{proof}
+({\bf Original proof from Wei's thesis}):\\
+Note that when $i\le\log n$ then $\mathbf{C}_{i}$ has $2^{i}$ blocks
+on the diagonal. Each block of $\mathbf{C}_{i}$ is used to compute
+two corresponding blocks of $\mathbf{C}_{i+1}$. Let us first look
+at $\mathbf{C}_{1}=\left[\mathbf{N}_{L},\mathbf{N}_{R}\right]$ and
+\[
+\mathbf{C}_{2}=\begin{bmatrix}\mathbf{N}'_{L} & \mathbf{N}'_{R}\\
+ &  & \mathbf{M}'_{L} & \mathbf{M}'_{R}
+\end{bmatrix},
+\]
+ where $\mathbf{N}'_{R},$ $\mathbf{N}'_{L}$ are the nullspace bases
+of the submatrices $\mathbf{A}'_{u},$ $\mathbf{A}'_{d}$ contained
+in 
+\[
+\mathbf{R}_{1}=\begin{bmatrix}\mathbf{A}'_{u}\\
+\mathbf{A}'_{d}
+\end{bmatrix}=\mathbf{A}_{u}\mathbf{N}_{L}.
+\]
+When multiplying $\mathbf{C}_{1}$ and $\mathbf{C}_{2}$, the submatrix
+$\mathbf{N}_{L}$ of $\mathbf{C}_{1}$ is multiplied with the block
+$\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$ in $\mathbf{C}_{2}$.
+Let $\vec{s}'$ be the list of the $\vec{s}$-column degrees of $\mathbf{N}_{L}$,
+where $\vec{s}$ is list of the column degrees of the input matrix
+$\mathbf{A}$. Then $\sum\vec{s}'\le\sum\vec{s}=\xi$ follows from Theorem 3.4 in 
+\cite{zhou-labahn-storjohann:12}.
+From Lemma 3.1 of~\cite{zhou-labahn-storjohann:12} we know the column degrees
+of $\mathbf{R}_{1}=\mathbf{A}_{u}\mathbf{N}_{L}$ are bounded component-wise
+by the $\vec{s}$-column degrees $\vec{s}'$ of $\mathbf{N}_{L}$,
+hence the sum of the column degrees of $\mathbf{R}_{1}$ is also bounded
+by $\xi$. It follows that the sum of $\vec{s}'$-column degrees of
+$\mathbf{N}'_{R}$ and that of $\mathbf{N}'_{L}$ are each bounded
+by $\xi$. We can therefore use Theorem 3.7 of~\cite{zhou-labahn-storjohann:12}
+to multiply $\mathbf{N}_{L}$ and $\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$
+with a cost of $O^{\sim}\left(n^{\omega-1}\xi\right)$. Again, from Lemma 3.1 
+of~\cite[page 368]{zhou-labahn-storjohann:12} we have that 
+the $\vec{s}$-column degrees of the product $\mathbf{N}_{L}\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$
+are bounded by the $\vec{s}'$-column degrees of $\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$,
+hence the sum of the $\vec{s}$-column degrees of each column block
+in $\mathbf{N}_{L}\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]=\left[\mathbf{N}_{L}\mathbf{N}'_{L},\mathbf{N}_{L}\mathbf{N}'_{R}\right]$
+is still bounded by $\xi$. The multiplication involving $\mathbf{N}_{R}$
+and the second block of $\mathbf{C}_{2}$ is done in the same way
+as the multiplication $\mathbf{N}_{L}\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$,
+hence the multiplication $\mathbf{C}_{1}\mathbf{C}_{2}$ costs $O^{\sim}\left(n^{\omega-1}\xi\right)$,
+with the sum of $\vec{s}$-column degrees of each of the four column
+blocks in $\mathbf{C}_{1}\mathbf{C}_{2}=\left[\mathbf{N}_{L}\mathbf{N}'_{L},\mathbf{N}_{L}\mathbf{N}'_{R},\mathbf{N}_{R}\mathbf{M}'_{L},\mathbf{N}_{R}\mathbf{M}'_{R}\right]$
+bounded by $\xi$.
+
+Next, we multiply $\mathbf{C}_{1}\mathbf{C}_{2}$ with $\mathbf{C}_{3}$.
+The matrix $\mathbf{C}_{3}$ now has four blocks on the diagonal.
+Consider $\mathbf{N}_{2}\mathbf{N}'_{2}$ , the first column block
+of $\mathbf{C}_{1}\mathbf{C}_{2}$, multiplied with the first block
+$\left[\mathbf{N}"_{2},\mathbf{N}"_{1}\right]$ on the diagonal of
+$\mathbf{C}_{3}$. Let $\vec{s}"$ be the $\vec{s}'$-column degrees
+of $\mathbf{N}'_{2}$, which bound the $\vec{s}$-column degrees of
+$\mathbf{N}_{2}\mathbf{N}'_{2}$. Then $\sum\vec{s}"\le\sum\vec{s}'\le\sum\vec{s}=\xi$.
+Following the same reasoning as before, the sum of the $\vec{s}"$-column
+degrees of $\mathbf{N}"_{2}$ is still bounded by $\xi$. We can therefore
+again use Theorem 3.7 of~\cite{zhou-labahn-storjohann:12} to multiply
+$\mathbf{N}_{2}\mathbf{N}'_{2}$ and $\mathbf{N}"_{2}$. The multiplication
+of the remaining blocks are done in the same way. The product $\mathbf{C}_{1}\mathbf{C}_{2}\mathbf{C}_{3}$
+now has 8 column blocks, with the sum of the $\vec{s}$-column degrees
+of each column block bounded by $\xi$.
+
+Repeating this process, we multiply $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$
+with $\mathbf{C}_{i+1}$ at step $i$ for $i$ from 1 to $\left\lfloor \log n\right\rfloor $.
+Each of the $2^{i}$ column blocks of $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$
+has dimension $n\times O(n/2^{i})$. Each of the $O(2^{i})$ column
+blocks on the diagonal of $\mathbf{C}_{i+1}$ has dimension $O(n/2^{i})\times O(n/2^{i})$.
+(Big $O$ notation is used here because $n/2^{i}$ may not be an integer.)
+Let $\vec{u}_{j}$ be the shift used to compute the $j$th in $\mathbf{C}_{j+1}$. Then as before, the $\vec{s}$-column degrees of the $j$th column
+block in $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$ are bounded by $\vec{u}_{j}$,
+with $\sum\vec{u}_{j}\le\xi$. The sum of the $\vec{u}$-column degrees
+of the $j$th block in $\mathbf{C}_{j+1}$ is bounded by $2\xi$ since each of the left half and the right half has the sum bounded by $\xi$.
+Therefore, multiplying $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$ with
+$\mathbf{C}_{i+1}$ cost $O^{\sim}\left(2^{j}2^{j}\left(n/2^{j}\right)^{\omega-1}\xi\right)$.
+Taking $\omega=3,$ we get $O^{\sim}\left(n^{2}\xi\right)$ as desired.
+\end{proof}
+
+
+\end{document}

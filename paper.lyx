@@ -1,0 +1,4190 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+
+
+\usepackage{fullpage}\usepackage{amsthm}\usepackage{stmaryrd}\usepackage{a4wide}\ifx\pdfpageheight\undefined
+   
+   \edef\Gin@extensions{\Gin@extensions,.mps}
+   \DeclareGraphicsRule{.mps}{eps}{*}{}
+   
+\else
+   \fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\usepackage{algorithm}\usepackage{algorithmic}\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}
+\floatname{algorithm}{Algorithm}
+\usepackage{algorithmic}\newcommand{\forbody}[1]{ #1 \ENDFOR }
+\newcommand{\ifbody}[1]{ #1  \ENDIF}
+\newcommand{\comment}[1]{#1}
+\newcommand{\whilebody}[1]{ #1  \ENDWHILE}
+\renewcommand{\algorithmicprint}{\textbf{draw}}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{df}{Definition}
+\newtheorem{Algo}{Algorithm}
+\newtheorem{ex}{Example}
+\newtheorem{rem}{Remark}
+\newtheorem{lem}{Lemma}
+
+
+\newenvironment{Alg}{\noindent  {\bf Algorithm} \hspace*{0.05cm}}{
+
+}\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{ {\rm K}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\tbigO}{\widetilde{\mathcal{O}}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\ocL}{\overline{\mathcal{L}}}
+\newcommand{\tcL}{\widetilde{\mathcal{L}}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\oA}{\overline{A}}
+\newcommand{\GL}{{\rm GL}\,}
+\newcommand{\rank}{{\rm rank}\,}
+\newcommand{\diag}{{\rm diag}\,}
+\newcommand{\val}{{\rm val}\,}
+\newcommand{\ord}{{\rm ord}\,}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+\newcommand{\Return}{\textbf{Return}}
+\newcommand{\While}{\textbf{While}}
+\newcommand{\For}{\textbf{For}}
+\newcommand{\If}{\textbf{If}}
+\newcommand{\nv}{\textbf{MatrixPolynomialInverse}}
+\newcommand{\then}{\textbf{then}}
+\newcommand{\ddo}{\textbf{do}}
+\newcommand{\edo}{\textbf{end do}}
+\newcommand{\eif}{\textbf{end if}}
+\newcommand{\cdim}{{\rm coldim}}
+\newcommand{\tO}{O^{\sim}}
+
+\def\StorjohannTransform{\qopname\relax n{StorjohannTransform}}
+\def\TransformUnbalanced{\qopname\relax n{TransformUnbalanced}}
+\def\rowDimension{\qopname\relax n{rowDimension}}
+\def\columnDimension{\qopname\relax n{columnDimension}}
+\DeclareMathOperator{\re}{rem}
+\DeclareMathOperator{\coeff}{coeff}
+\DeclareMathOperator{\lcoeff}{lcoeff}
+\DeclareMathOperator{\inv}{inverse}
+\DeclareMathOperator{\rev}{rev}
+\DeclareMathOperator{\colRev}{colRev}
+\DeclareMathOperator{\rowRev}{rowRev}
+\DeclareMathOperator{\unimodularCompletion}{unimodularCompletion}
+\DeclareMathOperator{\hermiteDiagonal}{hermiteDiagonal}
+\DeclareMathOperator{\mnbr}{minimaKernelBasisReversed}
+\DeclareMathOperator{\mnbrp}{minimalKernelBasisWithRankProfile}
+\DeclareMathOperator{\colBasis}{colBasis}
+\DeclareMathOperator{\rankProfile}{rankProfile}
+\def\mab{\qopname\relax n{OrderBasis}}
+\def\mnbrs{\qopname\relax n{MinimalNullspacerBasisRankSensitive}}
+\def\mmab{\qopname\relax n{FastBasis}}
+\def\umab{\qopname\relax n{UnbalancedFastBasis}}
+\def\mnb{\qopname\relax n{MinimalKernelBasis ~ }}
+\newcommand{\bb}{\\}
+
+
+
+
+\title{An efficient, deterministic algorithm for inversion of a matrix polynomial}
+
+\author{
+Wei Zhou, George Labahn, Arne Storjohann
+         \thanks{
+             Cheriton School of Computer Science, University of Waterloo, 
+             Waterloo ON, Canada N2L 3G1 \texttt{\{w2zhou,glabahn,astorjoh\}@uwaterloo.ca}
+          }
+}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref section
+\pdf_pdfusetitle true
+\pdf_quoted_options "dvips,linkcolor=blue,citecolor=red,urlcolor=green,pdftex=true,hyperindex=true,pdfstartview=FitH,pdfpagelabels=true,colorlinks=true,linkcolor=blue,citecolor=red,urlcolor=green,hypertexnames=false"
+\papersize a4paper
+\use_geometry false
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 0
+\use_mathdots 0
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+maketitle
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Abstract
+In this paper we present a deterministic algorithm for the computation of
+ the inverse of an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix of polynomials over a field.
+ The algorithm is deterministic with complexity 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+ field operations.
+ Here 
+\begin_inset Formula $s$
+\end_inset
+
+ is the minimum of the average of the column degrees and the average of
+ the row degrees of the input matrix and 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+ is just 
+\begin_inset Formula $O$
+\end_inset
+
+ with log factors omitted.
+ In addition, our algorithm can also be used to find the largest invariant
+ factor of a polynomial matrix, again deterministically, with a cost of
+ 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the exponent of matrix multiplication.
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Do I have the correct complexity here?
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ be an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix of polynomials over an abstract field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+.
+ When 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is nonsingular then (using Cramer's rule) the number of field elements
+ required to represent its inverse is 
+\begin_inset Formula $O(n^{3}d)$
+\end_inset
+
+ where 
+\begin_inset Formula $d$
+\end_inset
+
+ is the degree of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ Jeannerod and Villard 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jeannerod-villard:05"
+
+\end_inset
+
+ give a deterministic algorithm for determining the inverse for a large
+ class of polynomial matrices using roughly the same number of operations
+ as required to represent the inverse.
+ More specifically, for generic polynomial matrices with size 
+\begin_inset Formula $n$
+\end_inset
+
+ being a power of 
+\begin_inset Formula $2$
+\end_inset
+
+ their algorithm has a complexity 
+\begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
+\end_inset
+
+ field operations, where 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+ is just 
+\begin_inset Formula $O$
+\end_inset
+
+ with log factors omitted.
+ Such complexity is essentially optimal for the generic case.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%since the same number of operations are needed to represent the inverse
+ matrix polynomial.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+Previous to this the fastest deterministic algorithms for matrix polynomial
+ inversion had complexity 
+\begin_inset Formula $O^{\sim}\left(n^{\omega+1}d\right)$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "burgisser,storjohannPhD"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this paper we extend the algorithm of Jeannerod and Villard to one which
+ is deterministic and has complexity 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ for arbitrary input matrix polynomials.
+ Here 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the exponent of matrix multiplication and 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the minimum of the sum of the column degrees and the sum of the row
+ degrees of the input matrix.
+ This complexity is also essentially optimal for arbitrary invertible matrix
+ polynomials.
+ Note that in the special case when all the rows and columns of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ have at least one term of highest degree 
+\begin_inset Formula $d$
+\end_inset
+
+ then 
+\begin_inset Formula $\xi=nd$
+\end_inset
+
+ and the complexity of inversion becomes 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+ The motivation for finding deterministic algorithms is the fact that many
+ other basic linear algebra problems for polynomial matrices have known
+ optimal complexity.
+ We mention for example linear solving with complexity 
+\begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
+\end_inset
+
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "dixon82,moenck"
+
+\end_inset
+
+ and complexity 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+ in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "storjohan2002"
+
+\end_inset
+
+, determinant 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "storjohan2002"
+
+\end_inset
+
+ and column reduction 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Giorgi2003"
+
+\end_inset
+
+ both with complexity 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Our algorithm makes use of a similar reduction used by Jeannerod and Villard
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jeannerod-villard:05"
+
+\end_inset
+
+ which uses a sequence of minimal nullspace basis computations to reduce
+ inversion to the inversion of a diagonal matrix.
+ Our extension makes use of 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ shifted
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ minimal nullspace bases combined with an alternate method for measuring
+ size during the reduction.
+ This allows us to replace the nullspace basis computation and the matrix
+ multiplications with the new algorithms from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+.
+ In addition, whereas the algorithm of Jeannerod and Villard returns two
+ matrices 
+\begin_inset Formula $\mathbf{B},\mathbf{C}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{A}^{-1}=\mathbf{C}\mathbf{B}^{-1}$
+\end_inset
+
+, our algorithm instead returns a list of matrices 
+\begin_inset Formula $\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{A}^{-1}=\mathbf{C}_{1}\cdots\mathbf{C}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
+\end_inset
+
+.
+ We can then compute the product 
+\begin_inset Formula $\mathbf{C}=\mathbf{C}_{1}\cdots\mathbf{C}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\end_inset
+
+.
+ It is interesting to note that the output 
+\begin_inset Formula $\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+\end_inset
+
+ takes only 
+\begin_inset Formula $O(n\xi\log n)$
+\end_inset
+
+ space, but the product 
+\begin_inset Formula $\mathbf{C}=\mathbf{C}_{1}\cdots\mathbf{C}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ takes 
+\begin_inset Formula $O(n^{2}\xi)$
+\end_inset
+
+ space.
+\end_layout
+
+\begin_layout Standard
+As an added contribution we show that the reduction also allows us to determine
+ the largest invariant factor of a matrix of polynomials.
+ This largest invariant factor is the smallest polynomial 
+\begin_inset Formula $s$
+\end_inset
+
+ such that 
+\begin_inset Formula $s\cdot\mathbf{A}^{-1}$
+\end_inset
+
+ has only polynomial entries.
+ When viewed in terms of the determinant the largest invariant factor plays
+ the same role as the minimal polynomial of a scalar matrix ploynomial when
+ compared to the charistic polynomial.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+ This sentence leaves a bit to be desired.
+ Improvements welcome.
+ 
+\end_layout
+
+\end_inset
+
+ In fact, when 
+\begin_inset Formula ${\mathbf{A}}=xI-V$
+\end_inset
+
+ for some 
+\begin_inset Formula $V\in\mathbb{K}^{n\times n}$
+\end_inset
+
+ then the largest invariant factor of 
+\begin_inset Formula ${\mathbf{A}}$
+\end_inset
+
+ is the same as the minimal polynomial of 
+\begin_inset Formula $V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The remainder of this paper is as follows.
+ The inversion algorithm is included in the next section followed in Section
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:complexity"
+
+\end_inset
+
+ by the theorems giving the new complexity results.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:invariants"
+
+\end_inset
+
+ then gives our contribution with respect to the largest invariant factor.
+ The paper ends with a conclusion and topics for future research.
+\end_layout
+
+\begin_layout Section
+The Algorithm
+\end_layout
+
+\begin_layout Subsection
+The Reduction
+\end_layout
+
+\begin_layout Standard
+The computation of the inverse of the matrix polynomial 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ takes advantage of the reduction 
+\begin_inset Formula 
+\begin{equation}
+\mathbf{A}\cdot\mathbf{C}=\left[\begin{array}{c}
+A_{u}\\
+\hline A_{d}
+\end{array}\right]\cdot\left[C_{d},C_{u}\right]=\left[\begin{array}{cc}
+B_{u} & 0\\
+0 & B_{d}
+\end{array}\right]~.\label{recurs}
+\end{equation}
+
+\end_inset
+
+Here 
+\begin_inset Formula $A_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{d}$
+\end_inset
+
+ represent the upper 
+\begin_inset Formula $\lceil n/2\rceil$
+\end_inset
+
+ and lower 
+\begin_inset Formula $\left\lfloor n/2\right\rfloor $
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, respectively.
+ 
+\begin_inset Formula $C_{d}\in\mathbb{K}\left[x\right]^{n\times\lceil n/2\rceil}$
+\end_inset
+
+ is a nullspace basis of 
+\begin_inset Formula $A_{d}$
+\end_inset
+
+, that is, a basis of the nullspace of 
+\begin_inset Formula $A_{d}$
+\end_inset
+
+ considered as a module over 
+\begin_inset Formula $\K[x]$
+\end_inset
+
+, while 
+\begin_inset Formula $C_{u}$
+\end_inset
+
+ is a nullspace basis with 
+\begin_inset Formula $\lfloor n/2\rfloor$
+\end_inset
+
+ columns for 
+\begin_inset Formula $A_{u}$
+\end_inset
+
+.
+ The reduction (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "recurs"
+
+\end_inset
+
+) results in a sequence of matrices 
+\begin_inset Formula $\mathbf{C}_{1},~\ldots~,~\mathbf{C}_{\lceil\log n\rceil}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{A}\cdot\mathbf{C}_{1}\cdots\mathbf{C}_{\lceil\log n\rceil}=\mathbf{B}$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ is a diagonal matrix.
+ The inverse is then given by 
+\begin_inset Formula $\mathbf{A}^{-1}=\mathbf{C}_{1}\cdots\mathbf{C}_{\lceil\log n\rceil}\cdot\mathbf{B}^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The reduction (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "recurs"
+
+\end_inset
+
+) results in a sequence of matrices 
+\begin_inset Formula $\mathbf{B}^{(k)},~\mathbf{C}^{(k)}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}^{(k)}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{C}^{(k)} & = & \mathbf{C}_{1}\cdots\mathbf{C}_{k}=[C_{1}^{(k)},~\ldots,~C_{2^{k}}^{(k)}]\\
+\mathbf{B}^{(k)} & = & \mbox{ diag }(B_{1}^{(k)},~\ldots,~B_{2^{k}}^{(k)})\\
+\mathbf{D}^{(k)} & = & \mbox{ diag }(D_{1}^{(k)},~\ldots,~D_{2^{k}}^{(k)})
+\end{eqnarray*}
+
+\end_inset
+
+such that 
+\begin_inset Formula 
+\begin{eqnarray}
+\mathbf{A}\cdot\mathbf{C}^{(k)} & = & \mathbf{B}^{(k)},~~~~\mathbf{B}^{(k+1)}=\mathbf{B}^{(k)}\cdot\mathbf{D}^{(k)}~~\mbox{ and }~~\mathbf{C}^{(k+1)}=\mathbf{C}^{(k)}\cdot\mathbf{D}^{(k)}~.\label{iter}
+\end{eqnarray}
+
+\end_inset
+
+Individually, the computations proceed via 
+\begin_inset Formula 
+\begin{eqnarray}
+B_{i}^{(k)}\cdot D_{i}^{(k)} & = & B_{i}^{(k)}\cdot[D_{2i-1}^{(k+1)},~D_{2i}^{(k+1)}]=\mbox{ diag }(B_{2i-1}^{(k+1)},~B_{2i}^{(k+1)})\label{update}
+\end{eqnarray}
+
+\end_inset
+
+with each 
+\begin_inset Formula $D_{i}^{(k)}$
+\end_inset
+
+ following reduction (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "recurs"
+
+\end_inset
+
+) along with the update 
+\begin_inset Formula 
+\begin{eqnarray}
+C_{i}^{(k)}\cdot D_{i}^{(k)} & = & [~C_{2i-1}^{(k+1)},~C_{2i}^{(k+1)}~]~.\label{update2}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Controlling Size via Shifted Minimal Nullspace Bases
+\end_layout
+
+\begin_layout Standard
+Note that the choice of nullspace bases in reduction (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "recurs"
+
+\end_inset
+
+) is not unique.
+ Jeannerod and Villard 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jeannerod-villard:05"
+
+\end_inset
+
+ made use of this reduction subject to 
+\begin_inset Formula $n$
+\end_inset
+
+ being a power of two (in which case 
+\begin_inset Formula $\lceil n/2\rceil=\lfloor n/2\rfloor$
+\end_inset
+
+) and assuming that the input matrix was 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ generic
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+.
+ The genericity of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ was needed in order to ensure that it would be possible to control the
+ degrees of the nullspace bases in 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+.
+ Basically in the generic case one could always expect to find minimal nullspace
+ bases having degrees bounded by 
+\begin_inset Formula $d$
+\end_inset
+
+, the degree of the input matrix polynomial.
+\end_layout
+
+\begin_layout Standard
+In our case we make use of the notion of a 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ shifted column degree
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ of a matrix polynomial
+\begin_inset space ~
+\end_inset
+
+(c.f.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BecLabVil99"
+
+\end_inset
+
+).
+ If 
+\begin_inset Formula $\vec{s}=(s_{1},\ldots,s_{m})\in\Z^{m}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{P}=[p_{ij}]\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, then the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+- column degree of 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\[
+cdeg_{\vec{s}}~\mathbf{P}:=(~\max_{i}\{~s_{i}+\mbox{ deg}({p}_{i,1})\},~\ldots,~\max_{i}\{~s_{i}+\mbox{ deg}({p}_{i,n})\}~).
+\]
+
+\end_inset
+
+For the nullspace bases in 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ we use 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+- minimal nullspace bases for both 
+\begin_inset Formula $A_{d}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{u}$
+\end_inset
+
+, where 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ bounds the vector of column degrees of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ Rather than using the degree of a matrix polynomial as our measure of size
+ we use an upper bound 
+\begin_inset Formula $\xi$
+\end_inset
+
+ of the sum of the shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ The initial choice for a shift is the column degree of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The fact that this provides a recursive control for the size comes from
+ the following two results from 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "page 368"
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lem}
+\end_layout
+
+\end_inset
+
+[Lemma 3.1 of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+]
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:1"
+
+\end_inset
+
+ Let 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ be a shift whose entries bound the corresponding column degrees of 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+ Then for any polynomial matrix 
+\begin_inset Formula $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ the column degrees of 
+\begin_inset Formula $\mathbf{F}\mathbf{N}$
+\end_inset
+
+ are bounded by the corresponding 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ .
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lem}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{thm}
+\end_layout
+
+\end_inset
+
+[Theorem 3.4 of 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+]
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:2"
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+ Suppose 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}$
+\end_inset
+
+ is a shift with entries bounding the corresponding column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of any 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $\xi=\sum\vec{s}$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{thm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:1"
+
+\end_inset
+
+ implies that the matrix polynomial 
+\begin_inset Formula $\mathbf{B}_{u}$
+\end_inset
+
+ (respectively 
+\begin_inset Formula $\mathbf{B}_{d}$
+\end_inset
+
+) has its column degrees bounded by the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{C}_{d}$
+\end_inset
+
+ (respectively 
+\begin_inset Formula $\mathbf{C}_{u}$
+\end_inset
+
+).
+ Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:2"
+
+\end_inset
+
+ then implies that in each case the sum of the column degrees of 
+\begin_inset Formula $\mathbf{B}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}_{d}$
+\end_inset
+
+ will be bounded by the original sum bound 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The constructions (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "iter"
+
+\end_inset
+
+) and (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "update"
+
+\end_inset
+
+) provide a sequence of shifts 
+\begin_inset Formula $\vec{s}_{i}^{~(k)}$
+\end_inset
+
+ (starting with 
+\begin_inset Formula $\vec{s}_{0}^{~(0)}$
+\end_inset
+
+, the column degree of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+) defined by 
+\begin_inset Formula 
+\[
+\vec{s}_{i}^{~(k)}:=\mbox{ cdeg }(D_{i}^{(k)})
+\]
+
+\end_inset
+
+which, for each 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $k$
+\end_inset
+
+, satisfy 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mbox{ cdeg ( diag }(B_{2i-1}^{(k+1)},B_{2i}^{(k+1)})~)\leq\mbox{cdeg}_{~\vec{s}_{i}^{~(k)}}(D_{i}^{(k)})~.
+\end{eqnarray*}
+
+\end_inset
+
+Since 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mbox{cdeg}_{~\vec{s}_{i}^{~(k)}}(D_{i}^{(k)}) & = & [~\mbox{cdeg}_{~\vec{s}_{i}^{~(k)}}(D_{2i-1}^{(k+1)}),~\mbox{cdeg}_{~\vec{s}_{2i}^{~(k)}}(D_{i}^{(k+1)})~]
+\end{eqnarray*}
+
+\end_inset
+
+this implies that 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mbox{ cdeg }(B_{i}^{(k+1)}) & \leq & \vec{s}_{i}^{~(k)}~~\mbox{ and }~~\sum_{j}[\vec{s}_{i}^{~(k)}]_{j}\leq\xi~
+\end{eqnarray*}
+
+\end_inset
+
+for all 
+\begin_inset Formula $k$
+\end_inset
+
+ and 
+\begin_inset Formula $i$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float algorithm
+placement t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Formula $\nv(\mathbf{A},\vec{s})$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:matrixInverse"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{algorithmic}
+\end_layout
+
+\end_inset
+
+ [1]
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+REQUIRE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+, shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset space \hspace{}
+\length 0.53cm
+\end_inset
+
+ The shift 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is initially set to the column degrees of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+% It keeps track of the degrees.}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+ENSURE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $~\mathcal{C}=\left[\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil }\right],\mathbf{B}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{C}_{1},\dots,\mathbf{C}_{\left\lceil \log n\right\rceil },\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ such that 
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{A}^{-1}=\mathbf{C}_{1}\dots\mathbf{C}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
+\end_inset
+
+ if 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is nonsingular, or fail if 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is singular.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\mathbf{A}=\left[\begin{array}{c}
+\mathbf{A}_{u}\\
+\mathbf{A}_{d}
+\end{array}\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{u}$
+\end_inset
+
+ consisting of the upper 
+\begin_inset Formula $\left\lceil n/2\right\rceil $
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+;
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\series bold
+if 
+\series default
+
+\begin_inset Formula $\mathbf{A}=0$
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ fail 
+\series bold
+endif
+\series default
+; 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ 
+\series bold
+if 
+\series default
+
+\begin_inset Formula $n=1$
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ 
+\series bold
+return
+\series default
+ 
+\begin_inset Formula $\left\{ 1,\mathbf{A}\right\} $
+\end_inset
+
+; 
+\series bold
+endif
+\series default
+;
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "line:nullspaceBasisComputation"
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\mathbf{C}_{u}:=\mnb(\mathbf{A}_{u},\vec{s})$
+\end_inset
+
+;
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\mathbf{C}_{d}:=\mnb(\mathbf{A}_{d},\vec{s})$
+\end_inset
+
+;
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\series bold
+if 
+\series default
+
+\begin_inset Formula $\columnDimension(\mathbf{C}_{u})\ne\left\lfloor n/2\right\rfloor $
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+OR
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $\columnDimension(\mathbf{C}_{d})\ne\left\lceil n/2\right\rceil $
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ fail; 
+\series bold
+endif
+\series default
+;
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\mathbf{B}_{u}:=\mathbf{A}_{u}\mathbf{C}_{d}$
+\end_inset
+
+;
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Formula $\mathbf{B}_{d}:=\mathbf{A}_{d}\mathbf{C}_{u}$
+\end_inset
+
+;
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "line:multiplyFN"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\left\{ \mathcal{C}^{(1)},\mathbf{H}_{1}\right\} :=\nv(\mathbf{B}_{u},\deg_{\vec{s}}\mathbf{C}_{d})$
+\end_inset
+
+;
+\begin_inset Newline newline
+\end_inset
+
+ 
+\begin_inset Formula $\left\{ \mathcal{C}^{(2)},\mathbf{H}_{2}\right\} :=\nv(\mathbf{B}_{d},\deg_{\vec{s}}\mathbf{C}_{u})$
+\end_inset
+
+;
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\mathcal{C}:=\left[\left[\mathbf{C}_{d},\mathbf{C}_{u}\right],\diag(\mathcal{C}_{1}^{(1)},\mathcal{C}_{1}^{(2)}),\dots,\diag(\mathcal{C}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{C}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "line:multiplyNG"
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+STATE
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\series bold
+return
+\series default
+ 
+\begin_inset Formula $\left\{ \mathcal{C},\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)\right\} $
+\end_inset
+
+;
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{algorithmic}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Complexity
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:complexity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The dominate costs of Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:matrixInverse"
+
+\end_inset
+
+ come from the minimal nullspace basis computation and the matrix multiplication
+s.
+ These are handled by the following lemmas, with 
+\begin_inset Formula $\xi$
+\end_inset
+
+ denoting the minimum of the sum of the column degrees and the sum of the
+ row degrees of the input matrix.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lem}
+\end_layout
+
+\end_inset
+
+ The nullspace basis computations at line (4) 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%(
+\backslash
+ref{line:nullspaceBasisComputation})
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+costs 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lem}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{proof}
+\end_layout
+
+\end_inset
+
+ This follows from the minimal nullspace algorithm for matrix polynomials
+ with a shift recently reported by the authors 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+.
+ Here the shift is set to the column degrees of the input matrix.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{proof}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the matrix multiplications in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:matrixInverse"
+
+\end_inset
+
+ we make use of the following result from 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "page 369"
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{thm}
+\end_layout
+
+\end_inset
+
+[Theorem 3.7 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+] 
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ Let 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ a shift with entries bounding the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\xi$
+\end_inset
+
+, a bound on the sum of the entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ with 
+\begin_inset Formula $k\in O\left(m\right)$
+\end_inset
+
+ and the sum 
+\begin_inset Formula $\theta$
+\end_inset
+
+ of its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees satisfying 
+\begin_inset Formula $\theta\in O\left(\xi\right)$
+\end_inset
+
+.
+ Then we can multiply 
+\begin_inset Formula $\mathbf{F}\cdot\mathbf{G}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}(nm^{\omega-2}\xi)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{thm}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lem}
+\end_layout
+
+\end_inset
+
+ The multiplications 
+\begin_inset Formula $\mathbf{B}_{u}:=\mathbf{A}_{u}\mathbf{C}_{d}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}_{d}:=\mathbf{A}_{d}\mathbf{C}_{u}$
+\end_inset
+
+ at line (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "line:multiplyFN"
+
+\end_inset
+
+) cost 
+\begin_inset Formula $O^{\sim}(n^{\omega-1}\xi)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lem}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{proof}
+\end_layout
+
+\end_inset
+
+ Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:2"
+
+\end_inset
+
+ implies that the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{C}_{u}$
+\end_inset
+
+ and that of 
+\begin_inset Formula $\mathbf{C}_{d}$
+\end_inset
+
+ are both bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ The result then follows directly from Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{proof}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The main result of this section is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{thm}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:inverseCost"
+
+\end_inset
+
+ Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:matrixInverse"
+
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+ field operations to compute an inverse of a nonsingular matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the minimum of the sum of the column degrees and the sum of the row
+ degrees of the input matrix.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{thm}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{proof}
+\end_layout
+
+\end_inset
+
+ Let us assume that 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the sum of the column degrees, since if the sum of the row degrees is
+ smaller then we can just transpose the matrix.
+ Let the cost of inversion be 
+\begin_inset Formula $g(n,\xi)$
+\end_inset
+
+.
+ Then we have the following recurrence relation: 
+\begin_inset Formula 
+\begin{eqnarray*}
+g(n,\xi) & \in & O^{\sim}(n^{\omega-1}\xi)+g(\left\lceil n/2\right\rceil ,\xi)+g(\left\lfloor n/2\right\rfloor ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi)+2g(\left\lceil n/2\right\rceil ,\xi)\\
+ & \in & O^{\sim}(n^{\omega-1}\xi).
+\end{eqnarray*}
+
+\end_inset
+
+Note that always rounding up 
+\begin_inset Formula $n/2$
+\end_inset
+
+ to 
+\begin_inset Formula $\left\lceil n/2\right\rceil $
+\end_inset
+
+ is no worse than assuming 
+\begin_inset Formula $n$
+\end_inset
+
+ is a power of 
+\begin_inset Formula $2$
+\end_inset
+
+.
+ In other words, the entries in the sequence 
+\begin_inset Formula $\left[\left\lceil n/2\right\rceil ,\left\lceil n/4\right\rceil ,\dots,1\right]$
+\end_inset
+
+ are not larger than the corresponding entries in the sequence 
+\begin_inset Formula $\left[m/2,m/4,\dots,1\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $m=2^{\left\lceil \log_{2}n\right\rceil }$
+\end_inset
+
+ is the smallest power of 
+\begin_inset Formula $2$
+\end_inset
+
+ that is not less than 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{proof}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%
+\backslash
+section{Complexity for determining $
+\backslash
+mathbf{C}$}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+Finally, let us consider the cost of multiplying the matrices 
+\begin_inset Formula $\mathbf{C}_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lem}
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "Cmultiply"
+
+\end_inset
+
+ The multiplications 
+\begin_inset Formula $\mathbf{C}=\mathbf{C}_{1}\dots\mathbf{C}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ can be done with a cost of 
+\begin_inset Formula $O^{\sim}(n^{2}\xi)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lem}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{proof}
+\end_layout
+
+\end_inset
+
+ By Theorem 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ the cost of determining each 
+\begin_inset Formula $C_{i}^{(k)}\cdot D_{i}^{(k)}=[~C_{2i-1}^{(k+1)},~C_{2i}^{(k+1)}~]$
+\end_inset
+
+ has complexity 
+\begin_inset Formula $O^{\sim}(n_{i}^{(k)}n^{\omega-2}\xi)$
+\end_inset
+
+ where 
+\begin_inset Formula $n_{i}^{(k)}$
+\end_inset
+
+ is the column dimension of 
+\begin_inset Formula $C_{i}^{(k)}$
+\end_inset
+
+.
+ Therefore the cost of multiplying 
+\begin_inset Formula $\mathbf{C}^{(k+1)}=\mathbf{C}^{(k)}\cdot\mathbf{D}^{(k)}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\sum_{i=1}^{2^{k}}O^{\sim}(n_{i}^{(k)}n^{\omega-2}\xi)=O^{\sim}(n^{\omega-1}\xi).
+\]
+
+\end_inset
+
+Determining 
+\begin_inset Formula $\mathbf{C}=\mathbf{C}_{1}\dots\mathbf{C}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ is therefore the same since the 
+\begin_inset Formula $\left\lceil \log n\right\rceil $
+\end_inset
+
+ terms is absorbed by the use of 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+.
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Question for Wei : why do you then set 
+\begin_inset Formula $\omega=3$
+\end_inset
+
+ to get your complexity rather than just leaving the smaller complexity?
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{proof}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Largest Invariant Factors
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:invariants"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The largest invariant factor of a matrix of polynomials 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+ is the minimal degree monic polynomial 
+\begin_inset Formula $s$
+\end_inset
+
+ having the property that 
+\begin_inset Formula $s\cdot{\bf A}^{-1}$
+\end_inset
+
+ is a matrix polynomial.
+ Alternative it is defined as the ratio of the determinant and the gcd of
+ all 
+\begin_inset Formula $n-1$
+\end_inset
+
+ minors of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and coincides with the last diagonal entry of the Smith normal form of
+ 
+\begin_inset Formula ${\bf A}$
+\end_inset
+
+.
+ For generic matrices this is the same as the determinant while when 
+\begin_inset Formula $\mathbf{A}=xI-V$
+\end_inset
+
+ for a scalar matrix 
+\begin_inset Formula $V$
+\end_inset
+
+ then the largest invariant factor is the same as the minimal polynomial
+ of 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ In this section we will show how the largest invariant factor can be determined
+ from the matrix 
+\begin_inset Formula ${\bf B}$
+\end_inset
+
+ of Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:matrixInverse"
+
+\end_inset
+
+.
+ We make use of the well-known fact that the largest invariant factor is
+ the least common denominator of 
+\begin_inset Formula $\mathbf{A}^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{thm}
+\end_layout
+
+\end_inset
+
+ Suppose that 
+\begin_inset Formula ${\mathbf{B}}=\mbox{ diag }(b_{1},\ldots,b_{n})$
+\end_inset
+
+ denotes the final diagonal matrix polynomial in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:matrixInverse"
+
+\end_inset
+
+.
+ Then 
+\begin_inset Formula 
+\[
+\mbox{ Largest Invariant Factor of }{\mathbf{A}}=\mbox{lcm}(b_{1},\ldots,b_{n}).
+\]
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{thm}
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{proof}
+\end_layout
+
+\end_inset
+
+ Let 
+\begin_inset Formula ${\mathbf{A}_{i}}\in\mathbb{K}\left[x\right]^{(n-1)\times n}$
+\end_inset
+
+ denote the matrix 
+\begin_inset Formula ${\mathbf{A}}$
+\end_inset
+
+ with row 
+\begin_inset Formula $i$
+\end_inset
+
+ removed.
+ Then there exists a unimodular matrix 
+\begin_inset Formula ${\mathbf{U}}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\mathbf{D}_{i}}\in\mathbb{K}\left[x\right]^{(n-1)\times(n-1)}$
+\end_inset
+
+ such that 
+\begin_inset Formula 
+\[
+{\mathbf{A}_{i}}\cdot{\mathbf{U}}=[~0,~{\mathbf{D}_{i}}].
+\]
+
+\end_inset
+
+In this case one then obtains 
+\begin_inset Formula 
+\[
+{\mathbf{A}}\cdot{\mathbf{U}}=[~{\mathbf{b}}_{i},~{\mathbf{D}}]\mbox{ where }{\mathbf{b}}_{i}=[~0,\ldots,~0,~b_{i},~0,\ldots,~0~]
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula ${\mathbf{D}}\in\mathbb{K}\left[x\right]^{n\times(n-1)}$
+\end_inset
+
+ is the same as 
+\begin_inset Formula ${\mathbf{D}_{i}}$
+\end_inset
+
+ except for an additional row of zeros inserted into row 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Therefore for each 
+\begin_inset Formula $i$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\mbox{ det }({\mathbf{A}})=\pm~b_{i}\mbox{ det }({\mathbf{D}_{i}})
+\]
+
+\end_inset
+
+and hence 
+\begin_inset Formula 
+\[
+\mbox{lcm}(b_{1},\ldots,b_{n})=\frac{\mbox{ det }({\mathbf{A}})}{\mbox{ gcd}(\mbox{ det }({\mathbf{D}_{1}}),\ldots,\mbox{ det }({\mathbf{D}_{n}}))}.
+\]
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{proof}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+In this paper we have extended the algorithm of Jeannerod and Villard for
+ the inversion of a matrix polynomial.
+ The algorithm is deterministic and has essentially optimal complexity for
+ inversion.
+ In addition, we show how the algorithm can also be used to find the largest
+ invariant factor of a matrix of polynomials.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+bibliographystyle{abbrv}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "BecLab97"
+
+\end_inset
+
+ B.
+ Beckermann and G.
+ Labahn.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Recursiveness in Matrix Rational Interpolation Problems.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ Journal of Computational and Applied Mathematics
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, 77:5-34, 1997.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "BecLabVil99"
+
+\end_inset
+
+ B.
+ Beckermann, G.
+ Labahn and G.
+ Villard.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Recursiveness in Matrix Rational Interpolation Problems.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Proceedings of the International Symposium on Symbolic and Algebraic Computation
+\emph default
+, 155--162, 1999.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "burgisser"
+
+\end_inset
+
+ P.
+ Bürgisser, M.
+ Clausen, M.A.
+ Shokrollahi, Algebraic Complexity Theory, Vol.
+ 315, 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Grundlehren der Mathematischen Wissenschaften, Springer, Berlin, 1997.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "dixon82"
+
+\end_inset
+
+ J.D.
+ Dixon.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Exact solutions of linear equations using 
+\begin_inset Formula $p$
+\end_inset
+
+-adic expansions, 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Numerische Math 40 137--141, 1982.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Giorgi2003"
+
+\end_inset
+
+ P.
+\begin_inset space ~
+\end_inset
+
+Giorgi, C.-P.
+ Jeannerod, and G.
+\begin_inset space ~
+\end_inset
+
+Villard.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ On the complexity of polynomial matrix computations.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+Proceedings of the International Symposium on Symbolic and Algebraic Computation
+, Philadelphia, Pennsylvania, USA
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\emph default
+, 135--142.
+ ACM Press, 2003.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "GS2011"
+
+\end_inset
+
+ S.
+\begin_inset space ~
+\end_inset
+
+Gupta and A.
+\begin_inset space ~
+\end_inset
+
+Storjohann.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Computing 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+H
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ermite forms of polynomial matrices.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Proceedings of the International Symposium on Symbolic and Algebraic Computation
+\emph default
+, 155--162, 2011.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "GSSV2012"
+
+\end_inset
+
+ S.
+\begin_inset space ~
+\end_inset
+
+Gupta, S.
+\begin_inset space ~
+\end_inset
+
+Sarkar, A.
+\begin_inset space ~
+\end_inset
+
+Storjohann, and J.
+\begin_inset space ~
+\end_inset
+
+Valeriote.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Triangular x-basis decompositions and derandomization of linear algebra
+ algorithms over k[x].
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Journal of Symbolic Computation: Special issue in honour of the research
+ and influence of Joachim von zur Gathen at 60
+\emph default
+, 47(4):
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+penalty
+\end_layout
+
+\end_inset
+
+0 422--453, 2012.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "jeannerod-villard:05"
+
+\end_inset
+
+ C.-P.
+ Jeannerod and G.
+\begin_inset space ~
+\end_inset
+
+Villard.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Essentially optimal computation of the inverse of generic polynomial matrices.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ Journal of Complexity
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, 21:72--86, 2005.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "moenck"
+
+\end_inset
+
+ R.T.
+ Moenck, J.H.
+ Carter, 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Approximate algorithms to derive exact solutions to systems of linear equations
+, 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Proceedings of the second ACM Symposium on Symbolic and Algebraic Manipulations
+\emph default
+, 63--73, 1979.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "storjohannPhD"
+
+\end_inset
+
+ A.
+ Storjohann.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Algorithms for matrix canonical forms.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Ph.D.
+ Thesis, ETH - Swiss Federal Institute of Technology, Zürich, December 2000.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "MulSto03"
+
+\end_inset
+
+ T.
+ Mulders and A.
+ Storjohann.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ On lattice reduction for polynomial matrices.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ Journal of Symbolic Computation
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, 35:377-401, 2003.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "storjohan2002"
+
+\end_inset
+
+ A.
+ Storjohann, 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Higher Order Lifting, 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Proceedings of the International Symposium on Symbolic and Algebraic Computation
+\emph default
+, 246--254, 2002.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+ W.
+ Zhou, G.
+ Labahn and A.
+ Storjohann.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ Computing minimal nullspace bases.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+newblock
+\end_layout
+
+\end_inset
+
+ 
+\emph on
+Proceedings of the International Symposium on Symbolic and Algebraic Computation
+\emph default
+, 366--373, 2012.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\start_of_appendix
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%dummy comment inserted by tex2lyx to ensure that this paragraph is not
+ empty
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Original Wei Thesis Proof of Lemma 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "Cmultiply"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{proof}
+\end_layout
+
+\end_inset
+
+ (
+\series bold
+Original proof from Wei's thesis
+\series default
+):
+\begin_inset Newline newline
+\end_inset
+
+ Note that when 
+\begin_inset Formula $i\le\log n$
+\end_inset
+
+ then 
+\begin_inset Formula $\mathbf{C}_{i}$
+\end_inset
+
+ has 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ blocks on the diagonal.
+ Each block of 
+\begin_inset Formula $\mathbf{C}_{i}$
+\end_inset
+
+ is used to compute two corresponding blocks of 
+\begin_inset Formula $\mathbf{C}_{i+1}$
+\end_inset
+
+.
+ Let us first look at 
+\begin_inset Formula $\mathbf{C}_{1}=\left[\mathbf{N}_{L},\mathbf{N}_{R}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula 
+\[
+\mathbf{C}_{2}=\begin{bmatrix}\mathbf{N}'_{L} & \mathbf{N}'_{R}\\
+ &  & \mathbf{M}'_{L} & \mathbf{M}'_{R}
+\end{bmatrix},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\mathbf{N}'_{R},$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{N}'_{L}$
+\end_inset
+
+ are the nullspace bases of the submatrices 
+\begin_inset Formula $\mathbf{A}'_{u},$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{A}'_{d}$
+\end_inset
+
+ contained in 
+\begin_inset Formula 
+\[
+\mathbf{R}_{1}=\begin{bmatrix}\mathbf{A}'_{u}\\
+\mathbf{A}'_{d}
+\end{bmatrix}=\mathbf{A}_{u}\mathbf{N}_{L}.
+\]
+
+\end_inset
+
+When multiplying 
+\begin_inset Formula $\mathbf{C}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{C}_{2}$
+\end_inset
+
+, the submatrix 
+\begin_inset Formula $\mathbf{N}_{L}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{C}_{1}$
+\end_inset
+
+ is multiplied with the block 
+\begin_inset Formula $\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{C}_{2}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ be the list of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{L}$
+\end_inset
+
+, where 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is list of the column degrees of the input matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\sum\vec{s}'\le\sum\vec{s}=\xi$
+\end_inset
+
+ follows from Theorem 3.4 in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+.
+ From Lemma 3.1 of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+ we know the column degrees of 
+\begin_inset Formula $\mathbf{R}_{1}=\mathbf{A}_{u}\mathbf{N}_{L}$
+\end_inset
+
+ are bounded component-wise by the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{N}_{L}$
+\end_inset
+
+, hence the sum of the column degrees of 
+\begin_inset Formula $\mathbf{R}_{1}$
+\end_inset
+
+ is also bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ It follows that the sum of 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}'_{R}$
+\end_inset
+
+ and that of 
+\begin_inset Formula $\mathbf{N}'_{L}$
+\end_inset
+
+ are each bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ We can therefore use Theorem 3.7 of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\mathbf{N}_{L}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+.
+ Again, from Lemma 3.1 of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+after "page 368"
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+ we have that the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the product 
+\begin_inset Formula $\mathbf{N}_{L}\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$
+\end_inset
+
+ are bounded by the 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$
+\end_inset
+
+, hence the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each column block in 
+\begin_inset Formula $\mathbf{N}_{L}\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]=\left[\mathbf{N}_{L}\mathbf{N}'_{L},\mathbf{N}_{L}\mathbf{N}'_{R}\right]$
+\end_inset
+
+ is still bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ The multiplication involving 
+\begin_inset Formula $\mathbf{N}_{R}$
+\end_inset
+
+ and the second block of 
+\begin_inset Formula $\mathbf{C}_{2}$
+\end_inset
+
+ is done in the same way as the multiplication 
+\begin_inset Formula $\mathbf{N}_{L}\left[\mathbf{N}'_{L},\mathbf{N}'_{R}\right]$
+\end_inset
+
+, hence the multiplication 
+\begin_inset Formula $\mathbf{C}_{1}\mathbf{C}_{2}$
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+\end_inset
+
+, with the sum of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each of the four column blocks in 
+\begin_inset Formula $\mathbf{C}_{1}\mathbf{C}_{2}=\left[\mathbf{N}_{L}\mathbf{N}'_{L},\mathbf{N}_{L}\mathbf{N}'_{R},\mathbf{N}_{R}\mathbf{M}'_{L},\mathbf{N}_{R}\mathbf{M}'_{R}\right]$
+\end_inset
+
+ bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Next, we multiply 
+\begin_inset Formula $\mathbf{C}_{1}\mathbf{C}_{2}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{C}_{3}$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula $\mathbf{C}_{3}$
+\end_inset
+
+ now has four blocks on the diagonal.
+ Consider 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+ , the first column block of 
+\begin_inset Formula $\mathbf{C}_{1}\mathbf{C}_{2}$
+\end_inset
+
+, multiplied with the first block 
+\begin_inset Formula $\left[\mathbf{N}"_{2},\mathbf{N}"_{1}\right]$
+\end_inset
+
+ on the diagonal of 
+\begin_inset Formula $\mathbf{C}_{3}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}"$
+\end_inset
+
+ be the 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}'_{2}$
+\end_inset
+
+, which bound the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\sum\vec{s}"\le\sum\vec{s}'\le\sum\vec{s}=\xi$
+\end_inset
+
+.
+ Following the same reasoning as before, the sum of the 
+\begin_inset Formula $\vec{s}"$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}"_{2}$
+\end_inset
+
+ is still bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ We can therefore again use Theorem 3.7 of
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "zhou-labahn-storjohann:12"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}"_{2}$
+\end_inset
+
+.
+ The multiplication of the remaining blocks are done in the same way.
+ The product 
+\begin_inset Formula $\mathbf{C}_{1}\mathbf{C}_{2}\mathbf{C}_{3}$
+\end_inset
+
+ now has 8 column blocks, with the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each column block bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Repeating this process, we multiply 
+\begin_inset Formula $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{C}_{i+1}$
+\end_inset
+
+ at step 
+\begin_inset Formula $i$
+\end_inset
+
+ for 
+\begin_inset Formula $i$
+\end_inset
+
+ from 1 to 
+\begin_inset Formula $\left\lfloor \log n\right\rfloor $
+\end_inset
+
+.
+ Each of the 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ column blocks of 
+\begin_inset Formula $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $n\times O(n/2^{i})$
+\end_inset
+
+.
+ Each of the 
+\begin_inset Formula $O(2^{i})$
+\end_inset
+
+ column blocks on the diagonal of 
+\begin_inset Formula $\mathbf{C}_{i+1}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $O(n/2^{i})\times O(n/2^{i})$
+\end_inset
+
+.
+ (Big 
+\begin_inset Formula $O$
+\end_inset
+
+ notation is used here because 
+\begin_inset Formula $n/2^{i}$
+\end_inset
+
+ may not be an integer.) Let 
+\begin_inset Formula $\vec{u}_{j}$
+\end_inset
+
+ be the shift used to compute the 
+\begin_inset Formula $j$
+\end_inset
+
+th in 
+\begin_inset Formula $\mathbf{C}_{j+1}$
+\end_inset
+
+.
+ Then as before, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the 
+\begin_inset Formula $j$
+\end_inset
+
+th column block in 
+\begin_inset Formula $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\vec{u}_{j}$
+\end_inset
+
+, with 
+\begin_inset Formula $\sum\vec{u}_{j}\le\xi$
+\end_inset
+
+.
+ The sum of the 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees of the 
+\begin_inset Formula $j$
+\end_inset
+
+th block in 
+\begin_inset Formula $\mathbf{C}_{j+1}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $2\xi$
+\end_inset
+
+ since each of the left half and the right half has the sum bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ Therefore, multiplying 
+\begin_inset Formula $\mathbf{C}_{1}\cdots\mathbf{C}_{i}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{C}_{i+1}$
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}\left(2^{j}2^{j}\left(n/2^{j}\right)^{\omega-1}\xi\right)$
+\end_inset
+
+.
+ Taking 
+\begin_inset Formula $\omega=3,$
+\end_inset
+
+ we get 
+\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\end_inset
+
+ as desired.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{proof}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -728,39 +728,6 @@ item [{}]~
 \end_layout
 
 \begin_layout Description
-Uniformly
-\begin_inset space ~
-\end_inset
-
-Shift
-\begin_inset space ~
-\end_inset
-
-a
-\begin_inset space ~
-\end_inset
-
-List For a list 
-\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
-\end_inset
-
- and 
-\begin_inset Formula $c\in\mathbb{Z}$
-\end_inset
-
-, we write 
-\begin_inset Formula $\vec{a}+c$
-\end_inset
-
- to denote 
-\begin_inset Formula $\vec{a}+\left[c,\dots,c\right]=\left[a_{1}+c,\dots,a_{n}+c\right]$
-\end_inset
-
-, with subtraction handled similarly.
- 
-\end_layout
-
-\begin_layout Description
 Compare
 \begin_inset space ~
 \end_inset
@@ -1061,51 +1028,6 @@ Let
 
  if and only if 
 \begin_inset Formula $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$
-\end_inset
-
-.
- 
-\end_layout
-
-\begin_layout Standard
-The following lemma from 
-\begin_inset CommandInset citation
-LatexCommand cite
-after "Chapter 2"
-key "zhou:phd2012"
-
-\end_inset
-
- describes a relationship between shifted column degrees and shifted row
- degrees.
- 
-\end_layout
-
-\begin_layout Lemma
-\begin_inset CommandInset label
-LatexCommand label
-name "lem:columnDegreesRowDegreesSymmetry"
-
-\end_inset
-
-A matrix 
-\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
-\end_inset
-
- has 
-\begin_inset Formula $\vec{u}$
-\end_inset
-
--column degrees bounded by 
-\begin_inset Formula $\vec{v}$
-\end_inset
-
- if and only if its 
-\begin_inset Formula $-\vec{v}$
-\end_inset
-
--row degrees are bounded by 
-\begin_inset Formula $-\vec{u}$
 \end_inset
 
 .
@@ -2223,7 +2145,7 @@ th step for
 \end_inset
 
  to 
-\begin_inset Formula $\left\lfloor \log n\right\rfloor $
+\begin_inset Formula $\left\lceil \log n\right\rceil -1$
 \end_inset
 
 , we multiply the product 

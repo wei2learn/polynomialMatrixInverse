@@ -66,7 +66,7 @@ rows of $\mathbf{F}$;}
 \STATE{$\left\{ \mathcal{A}^{(1)},\mathbf{H}_{1}\right\} :=\inv(\mathbf{R}_{1},\cdeg_{\vec{s}}\mathbf{N}_{2})$;
 $\left\{ \mathcal{A}^{(2)},\mathbf{H}_{2}\right\} :=\inv(\mathbf{R}_{2},\cdeg_{\vec{s}}\mathbf{N}_{1})$;}
 
-\STATE{$\mathcal{A}:=\left[\left[\mathbf{N}_{2},\mathbf{N}_{1}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lfloor \log n\right\rfloor }^{(1)},\mathcal{A}_{\left\lfloor \log n\right\rfloor }^{(2)})\right]$}
+\STATE{$\mathcal{A}:=\left[\left[\mathbf{N}_{2},\mathbf{N}_{1}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$}
 
 \STATE{\textbf{return} $\left\{ \mathcal{A},\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)\right\} $;}
 \end{algorithmic}

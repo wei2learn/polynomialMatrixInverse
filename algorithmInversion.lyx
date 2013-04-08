@@ -571,7 +571,7 @@ status open
 status open
 
 \begin_layout Plain Layout
-\begin_inset Formula $\mathcal{A}:=\left[\left[\mathbf{N}_{2},\mathbf{N}_{1}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lfloor \log n\right\rfloor }^{(1)},\mathcal{A}_{\left\lfloor \log n\right\rfloor }^{(2)})\right]$
+\begin_inset Formula $\mathcal{A}:=\left[\left[\mathbf{N}_{2},\mathbf{N}_{1}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$
 \end_inset
 
 

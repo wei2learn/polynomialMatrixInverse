@@ -242,9 +242,6 @@ but sorted in increasing order.
 we write $\sum\vec{a}$ without index to denote the summation of all
 entries in $\vec{a}$. %\item [{}]~
 
-\item [{Uniformly~Shift~a~List}] For a list $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
-and $c\in\mathbb{Z}$, we write $\vec{a}+c$ to denote $\vec{a}+\left[c,\dots,c\right]=\left[a_{1}+c,\dots,a_{n}+c\right]$,
-with subtraction handled similarly. 
 \item [{Compare~a~List~with~a~Integer}] For %a list 
 $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$ and $c\in\mathbb{Z}$,
 we write $\vec{a}<c$ to denote $\vec{a}<\left[c,\dots,c\right]$,
@@ -302,13 +299,6 @@ be a $\vec{u}$-column reduced matrix with no zero columns and with
 $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$. Then a matrix $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
 has $\vec{v}$-column degrees $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
 if and only if $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$. 
-\end{lem}
-The following lemma from \citet[Chapter 2]{zhou:phd2012} describes
-a relationship between shifted column degrees and shifted row degrees. 
-\begin{lem}
-\label{lem:columnDegreesRowDegreesSymmetry}A matrix $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
-has $\vec{u}$-column degrees bounded by $\vec{v}$ if and only if
-its $-\vec{v}$-row degrees are bounded by $-\vec{u}$. 
 \end{lem}
 Another essential fact needed in our algorithm, also based on the
 use of the shifted degrees, is the efficient multiplication of matrices
@@ -531,7 +521,7 @@ section shows that a cost of $O^{\sim}(n^{3}s)$ can be achieved.
 
 To compute the product $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil },$
 we simply multiply the matrices in sequential order. Therefore, at
-the $i$th step for $i$ from $1$ to $\left\lfloor \log n\right\rfloor $,
+the $i$th step for $i$ from $1$ to $\left\lceil \log n\right\rceil -1$,
 we multiply the product $\mathbf{M}_{i}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{i}$
 with $\mathbf{A}_{i+1}$. To determine the cost of this multiplication,
 it is useful to first look at $\mathbf{A}_{i}$ and to determine its

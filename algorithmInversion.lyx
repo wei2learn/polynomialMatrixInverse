@@ -1,0 +1,617 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass elsarticle
+\begin_preamble
+
+\end_preamble
+\options amsthm
+\use_default_options false
+\master inverse.lyx
+\begin_modules
+algorithmics
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 2
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+Note that rank sensitive computation for order basis is not as natural,
+ since for order basis we work with power series in general, whose rank
+ may never be truly computed.
+ In addition, the computed basis does not correspond to the rank.
+ For these reasons, we do not pursue rank sensitive computations for order
+ basis.
+ 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float algorithm
+placement t
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset Formula $\inv(\mathbf{F},\vec{s})$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "alg:matrixInverse"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex ALGORITHMIC
+status open
+
+\begin_layout Plain Layout
+\begin_inset Flex INPUT
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+; 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is initially set to the column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ It keeps track of the degrees.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex OUTPUT
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathcal{A}=\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right],\mathbf{B}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}=\mathbf{F}^{-1}$
+\end_inset
+
+ if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is nonsingular, or fail if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is singular.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\vec{s}:=$
+\end_inset
+
+column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left[\mathbf{F}_{1}^{T},\mathbf{F}_{2}^{T}\right]:=\mathbf{F}^{T}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{F}_{1}$
+\end_inset
+
+ consists of the top 
+\begin_inset Formula $\left\lceil n/2\right\rceil $
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+if 
+\series default
+
+\begin_inset Formula $\mathbf{F}=0$
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ fail 
+\series bold
+endif
+\series default
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex IF
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{F}=0$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex IFBODY
+status open
+
+\begin_layout Plain Layout
+fail; //
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is singular
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+if 
+\series default
+
+\begin_inset Formula $n=1$
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ 
+\series bold
+return
+\series default
+ 
+\begin_inset Formula $\left\{ 1,\mathbf{F}\right\} $
+\end_inset
+
+; 
+\series bold
+endif
+\series default
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex IF
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $n=1$
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex IFBODY
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+RETURN
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $1,\mathbf{F}$
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{N}_{1}:=\mnb(\mathbf{F}_{1},\vec{s})$
+\end_inset
+
+;
+\begin_inset Formula $\mathbf{N}_{2}:=\mnb(\mathbf{F}_{2},\vec{s})$
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "line:nullspaceBasisComputation"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Flex IF
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n\right\rfloor $
+\end_inset
+
+ 
+\begin_inset Flex OR
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n\right\rceil $
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex IFBODY
+status open
+
+\begin_layout Plain Layout
+ fail; //
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is singular
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+if 
+\series default
+
+\begin_inset Formula $\columnDimension(\mathbf{N}_{1})\ne\left\lfloor n/2\right\rfloor $
+\end_inset
+
+ 
+\begin_inset Flex OR
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Formula $\columnDimension(\mathbf{N}_{2})\ne\left\lceil n/2\right\rceil $
+\end_inset
+
+ 
+\series bold
+then
+\series default
+ fail; 
+\series bold
+endif
+\series default
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
+\end_inset
+
+;
+\begin_inset Formula $\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "line:multiplyFN"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\left\{ \mathcal{A}^{(1)},\mathbf{H}_{1}\right\} :=\inv(\mathbf{R}_{1},\cdeg_{\vec{s}}\mathbf{N}_{2})$
+\end_inset
+
+; 
+\begin_inset Formula $\left\{ \mathcal{A}^{(2)},\mathbf{H}_{2}\right\} :=\inv(\mathbf{R}_{2},\cdeg_{\vec{s}}\mathbf{N}_{1})$
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $\mathcal{A}:=\left[\left[\mathbf{N}_{2},\mathbf{N}_{1}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lfloor \log n\right\rfloor }^{(1)},\mathcal{A}_{\left\lfloor \log n\right\rfloor }^{(2)})\right]$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Flex STATE
+status open
+
+\begin_layout Plain Layout
+
+\series bold
+return
+\series default
+ 
+\begin_inset Formula $\left\{ \mathcal{A},\diag\left([\mathbf{H}_{1},\mathbf{H}_{2}]\right)\right\} $
+\end_inset
+
+;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

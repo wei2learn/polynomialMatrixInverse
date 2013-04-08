@@ -1,0 +1,4326 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass elsarticle
+\begin_preamble
+%\usepackage{yjsco}\journal{JournalofSymbolicComputation}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%\renewcommand{\algorithmicensure}{\textbf{if}}\renewcommand{\algorithmicensure}{\textbf{Uses:}}
+
+%\def\diag{\mbox{diag}}\def\cdeg{\qopname\relax n{cdeg}}
+\def\MM{\qopname\relax n{MM}}\def\M{\qopname\relax n{M}}
+%\def\ord{\qopname\relax n{ord}}
+
+\def\StorjohannTransform{\qopname\relax n{StorjohannTransform}}\def\TransformUnbalanced{\qopname\relax n{TransformUnbalanced}}\def\rowDimension{\qopname\relax n{rowDimension}}\def\columnDimension{\qopname\relax n{columnDimension}}\DeclareMathOperator{\re}{rem}\DeclareMathOperator{\coeff}{coeff}\DeclareMathOperator{\lcoeff}{lcoeff}\def\mab{\qopname\relax n{orderBasis}}\def\mmab{\qopname\relax n{FastBasis}}\def\umab{\qopname\relax n{UnbalancedFastBasis}}\newcommand{\bb}{\\}
+\def\mnb{\qopname\relax n{MinimalNullspaceBasis ~ }}
+\DeclareMathOperator{\mnbr}{MinimaKernelBasisReversed}
+%\def\rdeg{\qopname\relax n{rdeg}}
+\DeclareMathOperator{\colBasis}{colBasis}
+\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator{\inv}{inverse}
+
+
+
+\newcommand{\arne}[1]{{\color{blue}\it {\bf Arne:} #1 }}
+\newcommand{\wei}[1]{{\color{red}\it {\bf Wei:} #1}}
+\newcommand{\george}[1]{{\color{green}\it {\bf George:} #1}}
+\def\newblock{\hskip .11em plus .33em minus .07em}
+
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{ {\rm K}}
+\newcommand{\revCol}{ {\rm revCol}}
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\tbigO}{\widetilde{\mathcal{O}}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\ocL}{\overline{\mathcal{L}}}
+\newcommand{\tcL}{\widetilde{\mathcal{L}}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\oA}{\overline{A}}
+\newcommand{\GL}{{\rm GL}\,}
+\newcommand{\rank}{{\rm rank}\,}
+\newcommand{\cdeg}{{\rm cdeg}\,}
+\newcommand{\rdeg}{{\rm rdeg}\,}
+\newcommand{\diag}{{\rm diag}\,}
+\newcommand{\val}{{\rm val}\,}
+\newcommand{\ord}{{\rm ord}\,}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+
+\newrefformat{eq}{\textup{(\ref{#1})}}
+\newrefformat{lem}{Lemma \ref{#1}}
+\newrefformat{cla}{Claim \ref{#1}}
+\newrefformat{thm}{Theorem \ref{#1}}
+\newrefformat{cha}{Chapter \ref{#1}}
+\newrefformat{sec}{Section \ref{#1}}
+\newrefformat{rem}{Remark \ref{#1}}
+\newrefformat{fac}{Fact \ref{#1}}
+\newrefformat{sub}{Subsection \ref{#1}}
+\newrefformat{cor}{Corollary \ref{#1}}
+\newrefformat{cond}{Condition \ref{#1}}
+\newrefformat{con}{Conjecture \ref{#1}}
+\newrefformat{def}{Definition \ref{#1}}
+\newrefformat{pro}{Proposition \ref{#1}}
+\newrefformat{alg}{Algorithm \ref{#1}}
+\newrefformat{exm}{Example \ref{#1}}
+\newrefformat{line}{line \ref{#1}}
+\newrefformat{tab}{Table \ref{#1} on page \pageref{#1}}
+\newrefformat{fig}{Figure \ref{#1} on page \pageref{#1}}
+\end_preamble
+\use_default_options true
+\begin_modules
+theorems-ams
+theorems-chap
+algorithmics
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+An efficient, deterministic algorithm for inversion of a matrix polynomial
+\end_layout
+
+\begin_layout Author
+Wei Zhou, George Labahn, Arne Storjohann
+\end_layout
+
+\begin_layout Address
+Cheriton School of Computer Science, University of Waterloo, Waterloo ON,
+ Canada N2L 3G1
+\end_layout
+
+\begin_layout Email
+{w2zhou,glabahn,astorjoh}@uwaterloo.ca
+\end_layout
+
+\begin_layout Abstract
+In this paper we present a deterministic algorithm for the computation of
+ the inverse of an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix of polynomials over a field.
+ The algorithm is deterministic with complexity 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+ field operations.
+ Here 
+\begin_inset Formula $s$
+\end_inset
+
+ is the minimum of the average of the column degrees and the average of
+ the row degrees of the input matrix and 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+ is just 
+\begin_inset Formula $O$
+\end_inset
+
+ with log factors omitted.
+ In addition, our algorithm can also be used to find the largest invariant
+ factor of a polynomial matrix, again deterministically, with a cost of
+ 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is the exponent of matrix multiplication.
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+Do I have the correct complexity here?
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ be an 
+\begin_inset Formula $n\times n$
+\end_inset
+
+ matrix of polynomials over an abstract field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+.
+ We consider the problem of computing the inverse of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ When 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is nonsingular and has degree 
+\begin_inset Formula $d$
+\end_inset
+
+ then (using Cramer's rule) the number of field elements required to represent
+ its inverse is 
+\begin_inset Formula $O(n^{3}d)$
+\end_inset
+
+ where 
+\begin_inset Formula $d$
+\end_inset
+
+ is the degree of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+ Jeannerod and Villard 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jeannerod-villard:05"
+
+\end_inset
+
+ give a deterministic algorithm that can efficiently compute the inverse
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
+\end_inset
+
+ field operations, provided that the dimension of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is a power of 
+\begin_inset Formula $2$
+\end_inset
+
+, and the intermediate results have small and balanced degrees.
+ Here 
+\begin_inset Formula $O^{\sim}$
+\end_inset
+
+ is just 
+\begin_inset Formula $O$
+\end_inset
+
+ with log factors omitted.
+ Previous to this the fastest deterministic algorithms for matrix polynomial
+ inversion had complexity 
+\begin_inset Formula $O^{\sim}\left(n^{\omega+1}d\right)$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "burgisser,storjohann:phd2000"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In this paper we extend the algorithm of Jeannerod and Villard to one which
+ is still deterministic and has complexity 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+ for arbitrary input matrix polynomials.
+ Here 
+\begin_inset Formula $s$
+\end_inset
+
+ is the average column degree or the average row degree.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+ We can take whichever is smaller.
+\end_layout
+
+\end_inset
+
+ We assume without loss of generality that the column degrees has the smaller
+ average and just work with column degrees in this paper.
+ Note that in the special case when all the rows and columns of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ have uniform degree 
+\begin_inset Formula $d$
+\end_inset
+
+ then the complexity of inversion becomes 
+\begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Our algorithm makes use of a similar reduction used by Jeannerod and Villard
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "jeannerod-villard:05"
+
+\end_inset
+
+ which uses a sequence of kernel basis computations to reduce inversion
+ to the inversion of a diagonal matrix.
+ Our extension makes use of 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ shifted
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ kernel nullspace bases combined with an alternate method for measuring
+ size during the reduction.
+ This allows us to replace the kernel basis computation and the matrix multiplic
+ations with the new algorithms from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ZLS2012"
+
+\end_inset
+
+.
+ In addition, whereas the algorithm of Jeannerod and Villard returns two
+ matrices 
+\begin_inset Formula $\mathbf{A},\mathbf{B}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}\mathbf{B}^{-1}$
+\end_inset
+
+, our algorithm instead returns a list of matrices 
+\begin_inset Formula $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
+\end_inset
+
+.
+ We can then compute the product 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+.
+ It is interesting to note that the output 
+\begin_inset Formula $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
+\end_inset
+
+ takes only 
+\begin_inset Formula $O(n^{2}s\log n)$
+\end_inset
+
+ space, but the product 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ can take 
+\begin_inset Formula $n^{3}s$
+\end_inset
+
+ space.
+\end_layout
+
+\begin_layout Standard
+As an added contribution we show that the reduction also allows us to determine
+ the largest invariant factor of a matrix of polynomials.
+ This largest invariant factor is the smallest polynomial 
+\begin_inset Formula $s$
+\end_inset
+
+ such that 
+\begin_inset Formula $s\cdot\mathbf{F}^{-1}$
+\end_inset
+
+ has only polynomial entries.
+ When viewed in terms of the determinant the largest invariant factor plays
+ the same role as the minimal polynomial of a scalar matrix polynomial when
+ compared to the characteristic polynomial.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+ This sentence leaves a bit to be desired.
+ Improvements welcome.
+ 
+\end_layout
+
+\end_inset
+
+ In fact, when 
+\begin_inset Formula ${\mathbf{A}}=xI-V$
+\end_inset
+
+ for some 
+\begin_inset Formula $V\in\mathbb{K}^{n\times n}$
+\end_inset
+
+ then the largest invariant factor of 
+\begin_inset Formula ${\mathbf{A}}$
+\end_inset
+
+ is the same as the minimal polynomial of 
+\begin_inset Formula $V$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The remainder of this paper is as follows.
+ The inversion algorithm is included in the next section followed in Section
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:complexity"
+
+\end_inset
+
+ by the theorems giving the new complexity results.
+ Section 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:invariants"
+
+\end_inset
+
+ then gives our contribution with respect to the largest invariant factor.
+ The paper ends with a conclusion and topics for future research.
+\end_layout
+
+\begin_layout Section
+Preliminaries
+\end_layout
+
+\begin_layout Standard
+In this paper computational cost is analyzed by bounding the number of arithmeti
+c operations in the coefficient field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ on an algebraic random access machine.
+ We assume the cost of multiplying two polynomial matrices with dimension
+ 
+\begin_inset Formula $n$
+\end_inset
+
+ and degree 
+\begin_inset Formula $d$
+\end_inset
+
+ is 
+\begin_inset Formula $O^{\sim}(n^{\omega}d)$
+\end_inset
+
+ field operations, where the multiplication exponent 
+\begin_inset Formula $\omega$
+\end_inset
+
+ is assumed to satisfy 
+\begin_inset Formula $2<\omega\le3$
+\end_inset
+
+.
+ We refer to the book by 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "vonzurgathen"
+
+\end_inset
+
+ for more details and references about the cost of polynomial multiplication
+ and matrix multiplication.
+\end_layout
+
+\begin_layout Standard
+In this section we first describe the notations used in this paper, and
+ then give the basic definitions of 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ shifted degree
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ kernel basis
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+, which are essential for our algorithm.
+\end_layout
+
+\begin_layout Subsection
+Notations
+\end_layout
+
+\begin_layout Standard
+For convenience we adopt the following notations in this paper.
+ 
+\end_layout
+
+\begin_layout Description
+Comparing
+\begin_inset space ~
+\end_inset
+
+Unordered
+\begin_inset space ~
+\end_inset
+
+Lists For two lists 
+\begin_inset Formula $\vec{a}\in\mathbb{Z}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{b}\in\mathbb{Z}^{n}$
+\end_inset
+
+, let 
+\begin_inset Formula $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ be the lists consists of the entries of 
+\begin_inset Formula $\vec{a}$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{b}$
+\end_inset
+
+ but sorted in increasing order.
+ 
+\begin_inset Formula 
+\[
+\begin{cases}
+\vec{a}\ge\vec{b} & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}\le\vec{b} & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
+\vec{a}>\vec{b} & \mbox{if }\vec{a}\ge\vec{b}\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
+\vec{a}<\vec{b} & \mbox{if }\vec{a}\le\vec{b}\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
+\end{cases}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Summation
+\begin_inset space ~
+\end_inset
+
+Notation For a list 
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+, we write 
+\begin_inset Formula $\sum\vec{a}$
+\end_inset
+
+ without index to denote the summation of all entries in 
+\begin_inset Formula $\vec{a}$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%
+\backslash
+item [{}]~
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Uniformly
+\begin_inset space ~
+\end_inset
+
+Shift
+\begin_inset space ~
+\end_inset
+
+a
+\begin_inset space ~
+\end_inset
+
+List For a list 
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $c\in\mathbb{Z}$
+\end_inset
+
+, we write 
+\begin_inset Formula $\vec{a}+c$
+\end_inset
+
+ to denote 
+\begin_inset Formula $\vec{a}+\left[c,\dots,c\right]=\left[a_{1}+c,\dots,a_{n}+c\right]$
+\end_inset
+
+, with subtraction handled similarly.
+ 
+\end_layout
+
+\begin_layout Description
+Compare
+\begin_inset space ~
+\end_inset
+
+a
+\begin_inset space ~
+\end_inset
+
+List
+\begin_inset space ~
+\end_inset
+
+with
+\begin_inset space ~
+\end_inset
+
+a
+\begin_inset space ~
+\end_inset
+
+Integer For 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+%a list 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Formula $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+ and 
+\begin_inset Formula $c\in\mathbb{Z}$
+\end_inset
+
+, we write 
+\begin_inset Formula $\vec{a}<c$
+\end_inset
+
+ to denote 
+\begin_inset Formula $\vec{a}<\left[c,\dots,c\right]$
+\end_inset
+
+, and similarly for 
+\begin_inset Formula $>,\le,\ge,=$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Shifted Degrees
+\end_layout
+
+\begin_layout Standard
+Our methods depend extensively on the concept of 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+em
+\end_layout
+
+\end_inset
+
+ shifted
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+ degrees of polynomial matrices 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BLV:1999"
+
+\end_inset
+
+.
+ For a column vector 
+\begin_inset Formula $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$
+\end_inset
+
+ of univariate polynomials over a field 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+, its column degree, denoted by 
+\begin_inset Formula $\cdeg\mathbf{p}$
+\end_inset
+
+, is the maximum of the degrees of the entries of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+, that is, 
+\begin_inset Formula 
+\[
+\cdeg~\mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
+\]
+
+\end_inset
+
+The 
+\emph on
+shifted column degree
+\emph default
+ generalizes this standard column degree by taking the maximum after shifting
+ the degrees by a given integer vector that is known as a 
+\emph on
+shift
+\emph default
+.
+ More specifically, the shifted column degree of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ with respect to a shift 
+\begin_inset Formula $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$
+\end_inset
+
+, or the 
+\emph on
+
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degree
+\emph default
+ of 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ is 
+\begin_inset Formula 
+\[
+\cdeg_{\vec{s}}~\mathbf{p}=\max_{1\le i\le n}[\deg p_{i}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+x^{\vec{s}}=\diag\left(x^{s_{1}},x^{s_{2}},\dots,x^{s_{n}}\right)~.
+\]
+
+\end_inset
+
+For a matrix 
+\begin_inset Formula $\mathbf{P}$
+\end_inset
+
+, we use 
+\begin_inset Formula $\cdeg\mathbf{P}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{P}$
+\end_inset
+
+ to denote respectively the list of its column degrees and the list of its
+ shifted 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees.
+ When 
+\begin_inset Formula $\vec{s}=\left[0,\dots,0\right]$
+\end_inset
+
+, the shifted column degree specializes to the standard column degree.
+ The shifted row degree of a row vector 
+\series bold
+
+\begin_inset Formula $\mathbf{q}=\left[q_{1},\dots,q_{n}\right]$
+\end_inset
+
+
+\series default
+ is defined similarly as 
+\begin_inset Formula 
+\[
+\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg q_{i}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Shifted degrees have been used previously in polynomial matrix computations
+ and in generalizations of some matrix normal forms 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BLV:jsc06"
+
+\end_inset
+
+.
+ The shifted column degree is equivalent to the notion of 
+\emph on
+defect
+\emph default
+ commonly used in the literature.
+\end_layout
+
+\begin_layout Standard
+The usefulness of the shifted degrees can be seen from their applications
+ in polynomial matrix computation problems 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ZL2012,ZLS2012"
+
+\end_inset
+
+.
+ One of its uses is illustrated by the following lemma from 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Chapter 2"
+key "zhou:phd2012"
+
+\end_inset
+
+, which can be viewed as a stronger version of the predictable-degree property
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "kailath:1980"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:predictableDegree"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ be a 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column reduced matrix with no zero columns and with 
+\begin_inset Formula $\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$
+\end_inset
+
+.
+ Then a matrix 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
+\end_inset
+
+ if and only if 
+\begin_inset Formula $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The following lemma from 
+\begin_inset CommandInset citation
+LatexCommand cite
+after "Chapter 2"
+key "zhou:phd2012"
+
+\end_inset
+
+ describes a relationship between shifted column degrees and shifted row
+ degrees.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:columnDegreesRowDegreesSymmetry"
+
+\end_inset
+
+A matrix 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ has 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees bounded by 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+ if and only if its 
+\begin_inset Formula $-\vec{v}$
+\end_inset
+
+-row degrees are bounded by 
+\begin_inset Formula $-\vec{u}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Another essential fact needed in our algorithm, also based on the use of
+ the shifted degrees, is the efficient multiplication of matrices with unbalance
+d degrees 
+\begin_inset CommandInset citation
+LatexCommand citep
+after "Theorem 3.7"
+key "zhou:phd2012"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ Let 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with 
+\begin_inset Formula $m\le n$
+\end_inset
+
+, 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}^{n}$
+\end_inset
+
+ a shift with entries bounding the column degrees of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\xi$
+\end_inset
+
+, a bound on the sum of the entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+\end_inset
+
+ with 
+\begin_inset Formula $k\in O\left(m\right)$
+\end_inset
+
+ and the sum 
+\begin_inset Formula $\theta$
+\end_inset
+
+ of its 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees satisfying 
+\begin_inset Formula $\theta\in O\left(\xi\right)$
+\end_inset
+
+.
+ Then we can multiply 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}(n^{2}m^{\omega-2}s)\subset O^{\sim}(n^{\omega}s)$
+\end_inset
+
+, where 
+\begin_inset Formula $s=\xi/n$
+\end_inset
+
+ is the average of the entries of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Subsection
+Kernel Bases
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $\mathbb{K}$
+\end_inset
+
+ be a field, 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ a matrix of polynomials.
+ The kernel of 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ is the 
+\begin_inset Formula $\mathbb{F}\left[x\right]$
+\end_inset
+
+-module 
+\begin_inset Formula 
+\[
+\left\{ \mathbf{p}\in\mathbb{K}\left[x\right]^{n}~|~\mathbf{F}\mathbf{p}=0\right\} 
+\]
+
+\end_inset
+
+with a kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ being a basis of this module.
+ Kernel bases are closely related to order bases, as can be seen from the
+ following definitions.
+ 
+\end_layout
+
+\begin_layout Definition
+\begin_inset CommandInset label
+LatexCommand label
+name "def:kernelBasis"
+
+\end_inset
+
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, a polynomial matrix 
+\begin_inset Formula $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times*}$
+\end_inset
+
+ is a (right) kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ if the following properties hold: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is full-rank.
+ 
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\mathbf{F}\cdot\mathbf{N}=0$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Any 
+\begin_inset Formula $\mathbf{q}\in\mathbb{K}\left[x\right]^{n}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\mathbf{F}\mathbf{q}=0$
+\end_inset
+
+ can be expressed as a linear combination of the columns of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+, that is, there exists some polynomial vector 
+\begin_inset Formula $\mathbf{p}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{q}=\mathbf{N}\mathbf{p}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Any pair of kernel bases 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{M}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ are column bases of each other and are unimodularly equivalent.
+\end_layout
+
+\begin_layout Standard
+A 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is just a kernel basis that is 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced.
+ 
+\end_layout
+
+\begin_layout Definition
+Given 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+, a polynomial matrix 
+\begin_inset Formula $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times*}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal (right) kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ if
+\series bold
+ 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+
+\series default
+ is a kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced.
+ We also call a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal (right) kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ a 
+\begin_inset Formula $\left(\mathbf{F},\vec{s}\right)$
+\end_inset
+
+-kernel basis.
+\end_layout
+
+\begin_layout Definition
+We will need to use the following bound on the sizes of kernel bases from
+ 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ZLS2012"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+Suppose 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{s}\in\mathbb{Z}_{\ge0}^{n}$
+\end_inset
+
+ is a shift with entries bounding the corresponding column degrees of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of any 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $\sum\vec{s}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+We will also need the following result from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ZLS2012"
+
+\end_inset
+
+ to compute kernel bases by rows.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:continueComputingKernelBasisByRows"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{G}=\left[\mathbf{G}_{1}^{T},\mathbf{G}_{2}^{T}\right]^{T}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ and 
+\begin_inset Formula $\vec{t}\in\mathbb{Z}^{n}$
+\end_inset
+
+ a shift vector.
+ If 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{G}_{1},\vec{t}\right)$
+\end_inset
+
+-kernel basis with 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+, and 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{G}_{2}\mathbf{N}_{1},\vec{u}\right)$
+\end_inset
+
+-kernel basis with 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{N}_{1}\mathbf{N}_{2}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\left(\mathbf{G},\vec{t}\right)$
+\end_inset
+
+-kernel basis 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+Also recall the cost of kernel basis computation from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ZLS2012"
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:costGeneral"
+
+\end_inset
+
+ Given an input matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}=\cdeg\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $s=\sum\vec{s}/n$
+\end_inset
+
+ be the average column degree of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then a 
+\begin_inset Formula $\left(\mathbf{F},\vec{s}\right)$
+\end_inset
+
+-kernel basis can be computed with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+ field operations.
+\end_layout
+
+\begin_layout Section
+The Algorithm
+\end_layout
+
+\begin_layout Subsection
+The Reduction
+\end_layout
+
+\begin_layout Standard
+The inverse algorithm from 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "jeannerod-villard:05"
+
+\end_inset
+
+ computes a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a diagonal matrix 
+\begin_inset Formula $\mathbf{B}=\mathbf{F}\mathbf{A}$
+\end_inset
+
+.
+ The inverse of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is then given by 
+\begin_inset Formula $\mathbf{A}\mathbf{B}^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To compute such a matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, first consider a matrix 
+\begin_inset Formula $\mathbf{A}_{1}$
+\end_inset
+
+ that transforms 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a matrix 
+\begin_inset Formula $\mathbf{R}=\mathbf{F}\mathbf{A}_{1}$
+\end_inset
+
+ with just two diagonal blocks.
+ More specifically, If we separate 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to 
+\begin_inset Formula 
+\[
+\mathbf{F}=\left[\begin{array}{c}
+\mathbf{F}_{u}\\
+\hline \mathbf{F}_{d}
+\end{array}\right],
+\]
+
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{F}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}_{d}$
+\end_inset
+
+ consist of the upper 
+\begin_inset Formula $\lceil n/2\rceil$
+\end_inset
+
+ and lower 
+\begin_inset Formula $\left\lfloor n/2\right\rfloor $
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, then a matrix 
+\begin_inset Formula $\mathbf{A}_{1}=\left[\mathbf{N}_{d},\mathbf{N}_{u}\right]$
+\end_inset
+
+ consists of kernel bases 
+\begin_inset Formula $\mathbf{N}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}_{d}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{F}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}_{d}$
+\end_inset
+
+ gives
+\begin_inset Formula 
+\begin{equation}
+\mathbf{F}\cdot\mathbf{A}_{1}=\left[\begin{array}{c}
+\mathbf{F}_{u}\\
+\hline \mathbf{F}_{d}
+\end{array}\right]\cdot\left[\mathbf{N}_{d},\mathbf{N}_{u}\right]=\left[\begin{array}{cc}
+\mathbf{F}_{u}\mathbf{N}_{d} & \mathbf{F}_{u}\mathbf{N}_{u}\\
+\mathbf{F}_{d}\mathbf{N}_{d} & \mathbf{F}_{d}\mathbf{N}_{u}
+\end{array}\right]=\left[\begin{array}{cc}
+\mathbf{R}_{u} & 0\\
+0 & \mathbf{R}_{d}
+\end{array}\right]~.\label{recurs}
+\end{equation}
+
+\end_inset
+
+ If 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is nonsingular, then the column dimensions of 
+\begin_inset Formula $\mathbf{N}_{d}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}_{u}$
+\end_inset
+
+ match the row dimensions of 
+\begin_inset Formula $\mathbf{F}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}_{d}$
+\end_inset
+
+, making the diagonal blocks 
+\begin_inset Formula $\mathbf{R}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{d}$
+\end_inset
+
+ square.
+ 
+\end_layout
+
+\begin_layout Standard
+The same process can then be repeated recursively on 
+\begin_inset Formula $\mathbf{R}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{d}$
+\end_inset
+
+, until we reach the base case where the dimension becomes 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ This gives a recursive algorithm shown in 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+, which returns a sequence of matrices 
+\begin_inset Formula $\mathbf{A}_{1},\dots,\mathbf{A}_{\lceil\log n\rceil}$
+\end_inset
+
+ that transforms the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to a diagonal matrix 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "algorithmInversion.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Complexity
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:complexity"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:sizes"
+
+\end_inset
+
+Sizes of the intermediate results
+\end_layout
+
+\begin_layout Standard
+For 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+ to work efficiently, let us first make sure that the sizes of matrices
+ used in the algorithm are not too big.
+\end_layout
+
+\begin_layout Standard
+If the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has column degrees bounded by 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+, then we know from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+ that the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the kernel bases 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ is also bounded by 
+\begin_inset Formula $\sum\vec{s}$
+\end_inset
+
+, that is, we have 
+\begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{N}_{1}\le\sum\vec{s}$
+\end_inset
+
+.
+ Similarly, we also have 
+\begin_inset Formula $\sum\cdeg_{\vec{s}}\mathbf{N}_{2}\le\sum\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+For the sizes of the residual matrices 
+\begin_inset Formula $\mathbf{R}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{2}$
+\end_inset
+
+, we can apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree"
+
+\end_inset
+
+ to determine their column degrees using the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+.
+ That is, we have 
+\begin_inset Formula $\cdeg\mathbf{R}_{1}=\cdeg_{\vec{s}}\mathbf{N}_{1}$
+\end_inset
+
+, and 
+\begin_inset Formula $\cdeg\mathbf{R}_{2}=\cdeg_{\vec{s}}\mathbf{N}_{2}$
+\end_inset
+
+.
+ As a result, we also have 
+\begin_inset Formula $\cdeg\mathbf{R}_{1}\le\sum\vec{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg\mathbf{R}_{2}\le\sum\vec{s}$
+\end_inset
+
+.
+ The residual matrices 
+\begin_inset Formula $\mathbf{R}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{2}$
+\end_inset
+
+ are then used as the input matrices of the new subproblems.
+ 
+\end_layout
+
+\begin_layout Standard
+Applying this analysis recursively, we see that for any subproblem, if 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+ is the list of column degrees of the input matrix, then 
+\begin_inset Formula $\sum\vec{t}\le\sum\vec{s}$
+\end_inset
+
+.
+ The sum of the 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+-column degrees of each kernel basis computed is also bounded by 
+\begin_inset Formula $\sum\vec{t}\le\sum\vec{s}$
+\end_inset
+
+.
+ The number of subproblems however doubles while the dimension halves each
+ time after each level of recursion.
+\end_layout
+
+\begin_layout Subsection
+Computational cost of the algorithm
+\end_layout
+
+\begin_layout Standard
+The dominate costs of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+ come from the kernel basis computation and the matrix multiplications.
+ These are handled by the following lemmas.
+\end_layout
+
+\begin_layout Lemma
+The kernel basis computation at 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:nullspaceBasisComputation"
+
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+This follows from the kernel basis computation algorithm for polynomial
+ matrix with a shift recently reported by the authors 
+\begin_inset CommandInset citation
+LatexCommand citet
+key "ZLS2012"
+
+\end_inset
+
+.
+ Here the shift is set to the column degrees of the input matrix.
+\end_layout
+
+\begin_layout Lemma
+The multiplications 
+\begin_inset Formula $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$
+\end_inset
+
+at 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "line:multiplyFN"
+
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}(n^{\omega}s)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+ implies that the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ and that of 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ are both bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ The result then follows directly from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We are now ready to look at the cost of 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Theorem
+\begin_inset CommandInset label
+LatexCommand label
+name "thm:inverseCost"
+
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+ costs 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+ field operations to compute an inverse of a nonsingular matrix 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+, where 
+\begin_inset Formula $\xi$
+\end_inset
+
+ is the minimum of the sum of the column degrees and the sum of the row
+ degrees of the input matrix
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Let the cost of the algorithm be 
+\begin_inset Formula $g(n)$
+\end_inset
+
+.
+ Then we have the following recurrence relation:
+\begin_inset Formula 
+\begin{eqnarray*}
+g(n) & \in & O^{\sim}(n^{\omega}s)+g(\left\lceil n/2\right\rceil )+g(\left\lfloor n/2\right\rfloor )\\
+ & \in & O^{\sim}(n^{\omega}s)+2g(\left\lceil n/2\right\rceil )\\
+ & \in & O^{\sim}(n^{\omega}s).
+\end{eqnarray*}
+
+\end_inset
+
+ Note that always rounding up 
+\begin_inset Formula $n/2$
+\end_inset
+
+ to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left\lceil n/2\right\rceil $
+\end_inset
+
+ is no worse than assuming 
+\begin_inset Formula $n$
+\end_inset
+
+ is a power of 
+\begin_inset Formula $2$
+\end_inset
+
+.
+ In other words, the entries in the sequence 
+\begin_inset Formula $\left[\left\lceil n/2\right\rceil ,\left\lceil n/4\right\rceil ,\dots,1\right]$
+\end_inset
+
+ is no larger than the corresponding entries in the sequence 
+\begin_inset Formula $\left[m/2,m/4,\dots,1\right]$
+\end_inset
+
+, where 
+\begin_inset Formula $m=2^{\left\lceil \log_{2}n\right\rceil }$
+\end_inset
+
+ is the smallest power of 
+\begin_inset Formula $2$
+\end_inset
+
+ that is no less than 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+It is interesting to note that the algorithm costs just 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+ field operations, lower than 
+\begin_inset Formula $\Theta\left(n^{3}s\right)$
+\end_inset
+
+, the number of field elements generally required to represent the inverse
+ matrix.
+ This is because the algorithm output a series of matrices 
+\begin_inset Formula $\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right]$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ that require less space to store than their product.
+ Computing the product of the matrices 
+\begin_inset Formula $\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right]$
+\end_inset
+
+ therefore cannot be lower than 
+\begin_inset Formula $O\left(n^{3}s\right)$
+\end_inset
+
+.
+ The following section shows that a cost of 
+\begin_inset Formula $O^{\sim}(n^{3}s)$
+\end_inset
+
+ can be achieved.
+\end_layout
+
+\begin_layout Subsection
+Cost of multiplying output matrices
+\end_layout
+
+\begin_layout Standard
+To compute the product 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil },$
+\end_inset
+
+ we simply multiply the matrices in sequential order.
+ Therefore, at the 
+\begin_inset Formula $i$
+\end_inset
+
+th step for 
+\begin_inset Formula $i$
+\end_inset
+
+ from 
+\begin_inset Formula $1$
+\end_inset
+
+ to 
+\begin_inset Formula $\left\lfloor \log n\right\rfloor $
+\end_inset
+
+, we multiply the product 
+\begin_inset Formula $\mathbf{M}_{i}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+.
+ To determine the cost of this multiplication, it is useful to first look
+ at 
+\begin_inset Formula $\mathbf{A}_{i}$
+\end_inset
+
+ and to determine its size.
+\end_layout
+
+\begin_layout Standard
+The matrix 
+\begin_inset Formula $\mathbf{A}_{i}$
+\end_inset
+
+ consists of 
+\begin_inset Formula $2^{i-1}$
+\end_inset
+
+ diagonal blocks for 
+\begin_inset Formula $i\le\log n$
+\end_inset
+
+, that is, 
+\begin_inset Formula $\mathbf{A}_{i}=\diag\left(\left[\mathbf{A}_{i}^{\left(1\right)},\mathbf{A}_{i}^{\left(2\right)},\dots,\mathbf{A}_{i}^{\left(2^{i-1}\right)}\right]\right)$
+\end_inset
+
+, each diagonal block 
+\begin_inset Formula $\mathbf{A}_{i}^{\left(k\right)}$
+\end_inset
+
+ consists of two kernel bases, 
+\begin_inset Formula $\mathbf{A}_{i,L}^{\left(k\right)}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}_{i,R}^{\left(k\right)}$
+\end_inset
+
+, computed in one of the subproblems.
+ The product 
+\begin_inset Formula $\mathbf{M}_{i}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ can be separated to 
+\begin_inset Formula $\mathbf{M}_{i}=\left[\mathbf{M}_{i}^{(1)},\dots,\mathbf{M}_{i}^{\left(2^{i}\right)}\right]$
+\end_inset
+
+ with 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ column blocks, where the column dimensions of 
+\begin_inset Formula $\mathbf{M}_{i}^{(2k)}$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mathbf{M}_{i}^{(2k+1)}$
+\end_inset
+
+ corresponds to the column dimensions of 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\mathbf{A}_{i,L}^{\left(k\right)}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}_{i,R}^{\left(k\right)}$
+\end_inset
+
+ for each 
+\begin_inset Formula $k$
+\end_inset
+
+.
+ It is interesting to note that each 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ is in the kernel of a subset of the rows of the original input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, which can be seen from the fact that the product 
+\begin_inset Formula $\mathbf{F}\mathbf{M}_{i}$
+\end_inset
+
+ is a matrix with only diagonal blocks nonzero.
+ In fact, 
+\begin_inset Formula $\mathbf{M}_{i}^{(k)}$
+\end_inset
+
+ is also a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of a matrix consists of a subset of the rows of the
+ original input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:kernelBasesFromInverse"
+
+\end_inset
+
+Let 
+\begin_inset Formula $\mathbf{F}_{i}^{(k)}$
+\end_inset
+
+ be a matrix consists of the rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ that have the same indices as the column indices of 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{M}_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}^{(k)}$
+\end_inset
+
+ consists of the remaining rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}^{(k)}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+This can be seen by following the computation process, and apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:continueComputingKernelBasisByRows"
+
+\end_inset
+
+.
+ One can see that the only rows not used in computing 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ are the rows from 
+\begin_inset Formula $\mathbf{F}_{i}^{(k)}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Lemma
+If 
+\begin_inset Formula $\mathbf{F}_{i}^{(k)}$
+\end_inset
+
+ is a matrix consists of the rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ but with
+\end_layout
+
+\begin_layout Plain Layout
+For example, 
+\begin_inset Formula $\mathbf{A}_{1,L}^{(1)}$
+\end_inset
+
+ is a minimal kernel basis of 
+\begin_inset Formula $\mathbf{F}_{1,D}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+It is useful to note that the product
+\end_layout
+
+\begin_layout Plain Layout
+which transforms the input matrix to having just diagonal blocks, and then
+ recursively works on these diagonal blocks to obtain 
+\end_layout
+
+\begin_layout Plain Layout
+The computation of the inverse of the matrix polynomial 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ takes advantage of the reduction Here 
+\begin_inset Formula $\mathbf{F}_{u}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{F}_{d}$
+\end_inset
+
+ represent the upper 
+\begin_inset Formula $\lceil n/2\rceil$
+\end_inset
+
+ and lower 
+\begin_inset Formula $\left\lfloor n/2\right\rfloor $
+\end_inset
+
+ rows of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+, respectively.
+ 
+\begin_inset Formula $\mathbf{N}_{d}\in\mathbb{K}\left[x\right]^{n\times\lceil n/2\rceil}$
+\end_inset
+
+ is a kernel basis of 
+\begin_inset Formula $\mathbf{F}_{d}$
+\end_inset
+
+, that is, a basis of the nullspace of 
+\begin_inset Formula $A_{d}$
+\end_inset
+
+ considered as a module over 
+\begin_inset Formula $\K[x]$
+\end_inset
+
+, while 
+\begin_inset Formula $C_{u}$
+\end_inset
+
+ is a nullspace basis with 
+\begin_inset Formula $\lfloor n/2\rfloor$
+\end_inset
+
+ columns for 
+\begin_inset Formula $A_{u}$
+\end_inset
+
+.
+ The reduction (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "recurs"
+
+\end_inset
+
+) results in a sequence of matrices 
+\begin_inset Formula $\mathbf{C}_{1},~\ldots~,~\mathbf{C}_{\lceil\log n\rceil}$
+\end_inset
+
+ such that 
+\begin_inset Formula $\mathbf{A}\cdot\mathbf{C}_{1}\cdots\mathbf{C}_{\lceil\log n\rceil}=\mathbf{B}$
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ is a diagonal matrix.
+ The inverse is then given by 
+\begin_inset Formula $\mathbf{A}^{-1}=\mathbf{C}_{1}\cdots\mathbf{C}_{\lceil\log n\rceil}\cdot\mathbf{B}^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+The reduction (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "recurs"
+
+\end_inset
+
+) results in a sequence of matrices 
+\begin_inset Formula $\mathbf{B}^{(k)},~\mathbf{C}^{(k)}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{D}^{(k)}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula 
+\begin{eqnarray*}
+\mathbf{C}^{(k)} & = & \mathbf{C}_{1}\cdots\mathbf{C}_{k}=[C_{1}^{(k)},~\ldots,~C_{2^{k}}^{(k)}]\\
+\mathbf{B}^{(k)} & = & \mbox{ diag }(B_{1}^{(k)},~\ldots,~B_{2^{k}}^{(k)})\\
+\mathbf{D}^{(k)} & = & \mbox{ diag }(D_{1}^{(k)},~\ldots,~D_{2^{k}}^{(k)})
+\end{eqnarray*}
+
+\end_inset
+
+such that 
+\begin_inset Formula 
+\begin{eqnarray}
+\mathbf{A}\cdot\mathbf{C}^{(k)} & = & \mathbf{B}^{(k)},~~~~\mathbf{B}^{(k+1)}=\mathbf{B}^{(k)}\cdot\mathbf{D}^{(k)}~~\mbox{ and }~~\mathbf{C}^{(k+1)}=\mathbf{C}^{(k)}\cdot\mathbf{D}^{(k)}~.\label{iter}
+\end{eqnarray}
+
+\end_inset
+
+Individually, the computations proceed via 
+\begin_inset Formula 
+\begin{eqnarray}
+B_{i}^{(k)}\cdot D_{i}^{(k)} & = & B_{i}^{(k)}\cdot[D_{2i-1}^{(k+1)},~D_{2i}^{(k+1)}]=\mbox{ diag }(B_{2i-1}^{(k+1)},~B_{2i}^{(k+1)})\label{update}
+\end{eqnarray}
+
+\end_inset
+
+with each 
+\begin_inset Formula $D_{i}^{(k)}$
+\end_inset
+
+ following reduction (
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "recurs"
+
+\end_inset
+
+) along with the update 
+\begin_inset Formula 
+\begin{eqnarray}
+C_{i}^{(k)}\cdot D_{i}^{(k)} & = & [~C_{2i-1}^{(k+1)},~C_{2i}^{(k+1)}~]~.\label{update2}
+\end{eqnarray}
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Knowing that 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}^{(k)}$
+\end_inset
+
+ allows us to easily obtain a bound on its size, which then allow us to
+ obtain a bound on the sizes of 
+\begin_inset Formula $\mathbf{A}_{i}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:newKernelBasisSize"
+
+\end_inset
+
+If 
+\begin_inset Formula $\vec{t}=\cdeg_{\vec{s}}\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+, then 
+\begin_inset Formula $\sum\vec{t}\le\sum\vec{s}$
+\end_inset
+
+.
+ In addition, we have 
+\begin_inset Formula $\cdeg_{\vec{t}}\mathbf{A}_{i+1,L}^{\left(k\right)}\le\vec{t}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{\vec{t}}\mathbf{A}_{i+1,R}^{\left(k\right)}\le\vec{t}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Proof
+The first statement follows directly from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+, since 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of 
+\begin_inset Formula $\bar{\mathbf{F}}_{i}^{(k)}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg\bar{\mathbf{F}}_{i}^{(k)}\le\cdeg\mathbf{F}=\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Now let us look at the second statement.
+ From 
+\begin_inset Formula $\cdeg\mathbf{F}_{i}^{(k)}\le\vec{s}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{\vec{s}}\mathbf{M}_{i}^{\left(k\right)}=\vec{t}$
+\end_inset
+
+, 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:predictableDegree"
+
+\end_inset
+
+ implies that the matrix 
+\begin_inset Formula $\mathbf{R}=\mathbf{F}_{i}^{(k)}\cdot\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ satisfies 
+\begin_inset Formula $\cdeg\mathbf{R}\le\vec{t}$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula $\mathbf{R}$
+\end_inset
+
+ is then used as the input matrix for computing two kernel bases in 
+\begin_inset Formula $\mathbf{A}_{i+1}^{\left(k\right)}=\left[\mathbf{A}_{i+1,L}^{\left(k\right)},\mathbf{A}_{i+1,R}^{\left(k\right)}\right]$
+\end_inset
+
+.
+ By 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+ these two kernel bases satisfy 
+\begin_inset Formula $\cdeg_{\vec{t}}\mathbf{A}_{i+1,L}^{\left(k\right)}\le\vec{t}$
+\end_inset
+
+ and 
+\begin_inset Formula $\cdeg_{\vec{t}}\mathbf{A}_{i+1,R}^{\left(k\right)}\le\vec{t}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Lemma
+The multiplications 
+\begin_inset Formula $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ can be done with a cost of 
+\begin_inset Formula $O^{\sim}(n^{3}s)$
+\end_inset
+
+ .
+\end_layout
+
+\begin_layout Proof
+First, let us determine the cost of the multiplication 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}\mathbf{A}_{i+1,L}^{\left(k\right)}$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $n\times O(n/2^{i})$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula $\mathbf{A}_{i+1,L}^{\left(k\right)}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $O(n/2^{i})\times O(n/2^{i})$
+\end_inset
+
+.
+ (Big 
+\begin_inset Formula $O$
+\end_inset
+
+ notation is used here because 
+\begin_inset Formula $n/2^{i}$
+\end_inset
+
+ may not be an integer.) Since 
+\begin_inset Formula $\sum\cdeg\mathbf{M}_{i}^{\left(k\right)}\le\sum\cdeg_{\vec{s}}\mathbf{M}_{i}^{\left(k\right)}=\sum\vec{t}\le\sum\vec{s}=ns$
+\end_inset
+
+ and 
+\begin_inset Formula $\sum\cdeg_{\vec{t}}\mathbf{A}_{i+1,L}^{\left(k\right)}\le\sum\vec{t}\le ns$
+\end_inset
+
+, we can apply 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to obtain a cost of 
+\begin_inset Formula $O^{\sim}\left(2^{i}\left(n/2^{i}\right)^{\omega}\left(ns\right)/\left(n/2^{i}\right)\right)=O^{\sim}\left(2^{i\left(2-\omega\right)}n^{\omega}s\right).$
+\end_inset
+
+ The multiplication 
+\begin_inset Formula $\mathbf{M}_{i}^{\left(k\right)}\mathbf{A}_{i+1,R}^{\left(k\right)}$
+\end_inset
+
+ also has the same cost.
+ Doing such multiplications for 
+\begin_inset Formula $k$
+\end_inset
+
+ from 1 to 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ then gives the product 
+\begin_inset Formula $\mathbf{M}_{i}\mathbf{A}_{i+1}$
+\end_inset
+
+.
+ Therefore, the cost of multiplication 
+\begin_inset Formula $\mathbf{M}_{i}\mathbf{A}_{i+1}$
+\end_inset
+
+ is 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $O^{\sim}\left(2^{i\left(3-\omega\right)}n^{\omega}s\right)$
+\end_inset
+
+.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+Take 
+\begin_inset Formula $\omega=3$
+\end_inset
+
+, we get a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+.
+ Doing this 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left\lceil \log n\right\rceil -1$
+\end_inset
+
+ times for 
+\begin_inset Formula $i$
+\end_inset
+
+ from 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+1 to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\left\lceil \log n\right\rceil -1$
+\end_inset
+
+ to compute 
+\begin_inset Formula $\mathbf{A}=\mathbf{M}_{\left\lceil \log n\right\rceil }=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+\end_inset
+
+ still has an overall cost of 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Largest Invariant Factors
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:invariants"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The largest invariant factor of a matrix of polynomials 
+\begin_inset Formula ${\bf F}$
+\end_inset
+
+ is the minimal degree monic polynomial 
+\begin_inset Formula $p$
+\end_inset
+
+ having the property that 
+\begin_inset Formula $p\cdot{\bf F}^{-1}$
+\end_inset
+
+ is a matrix polynomial.
+ Alternative it is defined as the ratio of the determinant and the gcd of
+ all 
+\begin_inset Formula $n-1$
+\end_inset
+
+ minors of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and coincides with the last diagonal entry of the Smith normal form of
+ 
+\begin_inset Formula ${\bf F}$
+\end_inset
+
+.
+ For generic matrices this is the same as the determinant while when 
+\begin_inset Formula $\mathbf{F}=xI-V$
+\end_inset
+
+ for a scalar matrix 
+\begin_inset Formula $V$
+\end_inset
+
+ then the largest invariant factor is the same as the minimal polynomial
+ of 
+\begin_inset Formula $V$
+\end_inset
+
+.
+ In this section we will show how the largest invariant factor can be determined
+ from the matrix 
+\begin_inset Formula ${\bf B}$
+\end_inset
+
+ of Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:matrixInverse"
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+We make use of the well-known fact that the largest invariant factor is
+ the least common denominator of 
+\begin_inset Formula $\mathbf{F}^{-1}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+ We use 
+\emph on
+column basis
+\emph default
+ as a tool, so let us first briefly look at column basis.
+ 
+\end_layout
+
+\begin_layout Standard
+A column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ is a basis for the 
+\begin_inset Formula $\mathbb{K}\left[x\right]$
+\end_inset
+
+-module 
+\begin_inset Formula 
+\[
+\left\{ \mathbf{F}\mathbf{p}~|~\mathbf{p}\in\mathbb{K}\left[x\right]^{n}~\right\} ~.
+\]
+
+\end_inset
+
+Such a basis can be represented as a full rank matrix 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+ whose columns are the basis elements.
+ The following lemma from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "ZL2013,zhou:phd2012"
+
+\end_inset
+
+ allows us to factor any matrix as the product of a column basis and a kernel
+ basis.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:columnBasis"
+
+\end_inset
+
+ Let 
+\begin_inset Formula $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\end_inset
+
+ with rank 
+\begin_inset Formula $r$
+\end_inset
+
+.
+ Suppose 
+\begin_inset Formula $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times(n-r)}$
+\end_inset
+
+ is a right kernel basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{r\times n}$
+\end_inset
+
+ is a left kernel basis of 
+\begin_inset Formula $\mathbf{N}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\mathbf{F}=\mathbf{T}\cdot\mathbf{G}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
+\end_inset
+
+ a column basis of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+The following result from Chapter 
+\begin_inset Formula $8$
+\end_inset
+
+ of 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "zhou:phd2012"
+
+\end_inset
+
+ shows when a matrix can be made unimodular by adding more rows.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:unimodularCompletionCondition"
+
+\end_inset
+
+A unimodular completion of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ exists if and only if 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ has unimodular column bases.
+ 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+the identity matrix 
+\begin_inset Formula $I_{m}$
+\end_inset
+
+ is a GCD of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The following lemma gives a relationship between the determinant of a column
+ basis and the gcd of the minors of a matrix.
+\end_layout
+
+\begin_layout Lemma
+\begin_inset CommandInset label
+LatexCommand label
+name "lem:determinantOfColumnBasisAndGcdOfMinors"
+
+\end_inset
+
+If 
+\begin_inset Formula $\mathbf{G}\in\mathbb{K}\left[x\right]^{\left(n-1\right)\times n}$
+\end_inset
+
+ has full row rank and 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ is a column basis of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+, then the gcd of all 
+\begin_inset Formula $\left(n-1\right)\times\left(n-1\right)$
+\end_inset
+
+ minors of 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ equals 
+\begin_inset Formula $c\det\mathbf{C}$
+\end_inset
+
+ for some 
+\begin_inset Formula $c\in\mathbb{K}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Using 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:columnBasis"
+
+\end_inset
+
+ we can factor 
+\begin_inset Formula $\mathbf{G}$
+\end_inset
+
+ as 
+\begin_inset Formula $\mathbf{G}=\mathbf{C}\mathbf{H}$
+\end_inset
+
+, where 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ has an identity matrix gcd and can be unimodularly completed by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:unimodularCompletionCondition"
+
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{h}=\left[h_{1},\dots,h_{n}\right]$
+\end_inset
+
+ be a row vector that gives the unimodular matrix 
+\begin_inset Formula 
+\[
+\bar{\mathbf{H}}=\begin{bmatrix}\mathbf{H}\\
+\mathbf{h}
+\end{bmatrix},
+\]
+
+\end_inset
+
+ then 
+\begin_inset Formula $\det\bar{\mathbf{H}}=\sum\left(h_{i}\det\mathbf{H}_{i}\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $\det\mathbf{H}_{i}$
+\end_inset
+
+ is the 
+\begin_inset Formula $\left(n-1\right)\times\left(n-1\right)$
+\end_inset
+
+ minor in 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ corresponding to 
+\begin_inset Formula $h_{i}$
+\end_inset
+
+.
+ Since 
+\begin_inset Formula $\bar{\mathbf{H}}$
+\end_inset
+
+ is unimodular, we have 
+\begin_inset Formula $\det\bar{\mathbf{H}}=\sum\left(h_{i}\det\mathbf{H}_{i}\right)\in\mathbb{K}\backslash0$
+\end_inset
+
+.
+ We can in fact scale 
+\begin_inset Formula $h$
+\end_inset
+
+ to make 
+\begin_inset Formula $\det\bar{\mathbf{H}}=\sum\left(h_{i}\det\mathbf{H}_{i}\right)=1$
+\end_inset
+
+.
+ This means that the minors 
+\begin_inset Formula $\det\mathbf{H}_{i}$
+\end_inset
+
+ are coprime.
+ Now putting back the column basis 
+\begin_inset Formula $\mathbf{C}$
+\end_inset
+
+ gives the result.
+\end_layout
+
+\begin_layout Theorem
+Suppose that 
+\begin_inset Formula ${\mathbf{B}}=\mbox{ diag }(b_{1},\ldots,b_{n})$
+\end_inset
+
+ denotes the final diagonal matrix polynomial in Algorithm 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "alg:matrixInverse"
+
+\end_inset
+
+.
+ Then 
+\begin_inset Formula 
+\[
+\mbox{ Largest Invariant Factor of }{\mathbf{A}}=\mbox{lcm}(b_{1},\ldots,b_{n}).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Let 
+\begin_inset Formula $\mathbf{a}_{k}$
+\end_inset
+
+ be the 
+\begin_inset Formula $k$
+\end_inset
+
+th column of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, and 
+\begin_inset Formula $\bar{\mathbf{F}}^{\left(k\right)}$
+\end_inset
+
+ be the matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ with the 
+\begin_inset Formula $k$
+\end_inset
+
+th row removed.
+ Then from 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:kernelBasesFromInverse"
+
+\end_inset
+
+ we know that 
+\begin_inset Formula $\mathbf{a}^{\left(k\right)}$
+\end_inset
+
+ is a 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-minimal kernel basis of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\bar{\mathbf{F}}^{(k)}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{f}_{k}$
+\end_inset
+
+ be the 
+\begin_inset Formula $k$
+\end_inset
+
+th row of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then the 
+\begin_inset Formula $k$
+\end_inset
+
+th diagonal entry of the output matrix 
+\begin_inset Formula $\mathbf{B}$
+\end_inset
+
+ is 
+\begin_inset Formula $b_{k}=\mathbf{f}_{k}\mathbf{a}_{k}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+We can apply Lemma 9.1 from 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "zhou:phd2012"
+
+\end_inset
+
+ to unimodularly transform 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to 
+\begin_inset Formula 
+\[
+P\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{C}_{k}\\
+ & b_{k}
+\end{bmatrix},
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $P$
+\end_inset
+
+ is a permutation matrix that switches the 
+\begin_inset Formula $k$
+\end_inset
+
+th row of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+ to the last row (for simplicity), and 
+\series bold
+
+\begin_inset Formula $\mathbf{C}_{k}$
+\end_inset
+
+ 
+\series default
+is a column basis of 
+\begin_inset Formula $\bar{\mathbf{F}}^{\left(k\right)}$
+\end_inset
+
+.
+ This gives 
+\begin_inset Formula $\det\mathbf{F}=b_{k}\det\mathbf{C}_{k}$
+\end_inset
+
+ or 
+\begin_inset Formula $b_{k}=\det\mathbf{F}/\det\mathbf{C}_{k}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:determinantOfColumnBasisAndGcdOfMinors"
+
+\end_inset
+
+ 
+\begin_inset Formula $\det\mathbf{C}_{k}$
+\end_inset
+
+ gives the gcd of all 
+\begin_inset Formula $\left(n-1\right)\times\left(n-1\right)$
+\end_inset
+
+ minors of 
+\begin_inset Formula $\bar{\mathbf{F}}^{\left(k\right)}$
+\end_inset
+
+.
+ Hence 
+\begin_inset Formula $\gcd\left(\det\mathbf{C}_{1},\dots,\det\mathbf{C}_{n}\right)$
+\end_inset
+
+ equals the gcd of all 
+\begin_inset Formula $\left(n-1\right)\times\left(n-1\right)$
+\end_inset
+
+ minors of 
+\begin_inset Formula $\mathbf{F}^{\left(k\right)}$
+\end_inset
+
+.
+ Therefore, 
+\begin_inset Formula $\det\mathbf{F}/\gcd\left(\det\mathbf{C}_{1},\dots,\det\mathbf{C}_{n}\right)$
+\end_inset
+
+ gives the largest invariant factor of the smith normal form of 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ The result then follows from 
+\begin_inset Formula 
+\[
+\frac{\det\mathbf{F}}{\gcd\left(\det\mathbf{C}_{1},\dots,\det\mathbf{C}_{n}\right)}=\lcm\left(\frac{\det\mathbf{F}}{\det\mathbf{C}_{1}},\frac{\det\mathbf{F}}{\det\mathbf{C}_{2}},\dots,\frac{\det\mathbf{F}}{\det\mathbf{C}_{n}}\right)=\lcm\left(b_{1},\dots,b_{n}\right).
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{proof}
+\end_layout
+
+\end_inset
+
+ Let 
+\begin_inset Formula ${\mathbf{A}_{i}}\in\mathbb{K}\left[x\right]^{(n-1)\times n}$
+\end_inset
+
+ denote the matrix 
+\begin_inset Formula ${\mathbf{A}}$
+\end_inset
+
+ with row 
+\begin_inset Formula $i$
+\end_inset
+
+ removed.
+ Then there exists a unimodular matrix 
+\begin_inset Formula ${\mathbf{U}}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\mathbf{D}_{i}}\in\mathbb{K}\left[x\right]^{(n-1)\times(n-1)}$
+\end_inset
+
+ such that 
+\begin_inset Formula 
+\[
+{\mathbf{A}_{i}}\cdot{\mathbf{U}}=[~0,~{\mathbf{D}_{i}}].
+\]
+
+\end_inset
+
+In this case one then obtains 
+\begin_inset Formula 
+\[
+{\mathbf{A}}\cdot{\mathbf{U}}=[~{\mathbf{b}}_{i},~{\mathbf{D}}]\mbox{ where }{\mathbf{b}}_{i}=[~0,\ldots,~0,~b_{i},~0,\ldots,~0~]
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula ${\mathbf{D}}\in\mathbb{K}\left[x\right]^{n\times(n-1)}$
+\end_inset
+
+ is the same as 
+\begin_inset Formula ${\mathbf{D}_{i}}$
+\end_inset
+
+ except for an additional row of zeros inserted into row 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Therefore for each 
+\begin_inset Formula $i$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+\mbox{ det }({\mathbf{A}})=\pm~b_{i}\mbox{ det }({\mathbf{D}_{i}})
+\]
+
+\end_inset
+
+and hence 
+\begin_inset Formula 
+\[
+\mbox{lcm}(b_{1},\ldots,b_{n})=\frac{\mbox{ det }({\mathbf{A}})}{\mbox{ gcd}(\mbox{ det }({\mathbf{D}_{1}}),\ldots,\mbox{ det }({\mathbf{D}_{n}}))}.
+\]
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{proof}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Note that 
+\begin_inset Formula $\mathbf{A}_{i}$
+\end_inset
+
+ for 
+\begin_inset Formula $i\le\log n$
+\end_inset
+
+ has 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ blocks on the diagonal.
+ Each block of 
+\begin_inset Formula $\mathbf{A}_{i}$
+\end_inset
+
+ is used to compute two corresponding blocks of 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+.
+ Let us first look at 
+\begin_inset Formula $\mathbf{A}_{1}=\left[\mathbf{N}_{2},\mathbf{N}_{1}\right]$
+\end_inset
+
+ and 
+\begin_inset Formula 
+\[
+\mathbf{A}_{2}=\begin{bmatrix}\mathbf{N}'_{2} & \mathbf{N}'_{1}\\
+ &  & \mathbf{M}'_{2} & \mathbf{M}'_{1}
+\end{bmatrix},
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{N}'_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{N}'_{2}$
+\end_inset
+
+ are the kernel bases of the submatrices 
+\begin_inset Formula $\mathbf{F}'_{1},$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbf{F}'_{2}$
+\end_inset
+
+ contained in 
+\begin_inset Formula 
+\[
+\mathbf{R}_{1}=\begin{bmatrix}\mathbf{F}'_{1}\\
+\mathbf{F}'_{2}
+\end{bmatrix}=\mathbf{F}_{1}\mathbf{N}_{2}.
+\]
+
+\end_inset
+
+ When multiplying 
+\begin_inset Formula $\mathbf{A}_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{A}_{2}$
+\end_inset
+
+, the submatrix 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{A}_{1}$
+\end_inset
+
+ is multiplied with the block 
+\begin_inset Formula $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+ in 
+\begin_inset Formula $\mathbf{A}_{2}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ be the list of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+, where 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+ is list of the column degrees of the input matrix 
+\begin_inset Formula $\mathbf{F}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\sum\vec{s}'\le\sum\vec{s}=\xi$
+\end_inset
+
+ by 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:boundOfSumOfShiftedDegreesOfKernelBasis"
+
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:boundOnDegreesOfFA"
+
+\end_inset
+
+, we know the column degrees of 
+\begin_inset Formula $\mathbf{R}_{1}=\mathbf{F}_{1}\mathbf{N}_{2}$
+\end_inset
+
+ are bounded component-wise by the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+ of 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+, hence the sum of the column degrees of 
+\begin_inset Formula $\mathbf{R}_{1}$
+\end_inset
+
+ is also bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ It follows that the sum of 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}'_{1}$
+\end_inset
+
+ and that of 
+\begin_inset Formula $\mathbf{N}'_{2}$
+\end_inset
+
+ are each bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ We can therefore use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+ with a cost of 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+.
+ From 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "lem:boundOnDegreesOfFA"
+
+\end_inset
+
+, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the product 
+\begin_inset Formula $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+ are bounded by the 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+, hence the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each column block in 
+\begin_inset Formula $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]=\left[\mathbf{N}_{2}\mathbf{N}'_{2},\mathbf{N}_{2}\mathbf{N}'_{1}\right]$
+\end_inset
+
+ is still bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ The multiplication involving 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+ and the second block of 
+\begin_inset Formula $\mathbf{A}_{2}$
+\end_inset
+
+ is done in the same way as the multiplication 
+\begin_inset Formula $\mathbf{N}_{2}\left[\mathbf{N}'_{2},\mathbf{N}'_{1}\right]$
+\end_inset
+
+, hence the multiplication 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}$
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+, with the sum of 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each of the four column blocks in 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}=\left[\mathbf{N}_{2}\mathbf{N}'_{2},\mathbf{N}_{2}\mathbf{N}'_{1},\mathbf{N}_{1}\mathbf{M}'_{2},\mathbf{N}_{1}\mathbf{M}'_{1}\right]$
+\end_inset
+
+ bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Next, we multiply 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{3}$
+\end_inset
+
+.
+ The matrix 
+\begin_inset Formula $\mathbf{A}_{3}$
+\end_inset
+
+ now has four blocks on the diagonal.
+ Consider 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+ , the first column block of 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}$
+\end_inset
+
+, multiplied with the first block 
+\begin_inset Formula $\left[\mathbf{N}"_{2},\mathbf{N}"_{1}\right]$
+\end_inset
+
+ on the diagonal of 
+\begin_inset Formula $\mathbf{A}_{3}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\vec{s}"$
+\end_inset
+
+ be the 
+\begin_inset Formula $\vec{s}'$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}'_{2}$
+\end_inset
+
+, which bound the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula $\sum\vec{s}"\le\sum\vec{s}'\le\sum\vec{s}=\xi$
+\end_inset
+
+.
+ Following the same reasoning as before, the sum of the 
+\begin_inset Formula $\vec{s}"$
+\end_inset
+
+-column degrees of 
+\begin_inset Formula $\mathbf{N}"_{2}$
+\end_inset
+
+ is still bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+ We can therefore again use 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "thm:multiplyUnbalancedMatrices"
+
+\end_inset
+
+ to multiply 
+\begin_inset Formula $\mathbf{N}_{2}\mathbf{N}'_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $\mathbf{N}"_{2}$
+\end_inset
+
+.
+ The multiplication of the remaining blocks are done in the same way.
+ The product 
+\begin_inset Formula $\mathbf{A}_{1}\mathbf{A}_{2}\mathbf{A}_{3}$
+\end_inset
+
+ now has 8 column blocks, with the sum of the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of each column block bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Repeating this process, we multiply 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+ at step 
+\begin_inset Formula $i$
+\end_inset
+
+ for 
+\begin_inset Formula $i$
+\end_inset
+
+ from 1 to 
+\begin_inset Formula $\left\lfloor \log n\right\rfloor $
+\end_inset
+
+.
+ Each of the 
+\begin_inset Formula $2^{i}$
+\end_inset
+
+ column blocks of 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $n\times O(n/2^{i})$
+\end_inset
+
+.
+ Each of the 
+\begin_inset Formula $O(2^{i})$
+\end_inset
+
+ column blocks on the diagonal of 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+ has dimension 
+\begin_inset Formula $O(n/2^{i})\times O(n/2^{i})$
+\end_inset
+
+.
+ (Big 
+\begin_inset Formula $O$
+\end_inset
+
+ notation is used here because 
+\begin_inset Formula $n/2^{i}$
+\end_inset
+
+ may not be an integer.) Let 
+\begin_inset Formula $\vec{u}_{j}$
+\end_inset
+
+ be the shift used to compute the 
+\begin_inset Formula $j$
+\end_inset
+
+th block in 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+.
+ Then as before, the 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees of the 
+\begin_inset Formula $j$
+\end_inset
+
+th column block in 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ are bounded by 
+\begin_inset Formula $\vec{u}_{j}$
+\end_inset
+
+, with 
+\begin_inset Formula $\sum\vec{u}_{j}\le\xi$
+\end_inset
+
+.
+ The sum of the 
+\begin_inset Formula $\vec{u}$
+\end_inset
+
+-column degrees of the 
+\begin_inset Formula $j$
+\end_inset
+
+th block in 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+ is bounded by 
+\begin_inset Formula $2\xi$
+\end_inset
+
+.
+ (Each of the left half and the right half has the sum bounded by 
+\begin_inset Formula $\xi$
+\end_inset
+
+.) Therefore, multiplying 
+\begin_inset Formula $\mathbf{A}_{1}\cdots\mathbf{A}_{i}$
+\end_inset
+
+ with 
+\begin_inset Formula $\mathbf{A}_{i+1}$
+\end_inset
+
+ cost 
+\begin_inset Formula $O^{\sim}\left(2^{i}2^{i}\left(n/2^{i}\right)^{\omega-1}2^{i}u\right)=O^{\sim}\left(\left(2^{i}\right)^{3-\omega}n^{\omega}s\right)$
+\end_inset
+
+, where 
+\begin_inset Formula $u=\xi/2^{i}=ns/2^{i}$
+\end_inset
+
+.
+ Take 
+\begin_inset Formula $\omega=3,$
+\end_inset
+
+ we get 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
+\end_inset
+
+ as desired.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Conclusion
+\end_layout
+
+\begin_layout Standard
+In this paper we have extended the algorithm of Jeannerod and Villard for
+ the inversion of a matrix polynomial.
+ The algorithm is deterministic and has essentially optimal complexity for
+ inversion.
+ In addition, we show how the algorithm can also be used to find the largest
+ invariant factor of a matrix of polynomials.
+\end_layout
+
+\begin_layout Standard
+Again, it is interesting to note that 
+\begin_inset CommandInset ref
+LatexCommand formatted
+reference "alg:matrixInverse"
+
+\end_inset
+
+ costs only 
+\begin_inset Formula $O^{\sim}\left(n^{\omega}s\right)$
+\end_inset
+
+ and represents the inverse with 
+\begin_inset Formula $O\left(n^{2}s\log n\right)$
+\end_inset
+
+ space.
+ It is possible that this representation is useful in some applications.
+ For example, if we wish to multiply another low degree matrix or a row
+ vector 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ by 
+\begin_inset Formula $\mathbf{F}^{-1}$
+\end_inset
+
+, representing 
+\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}\mathbf{B}^{-1}$
+\end_inset
+
+ requires us to multiply 
+\begin_inset Formula $\mathbf{H}$
+\end_inset
+
+ with a high degree matrix 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+ This can be more expensive than the multiplication using the representation
+ 
+\begin_inset Formula $\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
+\end_inset
+
+, then 
+\begin_inset Formula $\mathbf{H}\mathbf{F}^{-1}=\mathbf{H}\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$
+\end_inset
+
+, which is less expensive.
+ It may be interesting to look for other applications where this smaller
+ representation is useful.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Subsection
+Determinant
+\end_layout
+
+\begin_layout Lemma
+If 
+\begin_inset Formula $\mathbf{A}\in\mathbb{K}\left[x\right]^{n\times n}$
+\end_inset
+
+ is 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column reduced with 
+\begin_inset Formula $\vec{s}$
+\end_inset
+
+-column degrees 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+, then its determinant 
+\begin_inset Formula $\det(\mathbf{A})$
+\end_inset
+
+ has degree 
+\begin_inset Formula $\sum\vec{t}-\sum\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Proof
+Since 
+\begin_inset Formula $x^{\vec{s}}\mathbf{A}$
+\end_inset
+
+ is column reduced with column degrees 
+\begin_inset Formula $\vec{t}$
+\end_inset
+
+, we have 
+\begin_inset Formula $\deg\det(x^{\vec{s}}\mathbf{A})=\sum\vec{t}$
+\end_inset
+
+.
+ We also have 
+\begin_inset Formula $\deg\det(x^{\vec{s}})=\sum\vec{s}$
+\end_inset
+
+, hence the 
+\begin_inset Formula $\deg\det(\mathbf{A})=\sum\vec{t}-\sum\vec{s}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Lemma
+If 
+\begin_inset Formula 
+\[
+\mathbf{A}=\begin{bmatrix}\mathbf{A}_{1}\\
+\mathbf{A}_{2}
+\end{bmatrix}\in\mathbb{K}\left[x\right]^{n\times n},
+\]
+
+\end_inset
+
+ where 
+\begin_inset Formula $\mathbf{A}_{1}$
+\end_inset
+
+ consists of 
+\begin_inset Formula $k$
+\end_inset
+
+ top rows of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+, with 
+\begin_inset Formula $1\le k\le n-1$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $\mathbf{N}_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{N}_{2}$
+\end_inset
+
+ be the minimal kernel bases of 
+\begin_inset Formula $\mathbf{A}_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $\mathbf{A}_{2}$
+\end_inset
+
+ respectively.
+ Then 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "paper"
+options "plainnat"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -96,7 +96,7 @@
 
 
 
-\title{An efficient, deterministic algorithm for inversion of a matrix polynomial}
+\title{An optimal, deterministic algorithm for inversion of a matrix polynomial}
 
 \author{
 Wei Zhou, George Labahn, Arne Storjohann
@@ -257,12 +257,25 @@ Let
 \end_inset
 
 .
+ We consider the problem of computing the inverse of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
  When 
 \begin_inset Formula $\mathbf{A}$
 \end_inset
 
- is nonsingular then (using Cramer's rule) the number of field elements
- required to represent its inverse is 
+ is nonsingular and has degree 
+\begin_inset Formula $d$
+\end_inset
+
+ then (using Cramer's rule) the number of field elements required to represent
+ its inverse is 
 \begin_inset Formula $O(n^{3}d)$
 \end_inset
 
@@ -275,6 +288,11 @@ Let
 \end_inset
 
 .
+ 
+\end_layout
+
+\end_inset
+
  Jeannerod and Villard 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -282,22 +300,25 @@ key "jeannerod-villard:05"
 
 \end_inset
 
- give a deterministic algorithm for determining the inverse for a large
- class of polynomial matrices using roughly the same number of operations
- as required to represent the inverse.
- More specifically, for generic polynomial matrices with size 
-\begin_inset Formula $n$
+ give a deterministic algorithm that can efficiently compute the inverse
+ of 
+\begin_inset Formula $\mathbf{A}$
 \end_inset
 
- being a power of 
-\begin_inset Formula $2$
-\end_inset
-
- their algorithm has a complexity 
+ with a cost of 
 \begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
 \end_inset
 
- field operations, where 
+ field operations, provided that the dimension of 
+\begin_inset Formula $\mathbf{A}$
+\end_inset
+
+ is a power of 
+\begin_inset Formula $2$
+\end_inset
+
+, and the intermediate results have small and balanced degrees.
+ Here 
 \begin_inset Formula $O^{\sim}$
 \end_inset
 
@@ -306,25 +327,7 @@ key "jeannerod-villard:05"
 \end_inset
 
  with log factors omitted.
- Such complexity is essentially optimal for the generic case.
- 
-\begin_inset ERT
-status collapsed
-
-\begin_layout Plain Layout
-
-%since the same number of operations are needed to represent the inverse
- matrix polynomial.
- 
-\end_layout
-
-\begin_layout Plain Layout
-
-\end_layout
-
-\end_inset
-
-Previous to this the fastest deterministic algorithms for matrix polynomial
+ Previous to this the fastest deterministic algorithms for matrix polynomial
  inversion had complexity 
 \begin_inset Formula $O^{\sim}\left(n^{\omega+1}d\right)$
 \end_inset
@@ -341,81 +344,27 @@ key "burgisser,storjohannPhD"
 
 \begin_layout Standard
 In this paper we extend the algorithm of Jeannerod and Villard to one which
- is deterministic and has complexity 
-\begin_inset Formula $O^{\sim}\left(n^{\omega-1}\xi\right)$
+ is still deterministic and has complexity 
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
 \end_inset
 
  for arbitrary input matrix polynomials.
  Here 
-\begin_inset Formula $\omega$
+\begin_inset Formula $s$
 \end_inset
 
- is the exponent of matrix multiplication and 
-\begin_inset Formula $\xi$
-\end_inset
-
- is the minimum of the sum of the column degrees and the sum of the row
- degrees of the input matrix.
- This complexity is also essentially optimal for arbitrary invertible matrix
- polynomials.
+ is the average column degree or the average row degree.
+ We can take the one that is smaller.
  Note that in the special case when all the rows and columns of 
 \begin_inset Formula $\mathbf{A}$
 \end_inset
 
- have at least one term of highest degree 
+ have uniform degree 
 \begin_inset Formula $d$
 \end_inset
 
- then 
-\begin_inset Formula $\xi=nd$
-\end_inset
-
- and the complexity of inversion becomes 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
-\end_inset
-
-.
- The motivation for finding deterministic algorithms is the fact that many
- other basic linear algebra problems for polynomial matrices have known
- optimal complexity.
- We mention for example linear solving with complexity 
+ then the complexity of inversion becomes 
 \begin_inset Formula $O^{\sim}\left(n^{3}d\right)$
-\end_inset
-
- in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "dixon82,moenck"
-
-\end_inset
-
- and complexity 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
-\end_inset
-
- in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "storjohan2002"
-
-\end_inset
-
-, determinant 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "storjohan2002"
-
-\end_inset
-
- and column reduction 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "Giorgi2003"
-
-\end_inset
-
- both with complexity 
-\begin_inset Formula $O^{\sim}\left(n^{\omega}d\right)$
 \end_inset
 
 .
@@ -430,8 +379,8 @@ key "jeannerod-villard:05"
 
 \end_inset
 
- which uses a sequence of minimal nullspace basis computations to reduce
- inversion to the inversion of a diagonal matrix.
+ which uses a sequence of kernel basis computations to reduce inversion
+ to the inversion of a diagonal matrix.
  Our extension makes use of 
 \begin_inset ERT
 status collapsed
@@ -467,10 +416,10 @@ status collapsed
 
 \end_inset
 
- minimal nullspace bases combined with an alternate method for measuring
+ kernel nullspace bases combined with an alternate method for measuring
  size during the reduction.
- This allows us to replace the nullspace basis computation and the matrix
- multiplications with the new algorithms from 
+ This allows us to replace the kernel basis computation and the matrix multiplic
+ations with the new algorithms from 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "zhou-labahn-storjohann:12"
@@ -501,7 +450,7 @@ key "zhou-labahn-storjohann:12"
 \end_inset
 
  with a cost of 
-\begin_inset Formula $O^{\sim}\left(n^{2}\xi\right)$
+\begin_inset Formula $O^{\sim}\left(n^{3}s\right)$
 \end_inset
 
 .
@@ -510,15 +459,15 @@ key "zhou-labahn-storjohann:12"
 \end_inset
 
  takes only 
-\begin_inset Formula $O(n\xi\log n)$
+\begin_inset Formula $O(n^{2}s\log n)$
 \end_inset
 
  space, but the product 
 \begin_inset Formula $\mathbf{C}=\mathbf{C}_{1}\cdots\mathbf{C}_{\left\lceil \log n\right\rceil }$
 \end_inset
 
- takes 
-\begin_inset Formula $O(n^{2}\xi)$
+ can take 
+\begin_inset Formula $n^{3}s$
 \end_inset
 
  space.

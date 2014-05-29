@@ -1,6 +1,7 @@
 %% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-\documentclass[english]{elsarticle}
+%\documentclass[english]{elsarticle}
+\documentclass[english]{amsart}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{color}
@@ -52,42 +53,64 @@
 \def\MM{\qopname\relax n{MM}}\def\M{\qopname\relax n{M}}
 %\def\ord{\qopname\relax n{ord}}
 
-\def\StorjohannTransform{\qopname\relax n{StorjohannTransform}}\def\TransformUnbalanced{\qopname\relax n{TransformUnbalanced}}\def\rowDimension{\qopname\relax n{rowDimension}}\def\columnDimension{\qopname\relax n{columnDimension}}\DeclareMathOperator{\re}{rem}\DeclareMathOperator{\coeff}{coeff}\DeclareMathOperator{\lcoeff}{lcoeff}\def\mab{\qopname\relax n{orderBasis}}\def\mmab{\qopname\relax n{FastBasis}}\def\umab{\qopname\relax n{UnbalancedFastBasis}}\newcommand{\bb}{\\}
-\def\mnb{\qopname\relax n{MinimaKernelBasis ~ }}
-\DeclareMathOperator{\mnbr}{MinimaKernelBasisReversed}
-%\def\rdeg{\qopname\relax n{rdeg}}
-\DeclareMathOperator{\colBasis}{colBasis}
+\def\StorjohannTransform{\qopname\relax n{StorjohannTransform}}
+\def\TransformUnbalanced{\qopname\relax n{TransformUnbalanced}}
+\def\rowDimension{\qopname\relax n{RowDimension}}
+\def\columnDimension{\qopname\relax n{ColumnDimension}}
+\DeclareMathOperator{\re}{rem}
+\DeclareMathOperator{\coeff}{coeff}
+\DeclareMathOperator{\lcoeff}{lcoeff}
+\def\mab{\qopname\relax n{orderBasis}}
+\def\mmab{\qopname\relax n{FastBasis}}
+\def\umab{\qopname\relax n{UnbalancedFastBasis}}\newcommand{\bb}{\\}
+\def\mnb{\qopname\relax n{MinimalKernelBasis}}
+\DeclareMathOperator{\mnbr}{MinimalKernelBasisReversed}
+\DeclareMathOperator{\colBasis}{ColumnBasis}
 \DeclareMathOperator{\lcm}{lcm}
-\DeclareMathOperator{\inv}{inverse}
+\DeclareMathOperator{\inv}{Inverse}
+\newcommand{\bigO}{{O\tilde{\phantom{\imath}}}}
 
-
-
-\newcommand{\arne}[1]{{\color{blue}\it {\bf Arne:} #1 }}
-\newcommand{\wei}[1]{{\color{red}\it {\bf Wei:} #1}}
-\newcommand{\george}[1]{{\color{green}\it {\bf George:} #1}}
+%\newcommand{\arne}[1]{{\color{blue}\it {\bf Arne:} #1 }}
+%\newcommand{\wei}[1]{{\color{red}\it {\bf Wei:} #1}}
+%\newcommand{\george}[1]{{\color{green}\it {\bf George:} #1}}
 \def\newblock{\hskip .11em plus .33em minus .07em}
 
-
 \newcommand{\Z}{\mathbb{Z}}
+\newcommand{\myxi}{\xi}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\K}{ {\rm K}}
 \newcommand{\revCol}{ {\rm revCol}}
-\newcommand{\bigO}{\mathcal{O}}
 \newcommand{\tbigO}{\widetilde{\mathcal{O}}}
 \newcommand{\cL}{\mathcal{L}}
 \newcommand{\ocL}{\overline{\mathcal{L}}}
 \newcommand{\tcL}{\widetilde{\mathcal{L}}}
 \newcommand{\cA}{\mathcal{A}}
 \newcommand{\oA}{\overline{A}}
-\newcommand{\GL}{{\rm GL}\,}
-\newcommand{\rank}{{\rm rank}\,}
-\newcommand{\cdeg}{{\rm cdeg}\,}
-\newcommand{\rdeg}{{\rm rdeg}\,}
-\newcommand{\diag}{{\rm diag}\,}
-\newcommand{\val}{{\rm val}\,}
-\newcommand{\ord}{{\rm ord}\,}
+\newcommand{\loglog}{\mathop{\text{loglog}}\nolimits}
+%\newcommand{\GL}{{\rm GL}\,}
+\newcommand{\GL}{\mathop{\text{GL}}\nolimits}
+%\newcommand{\rank}{{\rm rank}\,}
+\newcommand{\rank}{\mathop{\text{rank}}\nolimits}
+%\newcommand{\cdeg}{{\rm cdeg}\,}
+\newcommand{\cdeg}{\mathop{\text{cdeg}}\nolimits}
+%\newcommand{\rdeg}{{\rm rdeg}\,}
+\newcommand{\rdeg}{\mathop{\text{rdeg}}\nolimits}
+%\newcommand{\diag}{{\rm diag}\,}
+\newcommand{\diag}{\mathop{\text{diag}}\nolimits}
+%\newcommand{\val}{{\rm val}\,}
+\newcommand{\val}{\mathop{\text{val}}\nolimits}
+%\newcommand{\ord}{{\rm ord}\,}
+\newcommand{\ord}{\mathop{\text{ord}}\nolimits}
 \newcommand{\abs}[1]{\lvert#1\rvert}
+
+\newcommand{\sO}[2]{{#1}^{#2+o(1)}}
+\newcommand{\sOsO}[4]{{#1}^{#2+o(1)}\*{#3}^{#4+o(1)}}
+\newcommand{\OsO}[4]{{#1}^{#2}\*{#3}^{#4+o(1)}}
+\newcommand{\sOsconst}[3]{{#1}^{#2+o(1)}\*{#3}^{o(1)}}
+
+
+\newtheorem{exm}{Example}
 
 
 \newrefformat{eq}{\textup{(\ref{#1})}}
@@ -110,6 +133,7 @@
 \newrefformat{tab}{Table \ref{#1} on page \pageref{#1}}
 \newrefformat{fig}{Figure \ref{#1} on page \pageref{#1}}
 
+
 \makeatother
 
 \usepackage{babel}
@@ -119,145 +143,310 @@
 
 \begin{document}
 
-\title{An efficient, deterministic algorithm for inversion of a matrix polynomial}
-
-
+\title{A deterministic algorithm for inverting a polynomial matrix}
 \author{Wei Zhou, George Labahn, Arne Storjohann}
-
-
-\address{Cheriton School of Computer Science, University of Waterloo, Waterloo
-ON, Canada N2L 3G1}
+\address{David R.~Cheriton School of Computer Science, University
+of Waterloo, Waterloo ON, Canada N2L 3G1}
 
 
 \ead{\{w2zhou,glabahn,astorjoh\}@uwaterloo.ca}
 \begin{abstract}
-In this paper we present a deterministic algorithm for the computation
-of the inverse of an $n\times n$ matrix of polynomials over a field.
-The algorithm is deterministic with complexity $O^{\sim}\left(n^{3}s\right)$
-field operations. Here $s$ is the minimum of the average of the column
-degrees and the average of the row degrees of the input matrix and
-$O^{\sim}$ is just $O$ with log factors omitted. In addition, our
-algorithm can also be used to find the largest invariant factor of
-a polynomial matrix, again deterministically, with a cost of $O^{\sim}\left(n^{\omega}s\right)$,
-where $\omega$ is the exponent of matrix multiplication. %
-\thanks{Do I have the correct complexity here?%
-} 
+Improved cost estimates are given for the problem of computing the
+inverse of an $n\times n$ matrix of univariate polynomials over a
+field.  A deterministic algorithm is demonstrated
+that has worst case complexity
+$\sO{(n^{3}s)}{1}$ field operations, where $s\geq 1$ is an upper
+bound for the average column degree of the input matrix.  Here, the
+``$+o(1)$'' in the exponent indicates a missing factor $c_1 (\log
+ns)^{c_2}$ for positive real constants $c_1$ and $c_2$.  As an
+application we show how to compute the largest invariant factor of
+the input matrix in $\sO{(n^{\omega}s)}{1}$ field operations, where
+$\omega$ is the exponent of matrix multiplication.
 \end{abstract}
+
 \maketitle
 
 \section{Introduction}
+We consider the problem of computing the inverse of a matrix of
+polynomials over an abstract field $\mathbb{K}$.  Let
+$\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$ be an $n\times
+n$ matrix over the ring of univariate polynomials $\mathbb{K}[x]$,
+and let $d \geq 1$ be a bound on the degrees of entries of $\mathbf{F}$.
+Recall that the determinant $\det \mathbf{F}$ can have degree up
+to $nd$ and that the adjugate (or classical adjoint) $\det \mathbf{F}
+\cdot \mathbf{F}^{-1}$ is a polynomial matrix with entries of degree
+up to $nd$.  Thus, $\mathbf{F}^{-1}$ can require on the order of
+$n^3d$ field elements to represent: a factor of $n$ more than
+required to write down $\mathbf{F}$.
 
-Let $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$ be an $n\times n$
-matrix of polynomials over an abstract field $\mathbb{K}$. We consider
-the problem of computing the inverse of $\mathbf{F}$. Jeannerod
-and Villard \citet{jeannerod-villard:05} give a deterministic algorithm
-that can efficiently compute the inverse of $\mathbf{F}$ with a cost
-of $O^{\sim}\left(n^{3}d\right)$ field operations, provided that
-the dimension of $\mathbf{F}$ is a power of $2$, and the intermediate
-results have small and balanced degrees. Here $O^{\sim}$ is just
-$O$ with log factors omitted. Previous to this the fastest deterministic
-algorithms for matrix polynomial inversion had complexity $O^{\sim}\left(n^{\omega+1}d\right)$
-\citep{burgisser,storjohann:phd2000}.
+In a surprising result, Jeannerod and Villard~\cite{jeannerod-villard:05}
+give an algorithm to compute $\mathbf{F}^{-1}$ for a generic input
+matrix of dimension a power of 2 that has a cost of $\sO{(n^{3}d)}{1}$ field operations from
+$\mathbb{K}$.  Here, and in the remainder of the paper, the ``$+o(1)$''
+in the exponent of cost estimates indicates a missing factor $c_1
+(\log nd)^{c_2}$ for positive real constants $c_1$ and $c_2$.  The
+inversion algorithm of Jeannerod and Villard~\cite{jeannerod-villard:05}
+works for arbitrary input matrices. However, the $\sO{(n^{3}d)}{1}$
+running time bound is obtained only for inputs that have dimension
+a power of~2, and which satisfy the genericity requirement that the
+$n^2(d+1)$ coefficients of $\mathbf{F}$ do not cause a particular
+polynomial of degree $n^2(d+1)$ to vanish.  The genericity requirement
+ensures that all matrices arising during the construction have
+uniform row and column degrees.  Jeannerod and Villard's recipe is
+the first essentially optimal inversion algorithm for polynomial
+matrices, at least for generic matrices with dimension a power of~2,
+improving  on the previously known algorithms which have cost
+$\sO{(n^{\omega+1}d)}{1}$, where $\omega$ is the exponent of matrix
+multiplication.  More recently, an alternative inversion algorithm
+is given by Storjohann~\cite{Storjohann10a}: the algorithm is Las
+Vegas randomized and has expected cost $\sO{(n^3d)}{1}$ field
+operations for all input matrices. For a survey of previous work
+on polynomial matrix inversion we refer
+to~\cite{jeannerod-villard:05,Storjohann10a}.
 
-In this paper we extend the algorithm of Jeannerod and Villard to
-one which is still deterministic and has complexity $O^{\sim}\left(n^{3}s\right)$
-for arbitrary input matrix polynomials. Here $s$ is the average column
-degree or the average row degree. We assume without loss of generality
-that the column degrees has the smaller average and just work with
-column degrees in this paper. Note that in the special case when all
-the rows and columns of $\mathbf{F}$ have uniform degree $d$ then
-the complexity of inversion becomes $O^{\sim}\left(n^{3}d\right)$.
+In this paper we extend the algorithm of Jeannerod and
+Villard~\cite{jeannerod-villard:05} to work for arbitrary input
+matrices while maintaining a worst case deterministic $\sO{(n^3
+d)}{1}$ bound on the running time in all cases.  We illustrate the
+differences between the algorithm of~\cite{jeannerod-villard:05}
+and our extension using a pair of simple examples.
 
-Our algorithm makes use of a similar reduction used by Jeannerod and
-Villard \citet{jeannerod-villard:05} which uses a sequence of kernel
-basis computations to reduce inversion to the inversion of a diagonal
-matrix. Our extension makes use of {\em shifted} kernel nullspace
-bases combined with an alternate method for measuring size during
-the reduction. This allows us to replace the kernel basis computation
-and the matrix multiplications with the new algorithms from \citep{ZLS2012}.
-In addition, whereas the algorithm of Jeannerod and Villard returns
-two matrices $\mathbf{A},\mathbf{B}$ satisfying $\mathbf{F}^{-1}=\mathbf{A}\mathbf{B}^{-1}$,
-our algorithm instead returns a list of matrices $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
-satisfying $\mathbf{F}^{-1}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$.
-We can then compute the product $\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }$
-with a cost of $O^{\sim}\left(n^{3}s\right)$. It is interesting to
-note that the output $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}$
-takes only $O(n^{2}s\log n)$ space, but the product $\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }$
-can take $n^{3}s$ space.
+To understand the behaviour of the inversion
+algorithm~\cite{jeannerod-villard:05} for generic inputs it will
+suffice to consider a $4 \times 4$ input matrix of degree $3$.  In
+our examples we only show the degree profile of the matrices, that
+is, the degrees of the polynomials inside the matrix and not the
+polynomials themselves.  Blocks of the matrix that are necessarily
+zero are left blank.  The algorithm begins by computing a matrix
+$\mathbf{A}_1$ such that
+$$
+\stackrel{\textstyle {\rm degs~}\mathbf{F}}{ 
+\left [ \begin{array}{cccc}
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 \\\hline
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 
+\end{array} \right ]
+}
+\stackrel{\textstyle {\rm degs~}\mathbf{A}_1}{
+\left [ \begin{array}{cc|cc}
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 
+\end{array} \right ]
+}
+ = 
+\left [ \begin{array}{cc|cc}
+6 & 6 &   &   \\
+6 & 6 &   &   \\\hline
+  &   & 6 & 6 \\
+  &   & 6 & 6 
+\end{array} \right ].
+$$
+The first $2$ columns of $\mathbf{A}_1$ comprise a kernel basis for
+the last $2$ rows of $\mathbf{F}$ while the last $2$ columns of
+$\mathbf{A}_1$ comprise a kernel basis for the first $2$ rows of $\mathbf{F}$.  
+The algorithm now proceeds recursively on the two $2 \times 2$
+diagonal blocks of $\mathbf{F} \cdot \mathbf{A}_1$,  continuing until the
+matrix is diagonalized.  For this example two levels of recursion
+suffices to obtain a diagonalization $\mathbf{B}$ of the input
+matrix.
+\begin{equation}
+\label{eq:diag}
+\mathbf{F}
+\stackrel{\textstyle {\rm degs~}\mathbf{A}_1}{
+\left [ \begin{array}{cccc}
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 \\
+3 & 3 & 3 & 3 
+\end{array} \right ]
+}
+\stackrel{\textstyle {\rm degs~}\mathbf{A}_2}{
+\left [ \begin{array}{cc|cc}
+6 & 6 &  & \\
+6 & 6 &  & \\\hline
+& & 6 & 6 \\
+& & 6 & 6 
+\end{array} \right ]
+}
+=
+\stackrel{\textstyle {\rm degs~}\mathbf{B}}{
+\left [ \begin{array}{cccc}
+12 &  &  & \\
+  & 12 &  & \\
+& & 12 &  \\
+& &   & 12 
+\end{array} \right ] 
+}.
+\end{equation}
+The genericity condition required for the cost analysis
+in~\cite{jeannerod-villard:05} ensures that the the degrees of the
+intermediate kernel bases are always small and uniform.
 
-As an added contribution we show that the reduction also allows us
-to determine the largest invariant factor of a matrix of polynomials.
-This largest invariant factor is the smallest polynomial $s$ such
-that $s\cdot\mathbf{F}^{-1}$ has only polynomial entries. When viewed
-in terms of the determinant the largest invariant factor plays the
-same role as the minimal polynomial of a scalar matrix polynomial
-when compared to the characteristic polynomial.%
-\footnote{ This sentence leaves a bit to be desired. Improvements welcome. %
-} In fact, when ${\mathbf{A}}=xI-V$ for some $V\in\mathbb{K}^{n\times n}$
-then the largest invariant factor of ${\mathbf{A}}$ is the same as
-the minimal polynomial of $V$.
+By multiplying~(\ref{eq:diag}) on the left by $\mathbf{F}^{-1}$ and
+on the right by $\mathbf{B}^{-1}$ a structured decomposition is
+obtained for $\mathbf{F}^{-1}$.  In general, for a generic input
+matrix $\mathbf{F}$ of degree $d$, and dimension $n$ a power of 2,
+the decomposition has the form $\mathbf{F}^{-1}=\mathbf{A}_{1}
+\mathbf{A}_2 \cdots\mathbf{A}_{\log n}\cdot \mathbf{B}^{-1},$ with
+$\mathbf{B} = (\det \mathbf{F})\cdot \mathbf{I}_n$ and $\mathbf{A}_{i+1}$ block
+diagonal with blocks of dimension $n/2^{i}$ and degree $2^{i}d$,
+$0\leq i\leq \log n-1$.  Note that each of the output matrices
+$\mathbf{A}_1,\ldots,\mathbf{A}_{\log n},\mathbf{B}$ requires at
+most $n^2(d+1)$ field elements to represent, so the total size of
+the output is $O(n^2 d \log n)$ field elements.  For such a generic
+input, it is established in~\cite{jeannerod-villard:05} that this
+decomposition for $\mathbf{F}^{-1}$ can be computed in time
+$\sO{(n^{\omega}d)}{1}$, and that multiplying together the decomposition
+to obtain $\mathbf{F}^{-1}$ explicitly can be done in time
+$\sO{(n^3d)}{1}$.
 
-The remainder of this paper is as follows. The inversion algorithm
-is included in the next section followed in Section \ref{sec:complexity}
-by the theorems giving the new complexity results. Section \ref{sec:invariants}
-then gives our contribution with respect to the largest invariant
-factor. The paper ends with a conclusion and topics for future research.
+Our algorithm also uses a sequence of kernel basis computations to
+diagonalize the input matrix.  The main difference is that our
+extension makes use of {\em shifted} kernel bases along with an
+alternate method for measuring size during the reduction.  This
+allows us to handle efficiently non-generic inputs of arbitrary
+dimension.    The main difficulty to overcome is that the degrees
+of columns in the kernel basis in the $\mathbf{A}_i$ matrices need
+not be uniform. Indeed, even so-called minimal kernel basis, for
+which the sum of the column degrees is minimal, can have some columns
+of much larger degree than others. To illustrate the new algorithm
+we consider a $5 \times 5$ input matrix $\mathbf{F}$.\footnote{The
+example is given explicitly
+in Section~\ref{sec:inversion}} The degrees of entries of $\mathbf{F}$
+are 
+$$
+{\rm degs~}\mathbf{F} =\left [ \begin{array}{ccccc} 
+1& 3 & 4 & 1 & 2 \\
+0& 0 & 1 & 0 & 1 \\
+0& 2 & 2 & 4 & 1 \\
+\cdot & 2 & 4 & \cdot & \cdot \\
+0& 2 & 3 & 1 &  \cdot
+\end{array} \right ]
+$$
+with a $\cdot$ indicating a zero polynomial.
+For this input our algorithm computes the following decomposition.
+$$
+\setlength{\arraycolsep}{.6\arraycolsep}
+\renewcommand{\arraystretch}{.9}
+\mathbf{F}
+\stackrel{\textstyle {\rm degs~}\mathbf{A}_1}{ 
+\left [ \begin{array}{ccccc} 
+1& 4 & \cdot & 0 & 1 \\
+\cdot & 2 & \cdot & 2 & \cdot \\
+\cdot & 0 & \cdot & 1 & \cdot \\
+0& 1 & \cdot & 0 & \cdot \\
+\cdot & \cdot & 0 & \cdot & 0
+\end{array} \right ]
+}
+\stackrel{\textstyle {\rm degs~}\mathbf{A}_2}{ 
+\left [ \begin{array}{ccc|cc} 
+2& 3 & 2 &  &  \\
+1 & 4 & 1 &  &  \\
+4 & 5 & 3 &   &  \\\hline
+&  &  & 5 & \cdot \\
+ &  &  & 1 & 1 
+\end{array} \right ]
+}
+\stackrel{\textstyle {\rm degs~}\mathbf{A}_3}{ 
+\left [ \begin{array}{c|c} 
+\begin{array}{cc|c}
+4 & 0 &   \\
+3 & 2 &  \\\hline
+  &   & 0 \end{array} &  \\\hline
+ & \begin{array}{cc} 0 & \\ &  0 \end{array}
+\end{array} \right ]
+}
+=
+\stackrel{\textstyle {\rm degs~}\mathbf{B}}{ 
+\left [ \begin{array}{ccccc}
+9 & & & & \\
+ & 7 & & & \\
+ & & 3 & & \\
+ & & & 5 & \\
+ & & & & 1 
+\end{array} \right ]
+}
+$$
+In general, our algorithm returns a list of matrices
+$\mathbf{A}_{1},\mathbf{A}_2,\dots,\mathbf{A}_{\left\lceil \log n\right\rceil
+},\mathbf{B}$ satisfying
+\begin{equation}\label{important}
+\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_2\cdots\mathbf{A}_{\left\lceil \log
+n\right\rceil }\cdot \mathbf{B}^{-1}.
+\end{equation}   
+The $\mathbf{A}_i$ matrices
+will be block diagonal, with $\mathbf{A}_2$ 
+having blocks of dimension bounded by $\lceil n/2
+\rceil$, $\mathbf{A}_3$ having blocks of dimension bounded
+by $\lceil \lceil n / 2 \rceil / 2 \rceil$, etc.  Our use of shifted
+kernel basis allows us to give a more general running time analysis
+of our algorithm in terms of a bound $s\geq 1$ for the average column degree.
+For some inputs with skewed column degrees $s$ can be considerably smaller
+than $d$.  Our algorithm produces the output matrices
+$\mathbf{A}_1,\ldots,\mathbf{A}_{\lceil \log n \rceil},\mathbf{B}$
+in time $\sO{(n^{\omega}s)}{1}$, and we show that 
+the explicit product 
+$\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log
+n\right\rceil }$ can be computed in time $\sO{(n^{3}s)}{1}$.
+The shifted kernel basis computations and the skew degree matrix
+multiplications are accomplished using the new, fast algorithms
+from~\citet{ZLS2012}.  Moreover, even though the product
+$\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil \log
+n\right\rceil }$ can require $\Omega(n^{3}s)$ space, the output
+matrices $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log
+n\right\rceil },\mathbf{B}$ still require only $O(n^{2}s\log n)$
+space.
 
+As an application of our inversion algorithm we show that the
+largest invariant factor of the input matrix $\mathbf{F}$ can be
+recovered from the diagonalization $\mathbf{B}$ in~(\ref{important}).
+Recall that the largest invariant factor of $\mathbf{F}$ is
+the minimal degree monic polynomial $p$ such that $p\cdot\mathbf{F}^{-1}$
+has only polynomial entries.  We show that $p$ is equal to the least
+common multiple of the diagonal entries of $\mathbf{B}$ and thus
+our work establishes that $p$ can be computed deterministically in
+$\sO{(n^{\omega}s)}{1}$ field operations.  The previously fastest
+algorithm~\cite{Storjohann03a} for largest invariant factor is
+randomized and computes $p$ in expected time $\sO{(n^{\omega}d)}{1}$.
+
+
+The remainder of this paper is as follows. Section 2 includes some
+background on the tools required for our algorithm. The inversion
+algorithm is included in the next section followed in Section
+\ref{sec:complexity} by the theorems giving the new complexity
+results for multiplying together the $\mathbf{A}_i$ matrices.
+The paper ends with a conclusion and topics for future
+research.
 
 \section{Preliminaries}
+In this section we  give the basic cost model and definitions and
+properties of {\em shifted degree} and {\em kernel basis},
+which are essential for our algorithm.
+% and later for our application.
 
-In this paper computational cost is analyzed by bounding the number
-of arithmetic operations in the coefficient field $\mathbb{K}$ on
-an algebraic random access machine. We assume the cost of multiplying
-two polynomial matrices with dimension $n$ and degree $d$ is $O^{\sim}(n^{\omega}d)$
-field operations, where the multiplication exponent $\omega$ is assumed
-to satisfy $2<\omega\le3$. We refer to the book by \citet{vonzurgathen}
-for more details and references about the cost of polynomial multiplication
-and matrix multiplication.
+\subsection{Cost model}
+Algorithms are analyzed by bounding the number of arithmetic
+operations in the coefficient field $\mathbb{K}$ on an algebraic
+random access machine.  We will frequently use the fact that the
+cost of multiplying two polynomial matrices with dimension $n$ and
+degree bounded by $d\geq 1$ is $\sO{(n^{\omega}d)}{1}$ field
+operations from $\mathbb{K}$, where $\omega$ is the exponent of
+matrix multiplication.  We refer to the book by \citet{vonzurgathen}
+for more details and references about polynomial and matrix
+multiplication.
 
-In this section we first describe the notations used in this paper,
-and then give the basic definitions of {\em shifted degree} and
-{\em kernel basis}, which are essential for our algorithm.
-
-
-\subsection{Notations}
-
-For convenience we adopt the following notations in this paper. 
-\begin{description}
-\item [{Comparing~Unordered~Lists}] For two lists $\vec{a}\in\mathbb{Z}^{n}$
-and $\vec{b}\in\mathbb{Z}^{n}$, let $\bar{a}=\left[\bar{a}_{1},\dots,\bar{a}_{n}\right]\in\mathbb{Z}^{n}$
-and $\bar{b}=\left[\bar{b}_{1},\dots,\bar{b}_{n}\right]\in\mathbb{Z}^{n}$
-be the lists consists of the entries of $\vec{a}$ and $\vec{b}$
-but sorted in increasing order. 
-\[
-\begin{cases}
-\vec{a}\ge\vec{b} & \mbox{if }\bar{a}_{i}\ge\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-\vec{a}\le\vec{b} & \mbox{if }\bar{a}_{i}\le\bar{b}_{i}\mbox{ for all }i\in\left[1,\dots n\right]\\
-\vec{a}>\vec{b} & \mbox{if }\vec{a}\ge\vec{b}\mbox{ and }\bar{a}_{j}>\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right]\\
-\vec{a}<\vec{b} & \mbox{if }\vec{a}\le\vec{b}\mbox{ and }\bar{a}_{j}<\bar{b}_{j}\mbox{ for at least one }j\in\left[1,\dots n\right].
-\end{cases}
-\]
-
-\item [{Summation~Notation}] For a list $\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$,
-we write $\sum\vec{a}$ without index to denote the summation of all
-entries in $\vec{a}$. %\item [{}]~
-
-\item [{Compare~a~List~with~a~Integer}] For %a list 
-$\vec{a}=\left[a_{1},\dots,a_{n}\right]\in\mathbb{Z}^{n}$ and $c\in\mathbb{Z}$,
-we write $\vec{a}<c$ to denote $\vec{a}<\left[c,\dots,c\right]$,
-and similarly for $>,\le,\ge,=$. 
-\end{description}
-
-\subsection{Shifted Degrees}
-
+\subsection{Shifted degrees}
 Our methods depend extensively on the concept of {\em shifted}
-degrees of polynomial matrices \citet{BLV:1999}. For a column vector
+degrees of polynomial matrices \cite{BLV:1999}. For a column vector
 $\mathbf{p}=\left[p_{1},\dots,p_{n}\right]^{T}$ of univariate polynomials
 over a field $\mathbb{K}$, its column degree, denoted by $\cdeg\mathbf{p}$,
 is the maximum of the degrees of the entries of $\mathbf{p}$, that
 is, 
 \[
-\cdeg~\mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
+\cdeg \mathbf{p}=\max_{1\le i\le n}\deg p_{i}.
 \]
 The \emph{shifted column degree} generalizes this standard column
 degree by taking the maximum after shifting the degrees by a given
@@ -266,468 +455,934 @@ the shifted column degree of $\mathbf{p}$ with respect to a shift
 $\vec{s}=\left[s_{1},\dots,s_{n}\right]\in\mathbb{Z}^{n}$, or the
 \emph{$\vec{s}$-column degree} of $\mathbf{p}$ is 
 \[
-\cdeg_{\vec{s}}~\mathbf{p}=\max_{1\le i\le n}[\deg p_{i}+s_{i}]=\deg(x^{\vec{s}}\cdot\mathbf{p}),
+\cdeg_{\vec{s}} \mathbf{p}=\max_{1\le i\le n}[\deg p_{i}+s_{i}]=\cdeg (x^{\vec{s}}\cdot\mathbf{p}),
 \]
 where 
 \[
-x^{\vec{s}}=\diag\left(x^{s_{1}},x^{s_{2}},\dots,x^{s_{n}}\right)~.
+x^{\vec{s}}=\diag\left(x^{s_{1}},x^{s_{2}},\dots,x^{s_{n}}\right).
 \]
-For a matrix $\mathbf{P}$, we use $\cdeg\mathbf{P}$ and $\cdeg_{\vec{s}}\mathbf{P}$
-to denote respectively the list of its column degrees and the list
-of its shifted $\vec{s}$-column degrees. When $\vec{s}=\left[0,\dots,0\right]$,
-the shifted column degree specializes to the standard column degree.
-The shifted row degree of a row vector \textbf{$\mathbf{q}=\left[q_{1},\dots,q_{n}\right]$}
-is defined similarly as 
-\[
-\rdeg_{\vec{s}}\mathbf{q}=\max_{1\le i\le n}[\deg q_{i}+s_{i}]=\deg(\mathbf{q}\cdot x^{\vec{s}}).
-\]
+For a matrix $\mathbf{P}$, we use $\cdeg\mathbf{P}$ and
+$\cdeg_{\vec{s}}\mathbf{P}$ to denote respectively the list of its
+column degrees and the list of its shifted $\vec{s}$-column degrees.
+When $\vec{s}=\left[0,\dots,0\right]$, the shifted column degree
+specializes to the standard column degree.  
 
+Shifted degrees have been used previously in polynomial matrix
+computations and in generalizations of some matrix normal forms
+\cite{BLV:jsc06}.  The shifted column degree is equivalent to the
+notion of \emph{defect} commonly used in the literature.
 
-Shifted degrees have been used previously in polynomial matrix computations
-and in generalizations of some matrix normal forms \citet{BLV:jsc06}.
-The shifted column degree is equivalent to the notion of \emph{defect}
-commonly used in the literature.
+Along with shifted degrees we also make use of the notion of a
+polynomial matrix being column reduced. A polynomial matrix $\mathbf{A}
+\in\mathbb{K}\left[x\right]^{m\times n}$ is column reduced if the
+leading column coefficient matrix, that is the matrix
+$$
+\lcoeff \mathbf{A} = [ \coeff ( a_{ij}, x, d_j ) ]_{1 \leq i \leq m, 1 \leq j \leq n}, \mbox{ with } [d_1,\dots,d_n] = \cdeg \mathbf{A}, 
+%\lcoeff_{\vec d} \mathbf{A} = [ \coeff ( a_{ij}, x, d_j ) ]_{1 \leq i \leq m, 1 \leq j \leq n}, \mbox{ with } \vec d = \cdeg \mathbf{A}, 
+$$
+has full rank. A polynomial matrix $\mathbf{A}$ is $\vec{s}$-column
+reduced if $x^{\vec s} \cdot \mathbf{A} $ is column reduced. 
 
 The usefulness of the shifted degrees can be seen from their applications
-in polynomial matrix computation problems \citep{ZL2012,ZLS2012}.
-One of its uses is illustrated by the following lemma from \citet[Chapter 2]{zhou:phd2012},
-which can be viewed as a stronger version of the predictable-degree
-property \citet{kailath:1980}. 
+in polynomial matrix computation problems \citep{zhou:phd2012,ZL2012,ZLS2012}.
+One of its uses is illustrated by the following 
+lemma, which follows directly from the definition of shifted degree.
+%~\cite[Lemma~3.1]{ZLS2012}.% and \citep[Corollary 2.5]{zhou:phd2012}. 
 \begin{lem}
-\label{lem:predictableDegree}Let $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
-be a $\vec{u}$-column reduced matrix with no zero columns and with
-$\cdeg_{\vec{u}}\mathbf{A}=\vec{v}$. Then a matrix $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
-has $\vec{v}$-column degrees $\cdeg_{\vec{v}}\mathbf{B}=\vec{w}$
-if and only if $\cdeg_{\vec{u}}\left(\mathbf{A}\mathbf{B}\right)=\vec{w}$. 
+\label{lem:predictableDegree} Let $\vec{s}$ be a shift whose entries
+bound the corresponding column degrees of $\mathbf{A} \in
+\mathbb{K}^{\ast \times m}$. Then for any polynomial matrix
+$\mathbf{B}\in\mathbb{K}\left[x\right]^{m\times \ast}$, the column
+degrees of $\mathbf{A}\cdot \mathbf{B}$ are bounded by the corresponding
+$\vec{s}$-column degrees of $\mathbf{B}$.
 \end{lem}
-Another essential fact needed in our algorithm, also based on the
-use of the shifted degrees, is the efficient multiplication of matrices
-with unbalanced degrees \citep[Theorem 3.7]{zhou:phd2012}. 
+
+A closely related result involving the shifted degrees is the
+following lemma~\citep[Lemma 2.19]{zhou:phd2012}, which can
+be viewed as a stronger version of the \emph{predictable degree
+property}~\cite[Theorem~6.3-13]{Kailath:1980}.
+\begin{lem}
+\label{lem:predictableDegree2}Let
+$\mathbf{A}\in\mathbb{K}[x]^{\ast \times m}$ be a $\vec{s}$-column
+reduced matrix with no zero columns and with
+$\cdeg_{\vec{s}}\mathbf{A}=\vec{t}$. Then any matrix
+$\mathbf{B}\in\mathbb{K}[x]^{m\times \ast}$ satisfies
+$\cdeg_{\vec{t}}\mathbf{B}=\cdeg_{\vec{s}}\left(\mathbf{A}
+\cdot \mathbf{B}\right)$.
+\end{lem}
+An essential subroutine needed in our algorithm, also based on the
+use of the shifted degrees, is the efficient multiplication of a
+pair of matrices $\mathbf{A} \cdot \mathbf{B}$ with unbalanced
+degrees.  The following result follows as a special case of~\citep[Theorem
+3.7]{zhou:phd2012}.  The notation $\sum\vec{s}$, for any list
+$\vec{s}$, denotes the sum of all entries in $\vec{s}$.
+
+%\begin{thm}
+%\label{thm:multiplyUnbalancedMatrices} Let $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
+%with $m\le n$, $\vec{s}\in\mathbb{Z}^{n}$ a shift with entries bounding
+%the column degrees of $\mathbf{A}$, and $\xi$ a bound on the sum
+%of the entries of $\vec{s}$.
+%Let $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
+%with $k\in O\left(m\right)$ and the sum $\theta$ of its $\vec{s}$-column
+%degrees satisfying $\theta\in O\left(\xi\right)$. Then the product
+%$\mathbf{A}\cdot \mathbf{B}$ can be computed in $\sO{(n^{2}m^{\omega-2}s)}{1}$
+%or more simply $\sO{(n^{\omega}s)}{1}$ field operations from $\mathbb{K}$,
+%where $s=\xi/n$ is the average of the entries of $\vec{s}$. 
+%\end{thm}
+
 \begin{thm}
-\label{thm:multiplyUnbalancedMatrices} Let $\mathbf{A}\in\mathbb{K}\left[x\right]^{m\times n}$
-with $m\le n$, $\vec{s}\in\mathbb{Z}^{n}$ a shift with entries bounding
-the column degrees of $\mathbf{A}$ and $\xi$, a bound on the sum
-of the entries of $\vec{s}$. Let $\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times k}$
-with $k\in O\left(m\right)$ and the sum $\theta$ of its $\vec{s}$-column
-degrees satisfying $\theta\in O\left(\xi\right)$. Then we can multiply
-$\mathbf{A}$ and $\mathbf{B}$ with a cost of $O^{\sim}(n^{2}m^{\omega-2}s)\subset O^{\sim}(n^{\omega}s)$,
-where $s=\xi/n$ is the average of the entries of $\vec{s}$. 
+\label{thm:multiplyUnbalancedMatrices} Let
+$\mathbf{A}\in\mathbb{K}[x]^{n \times m}$ and
+$\mathbf{B}\in\mathbb{K}[x]^{m\times m}$ be given. 
+Assume, without loss of generality, that $\mathbf{B}$ has no zero columns.
+Suppose
+$\vec{s} \in \mathbb{Z}_{\geq 0}^n$ is a shift that bounds the
+corresponding column degrees of $\mathbf{A}$.
+If
+$\myxi$ is an upper bound for both $\sum \vec{s}$ and $\sum \cdeg_{\vec{s}} 
+\mathbf{B}$, 
+then the
+product $\mathbf{A}\cdot \mathbf{B}$ can be computed in $\sO{
+(nm^{\omega-1}(1 + \myxi/m))}{1}$ field operations from $\mathbb{K}$.
 \end{thm}
+Note that $\myxi/n$ in the cost estimate in
+Theorem~\ref{thm:multiplyUnbalancedMatrices} is an upper bound on
+the average column degree of $\mathbf{A}$ and the average
+$\vec{s}$-column degree of $\mathbf{B}$.   
+The cost estimate uses $1+ \myxi/n$ in order to correctly handle
+the case when $\vec{s}$ contains some zero entries. 
+In particular, we always have $1+ \myxi/n \geq 1$.
 
-\subsection{Kernel Bases}
-
-Let $\mathbb{K}$ be a field, $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-a matrix of polynomials. The kernel of $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\subsection{Kernel bases}
+Let $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+be a matrix of polynomials over a field $\mathbb{K}$. The kernel of $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 is the $\mathbb{F}\left[x\right]$-module 
 \[
-\left\{ \mathbf{p}\in\mathbb{K}\left[x\right]^{n}~|~\mathbf{F}\mathbf{p}=0\right\} 
+\left\{ \mathbf{p}\in\mathbb{K}\left[x\right]^{n}\mid \mathbf{F}\cdot \mathbf{p}=0\right\} 
 \]
-with a kernel basis of $\mathbf{F}$ being a basis of this module.
-Kernel bases are closely related to order bases, as can be seen from
-the following definitions. 
-\begin{defn}
-\label{def:kernelBasis}Given $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$,
-a polynomial matrix $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times*}$
-is a (right) kernel basis of $\mathbf{F}$ if the following properties
-hold: 
-\begin{enumerate}
-\item $\mathbf{N}$ is full-rank. 
-\item $\mathbf{N}$ satisfies $\mathbf{F}\cdot\mathbf{N}=0$. 
-\item Any $\mathbf{q}\in\mathbb{K}\left[x\right]^{n}$ satisfying $\mathbf{F}\mathbf{q}=0$
-can be expressed as a linear combination of the columns of $\mathbf{N}$,
-that is, there exists some polynomial vector $\mathbf{p}$ such that
-$\mathbf{q}=\mathbf{N}\mathbf{p}$. 
-\end{enumerate}
-\end{defn}
-Any pair of kernel bases $\mathbf{N}$ and $\mathbf{M}$ of $\mathbf{F}$
-are column bases of each other and are unimodularly equivalent.
+with a kernel basis of $\mathbf{F}$ being a basis of this module. 
 
-A $\vec{s}$-minimal kernel basis of $\mathbf{F}$ is just a kernel
-basis that is $\vec{s}$-column reduced. 
 \begin{defn}
 Given $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$, a polynomial
 matrix $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times*}$ is a $\vec{s}$-minimal
 (right) kernel basis of $\mathbf{F}$ if\textbf{ $\mathbf{N}$} is
 a kernel basis of $\mathbf{F}$ and $\mathbf{N}$ is $\vec{s}$-column
-reduced. We also call a $\vec{s}$-minimal (right) kernel basis of
-$\mathbf{F}$ a $\left(\mathbf{F},\vec{s}\right)$-kernel basis.
+reduced. We also call a $\vec{s}$-minimal
+(right) kernel basis of $\mathbf{F}$ a $(\mathbf{F},\vec{s})$-kernel basis.
+\end{defn}
 
-We will need to use the following bound on the sizes of kernel bases
-from \citep{ZLS2012}.\end{defn}
-\begin{thm}
-\label{thm:boundOfSumOfShiftedDegreesOfKernelBasis}Suppose $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
+\begin{exm}\label{example1}
+Let
+$$
+\mathbf{F} = 
+ \left[ \begin {array}{ccccc} 
+ x&-{x}^{3}&-2{x}^{4}&2x&-{x}^{2}
+\\ 1&-1&-2x&2&-x\\ -3&3{x}^{2}
++x&2{x}^{2}&-{x}^{4}+1&3x
+\end {array} \right] 
+$$
+a $3 \times 5$ matrix over $\mathbb{Z}_7[x]$ and let $\vec s =
+(1,3,4,4,2)$, the column degrees of $\mathbf{F}$. Then
+$$
+\mathbf{N} =  \left[ \begin {array}{cc} -1&x\\ -{x}^{2}&0
+\\ -3\,x&0\\ -3&0
+\\ 0&1\end {array} \right]~~ \mbox{ with }~~ \lcoeff_{\vec s} \mathbf{N} =
+\left[ \begin{array}{cc} 
+0 & 1 \\ -1 & 0 \\ -3 & 0 \\ 0 & 0 \\ 0 & 1 
+\end{array} \right]
+$$
+is a $\vec s$-minimal kernel basis of $\mathbf{F}$ satisfying $\mathbf{F}
+\cdot \mathbf{N} = \mathbf{0}$ and its $\vec s$-shifted leading
+coefficient has full rank. 
+\qed
+\end{exm}
+We will make use of the following bound on the sizes of shifted kernel
+bases~\cite[Theorem~3.4]{ZLS2012}.  
+\begin{lem}
+\label{lem:boundOfSumOfShiftedDegreesOfKernelBasis}Suppose $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 and $\vec{s}\in\mathbb{Z}_{\ge0}^{n}$ is a shift with entries bounding
 the corresponding column degrees of $\mathbf{F}$. Then the sum of
 the $\vec{s}$-column degrees of any $\vec{s}$-minimal kernel basis
-of $\mathbf{F}$ is bounded by $\sum\vec{s}$. 
-\end{thm}
-We will also need the following result from \citep{ZLS2012} to compute
-kernel bases by rows. 
-\begin{thm}
-\label{thm:continueComputingKernelBasisByRows}Let $\mathbf{G}=\left[\mathbf{G}_{1}^{T},\mathbf{G}_{2}^{T}\right]^{T}\in\mathbb{K}\left[x\right]^{m\times n}$
+of $\mathbf{F}$ is bounded by $\sum\vec{s}$.
+\end{lem}
+We will also need the following result~\cite[Lemma~3.3]{ZLS2012}
+to compute kernel bases by rows.
+\begin{lem}
+\label{lem:continueComputingKernelBasisByRows}Let $\mathbf{G}=\left[\mathbf{G}_{1}^{T},\mathbf{G}_{2}^{T}\right]^{T}\in\mathbb{K}\left[x\right]^{m\times n}$
 and $\vec{t}\in\mathbb{Z}^{n}$ a shift vector. If $\mathbf{N}_{1}$
 is a $\left(\mathbf{G}_{1},\vec{t}\right)$-kernel basis with $\vec{t}$-column
 degrees $\vec{u}$, and $\mathbf{N}_{2}$ is a $\left(\mathbf{G}_{2}\mathbf{N}_{1},\vec{u}\right)$-kernel
 basis with $\vec{u}$-column degrees $\vec{v}$, then $\mathbf{N}_{1}\mathbf{N}_{2}$
-is a $\left(\mathbf{G},\vec{t}\right)$-kernel basis $\vec{t}$-column
-degrees $\vec{v}$. 
+is a $\left(\mathbf{G},\vec{t}\right)$-kernel basis with $\vec{t}$-column
+degrees $\vec{v}$.
+\end{lem}
+The second essential subroutine we need is the minimal kernel basis
+algorithm with shift recently reported by the
+authors~\cite[Theorem~4.2]{ZLS2012}.
+\begin{thm} \label{thm:kerncomp}
+Let $\mathbf{F} \in \mathbb{K}^{m \times n}$ and $\vec{s}$ be
+a shift bounding the corresponding column degrees of $\mathbf{F}$.
+Then a $\vec{s}$-minimal kernel basis of $\mathbf{F}$ can be computed
+in $\sO{(n^{\omega}(1+\myxi/n))}{1}$ field operations from $\mathbb{K}$,
+where $\myxi = \sum \vec{s}$.
 \end{thm}
-Also recall the cost of kernel basis computation from \citep{ZLS2012}. 
-\begin{thm}
-\label{thm:costGeneral} Given an input matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$.
-Let $\vec{s}=\cdeg\mathbf{F}$ and $s=\sum\vec{s}/n$ be the average
-column degree of $\mathbf{F}$. Then a $\left(\mathbf{F},\vec{s}\right)$-kernel
-basis can be computed with a cost of $O^{\sim}\left(n^{\omega}s\right)$
-field operations.
-\end{thm}
 
-\section{The Algorithm}
+%\input{example.tex}
 
+\begin{comment}
+\subsection{Column bases}
+A column basis of $\mathbf{F}$ is a basis for the $\mathbb{K}\left[x\right]$-module
+\[
+\left\{ \mathbf{F}\cdot \mathbf{p}\mid \mathbf{p}\in\mathbb{K}\left[x\right]^{n}\right\}.
+\]
+Such a basis can be represented as a full rank matrix $\mathbf{C}\in\mathbb{K}\left[x\right]^{m\times r}$
+whose columns are the basis elements. We will later make use of the
+following lemma~\citep{zhou:phd2012,ZL2013} which allows us to
+factor any matrix as the product of a column basis and a kernel
+basis.
+\begin{lem}\label{lem:unimodular_kernel_columnBasis}
+Let $\mathbf{G}\in\mathbb{K}\left[x\right]^{m\times n}$ with column basis $\mathbf{C} \in \mathbb{K}\left[x\right]^{m\times r}$ having full rank~$r$. 
+Then there exists a unimodular matrix $\mathbf{U}\in\mathbb{K}\left[x\right]^{n\times n}$ such that $\mathbf{G} \cdot \mathbf{U}=\left[0,\mathbf{C}\right]$. Partition $\mathbf{U}=\left[\mathbf{U}_{L},\mathbf{U}_{R}\right]$ such that $\mathbf{U}_{L} \in\mathbb{K}\left[x\right]^{n\times (n-r)}$.
+Then 
+\begin{enumerate}
+\item[(a)] $\mathbf{U}_{L}$ is a kernel basis of $\mathbf{G}$ and $\mathbf{C}$
+is a column basis of~$\mathbf{G}$. 
+\item[(b)] If $\mathbf{N}$ is any other kernel basis of $\mathbf{G}$, then
+$\mathbf{U}^{*}=\left[\mathbf{N},~\mathbf{U}_{R}\right]$ is 
+unimodular and  also unimodularly transforms $\mathbf{G}$ to $\left[0,\mathbf{C}\right]$. 
+\item[(c)] $\mathbf{G} = \mathbf{C} \cdot \mathbf{V}_d$ where $\mathbf{U}^{-1} = \left[ \begin{array}{c} \mathbf{V}_u \\ {\mathbf{V}_d} \end{array} \right]$.
+\end{enumerate}
+\end{lem}
+\end{comment}
 
-\subsection{The Reduction}
-
-The inverse algorithm from \citet{jeannerod-villard:05} computes
-a matrix $\mathbf{A}$ that transforms $\mathbf{F}$ to a diagonal
-matrix $\mathbf{B}=\mathbf{F}\mathbf{A}$. The inverse of $\mathbf{F}$
-is then given by $\mathbf{A}\mathbf{B}^{-1}$.
-
-To compute such a matrix $\mathbf{A}$, first consider a matrix $\mathbf{A}_{1}$
-that transforms $\mathbf{F}$ to a matrix $\mathbf{R}=\mathbf{F}\mathbf{A}_{1}$
-with just two diagonal blocks. More specifically, If we separate $\mathbf{F}$
-to 
+\section{The inversion algorithm}\label{sec:inversion}
+In order to reduce a  matrix $\mathbf{F}$ into diagonal form let us first consider a matrix $\mathbf{A}_{1}$ such that $\mathbf{F} \cdot \mathbf{A}_{1} = \mathbf{R}$ has just two diagonal blocks. More specifically, if we separate $\mathbf{F}$ into 
 \[
 \mathbf{F}=\left[\begin{array}{c}
 \mathbf{F}_{u}\\
 \hline \mathbf{F}_{d}
 \end{array}\right],
 \]
- with $\mathbf{F}_{u}$ and $\mathbf{F}_{d}$ consist of the upper
-$\lceil n/2\rceil$ and lower $\left\lfloor n/2\right\rfloor $ rows
-of $\mathbf{F}$, then a matrix $\mathbf{A}_{1}=\left[\mathbf{N}_{d},\mathbf{N}_{u}\right]$
-consists of kernel bases $\mathbf{N}_{u}$ and $\mathbf{N}_{d}$ of
-$\mathbf{F}_{u}$ and $\mathbf{F}_{d}$ gives
+with $\mathbf{F}_{u}$ and $\mathbf{F}_{d}$ consisting of the upper $\lceil n/2\rceil$ and lower $\left\lfloor n/2\right\rfloor $ rows of $\mathbf{F}$, respectively,  then a matrix $\mathbf{A}_{1}=\left[\mathbf{N}_{\ell},\mathbf{N}_{r}\right]$
+consisting of kernel bases $\mathbf{N}_{\ell}$ and $\mathbf{N}_{r}$ of
+$\mathbf{F}_{d}$ and $\mathbf{F}_{u}$, respectively, gives
 \begin{equation}
 \mathbf{F}\cdot\mathbf{A}_{1}=\left[\begin{array}{c}
 \mathbf{F}_{u}\\
 \hline \mathbf{F}_{d}
-\end{array}\right]\cdot\left[\mathbf{N}_{d},\mathbf{N}_{u}\right]=\left[\begin{array}{cc}
-\mathbf{F}_{u}\mathbf{N}_{d} & \mathbf{F}_{u}\mathbf{N}_{u}\\
-\mathbf{F}_{d}\mathbf{N}_{d} & \mathbf{F}_{d}\mathbf{N}_{u}
+\end{array}\right]\cdot\left[\mathbf{N}_{\ell},\mathbf{N}_{r}\right]=\left[\begin{array}{cc}
+\mathbf{F}_{u}\mathbf{N}_{\ell} & \mathbf{F}_{u}\mathbf{N}_{r}\\
+\mathbf{F}_{d}\mathbf{N}_{\ell} & \mathbf{F}_{d}\mathbf{N}_{r}
 \end{array}\right]=\left[\begin{array}{cc}
 \mathbf{R}_{u} & 0\\
 0 & \mathbf{R}_{d}
-\end{array}\right]~.\label{recurs}
+\end{array}\right].\label{recurs}
 \end{equation}
- If $\mathbf{F}$ is nonsingular, then the column dimensions of $\mathbf{N}_{d}$
-and $\mathbf{N}_{u}$ match the row dimensions of $\mathbf{F}_{u}$
-and $\mathbf{F}_{d}$, making the diagonal blocks $\mathbf{R}_{u}$
+If $\mathbf{F}$ is nonsingular, then the column dimensions of $\mathbf{N}_{\ell}$
+and $\mathbf{N}_{r}$ match the row dimensions of $\mathbf{F}_{u}$
+and $\mathbf{F}_{d}$, respectively, making the diagonal blocks $\mathbf{R}_{u}$
 and $\mathbf{R}_{d}$ square. 
 
+\begin{exm}\label{example2}
+Let 
+$$
+\mathbf{F} = 
+ \left[ \begin {array}{ccccc} x&-{x}^{3}&-2{x}^{4}&2x&-{x}^{2}
+\\ 1&-1&-2x&2&-x\\ -3&3{x}^{2}
++x&2{x}^{2}&-{x}^{4}+1&3x\\ 0&{x}^{2}&{x}^{4}+2
+{x}^{3}-2{x}^{2}&0&0\\ 1&-{x}^{2}+2&-2{x}^{3}-
+3x&2x+2&0\end {array} \right],
+$$
+a $5 \times 5$ matrix over $\mathbb{Z}_7[x]$ 
+with column degrees $\vec s = (1,3,4,4,2)$. Then the $\vec s$-minimal kernel basis of the upper $3$ rows and lower $2$ rows of $\mathbf{F}$ are given by 
+$$
+\mathbf{N}_{1,\ell}^{(1)} = 
+\left[ \begin {array}{ccc} -2x-2&-{x}^{4}+{x}^{2}-1&0
+\\ 0&-{x}^{2}-2x+2&0\\ 0&1&0
+\\ 1&-2x+2&0\\ 0&0&1\end {array}
+ \right] ~~
+\mbox{ and } ~~
+\mathbf{N}_{1,r}^{(1)} =  \left[ \begin {array}{cc} -1&x\\ -{x}^{2}&0
+\\ -3x&0\\ -3&0
+\\ 0&1\end {array} \right],
+$$
+respectively, with $\mathbf{N}_r$ determined in Example~\ref{example1}.
+Multiplying $\mathbf{F}$ on the right by 
+$\mathbf{A}_1 = [ \mathbf{N}_{1,\ell}^{(1)} ,
+ \mathbf{N}_{1,r}^{(1)} ]$ then gives 
+\begin{eqnarray*}
+\mathbf{F} \cdot \mathbf{A}_1 & =  &
+  \left[ \begin{array}{c|c} \mathbf{R}_u &  \\\hline
+  & \mathbf{R}_d \end{array} \right ] \\
+ & = & \left[ \begin {array}{ccc|cc} -2{x}^{2}&-{x}^{3}+3{x}^{2}+3x&-{x
+}^{2}&&\\ -2x&-{x}^{4}+2{x}^{2}+3x+1&-x&&
+\\ -{x}^{4}-x&2{x}^{5}-2{x}^{4}+3{x}^{2}-2&3
+x&&\\ \hline &&&-3{x}^{5}-{x}^{3}&0
+\\ &&&x&x\end {array} \right]  \qed
+\end{eqnarray*}
+\end{exm}
 The same process can then be repeated recursively on $\mathbf{R}_{u}$
 and $\mathbf{R}_{d}$, until we reach the base case where the dimension
-becomes $1$. This gives a recursive algorithm shown in \prettyref{alg:matrixInverse},
-which returns a sequence of matrices $\mathbf{A}_{1},\dots,\mathbf{A}_{\lceil\log n\rceil}$
-that transforms the input matrix $\mathbf{F}$ to a diagonal matrix
-$\mathbf{B}$. 
+becomes $1$. This gives a recursive algorithm, shown in
+\prettyref{alg:matrixInverse}, which returns a sequence of matrices
+$\mathbf{A}_{1},\dots,\mathbf{A}_{\lceil\log n\rceil}$ that transforms
+the input matrix $\mathbf{F}$ to a diagonal matrix $\mathbf{B}$.
 
-\input{algorithmInversion.tex}
-
-
-\section{Complexity\label{sec:complexity}}
-
-
-\subsection{\label{sub:sizes}Sizes of the intermediate results}
-
-For \prettyref{alg:matrixInverse} to work efficiently, let us first
-make sure that the sizes of matrices used in the algorithm are not
-too big.
-
-If the input matrix $\mathbf{F}$ has column degrees bounded by $\vec{s}$,
-then we know from \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis}
-that the sum of the $\vec{s}$-column degrees of the kernel bases
-$\mathbf{N}_{1}$ is also bounded by $\sum\vec{s}$, that is, we have
-$\sum\cdeg_{\vec{s}}\mathbf{N}_{1}\le\sum\vec{s}$. Similarly, we
-also have $\sum\cdeg_{\vec{s}}\mathbf{N}_{2}\le\sum\vec{s}$.
-
-For the sizes of the residual matrices $\mathbf{R}_{1}$ and $\mathbf{R}_{2}$,
-we can apply \prettyref{lem:predictableDegree} to determine their
-column degrees using the $\vec{s}$-column degrees of $\mathbf{N}_{1}$
-and $\mathbf{N}_{2}$. That is, we have $\cdeg\mathbf{R}_{1}=\cdeg_{\vec{s}}\mathbf{N}_{1}$,
-and $\cdeg\mathbf{R}_{2}=\cdeg_{\vec{s}}\mathbf{N}_{2}$. As a result,
-we also have $\cdeg\mathbf{R}_{1}\le\sum\vec{s}$ and $\cdeg\mathbf{R}_{2}\le\sum\vec{s}$.
-The residual matrices $\mathbf{R}_{1}$ and $\mathbf{R}_{2}$ are
-then used as the input matrices of the new subproblems. 
-
-Applying this analysis recursively, we see that for any subproblem,
-if $\vec{t}$ is the list of column degrees of the input matrix, then
-$\sum\vec{t}\le\sum\vec{s}$. The sum of the $\vec{t}$-column degrees
-of each kernel basis computed is also bounded by $\sum\vec{t}\le\sum\vec{s}$.
-The number of subproblems however doubles while the dimension halves
-each time after each level of recursion.
-
-
-\subsection{Computational cost of the algorithm}
-
-The dominate costs of \prettyref{alg:matrixInverse} come from the
-kernel basis computation and the matrix multiplications. These are
-handled by the following lemmas.
-\begin{lem}
-The kernel basis computation at \prettyref{line:nullspaceBasisComputation}
-costs $O^{\sim}(n^{\omega}s)$.\end{lem}
-\begin{proof}
-This follows from the kernel basis computation algorithm for polynomial
-matrix with a shift recently reported by the authors \citet{ZLS2012}.
-Here the shift is set to the column degrees of the input matrix.\end{proof}
-\begin{lem}
-The multiplications $\mathbf{R}_{1}:=\mathbf{F}_{1}\mathbf{N}_{2}$
-and $\mathbf{R}_{2}:=\mathbf{F}_{2}\mathbf{N}_{1}$at \prettyref{line:multiplyFN}
-cost $O^{\sim}(n^{\omega}s)$.\end{lem}
-\begin{proof}
-\prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis} implies that
-the sum of the $\vec{s}$-column degrees of $\mathbf{N}_{1}$ and
-that of $\mathbf{N}_{2}$ are both bounded by $\xi$. The result then
-follows directly from \prettyref{thm:multiplyUnbalancedMatrices}.
-\end{proof}
-We are now ready to look at the cost of \prettyref{alg:matrixInverse}.
-\begin{thm}
-\label{thm:inverseCost}\prettyref{alg:matrixInverse} costs $O^{\sim}\left(n^{\omega}s\right)$
-field operations to compute an inverse of a nonsingular matrix $\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$.\end{thm}
-\begin{proof}
-Let the cost of the algorithm be $g(n)$. Then we have the following
-recurrence relation:
+\begin{exm}\label{example3}
+Continuing with Example \ref{example2}, let $\mathbf{R}_u$ and
+$\mathbf{R}_d$ be the two diagonal blocks of dimension $3 \times 3$ and
+$2 \times 2$, respectively.  
+To apply Lemma~\ref{lem:continueComputingKernelBasisByRows} we base
+the subsequent shifted kernel computation on the shifted column
+degrees of the previously computed kernels.  The $\vec{s}$-column degrees
+of $\mathbf{N}_{1,\ell}^{(1)}$ and $\mathbf{N}_{1,r}^{(1)}$ are
+$(4,5,2)$ and $(5,2)$, respectively. 
+Repeating our previous
+computation for $\mathbf{R}_u$ we obtain $(4,5,2)$-minimal kernel
+bases
+$\mathbf{N}_{2,\ell}^{(1)}$ and $\mathbf{N}_{2,r}^{(1)}$ 
+for the top $2$ rows and bottom row,
+respectively, given by
+$$
+[\mathbf{N}_{2,\ell}^{(1)}, \mathbf{N}_{2,r}^{(1)} ] = \left[ \begin {array}{cc|c} 1&3{x}^{2}-3x&3\\ 0&
+-2x&0\\ -2{x}^{3}-2&3{x}^{2}-x+1&1\end {array}
+ \right]
+$$
+with
+$$
+ \mathbf{R}_u \cdot [\mathbf{N}_{2,\ell}^{(1)}, \mathbf{N}_{2,r}^{(1)} ]
+ = \left[ \begin {array}{cc|c} 2{x}^{5}&{x}^{3}&\\ 2
+{x}^{4}&2x^5 + {x}^{3}+{x}^{2}-3x&\\ \hline &&-3
+{x}^{4}\end {array} \right] .
+$$
+Similarly for the $2 \times 2$ matrix $\mathbf{R}_d$ we determine
+$(5,2)$-minimal kernel bases 
+$\mathbf{N}_{2,\ell}^{(2)}$ and $\mathbf{N}_{2,r}^{(2)}$ 
+for the top and bottom row, respectively, obtaining
+$$
+[\mathbf{N}_{2,\ell}^{(2)}, \mathbf{N}_{2,r}^{(2)} ] = 
+\left[ \begin {array}{c|c} 1&0\\ -1&1\end {array}
+ \right]
+$$
+with
+$$
+\mathbf{R}_d 
+\cdot [\mathbf{N}_{2,\ell}^{(2)}, \mathbf{N}_{2,r}^{(2)} ]
+ = \left[ \begin {array}{c|c} -3{x}^{5}-{x}^{3}&\\ \hline 
+&x\end {array} \right] . 
+$$
+Setting 
 \begin{eqnarray*}
-g(n) & \in & O^{\sim}(n^{\omega}s)+g(\left\lceil n/2\right\rceil )+g(\left\lfloor n/2\right\rfloor )\\
- & \in & O^{\sim}(n^{\omega}s)+2g(\left\lceil n/2\right\rceil )\\
- & \in & O^{\sim}(n^{\omega}s).
+\mathbf{A}_2 & = &  \left[ \begin{array}{c|c} 
+[\mathbf{N}_{2,\ell}^{(1)},\mathbf{N}_{2,r}^{(1)}] &  \\\hline
+ & [\mathbf{N}_{2,\ell}^{(2)},\mathbf{N}_{2,r}^{(2)}] \end{array} \right] \\ & & \\
+& = &  \left[ \begin {array}{ccc|cc} 1&3{x}^{2}-3x&3&&
+\\ 0&-2x&0&&\\ -2{x}^{3}-2&3
+{x}^{2}-x+1&1&&\\\hline &&&1&0\\ 
+&&&-1&1\end {array} \right]
 \end{eqnarray*}
- Note that always rounding up $n/2$ to $\left\lceil n/2\right\rceil $
-is no worse than assuming $n$ is a power of $2$. In other words,
-the entries in the sequence $\left[\left\lceil n/2\right\rceil ,\left\lceil n/4\right\rceil ,\dots,1\right]$
-is no larger than the corresponding entries in the sequence $\left[m/2,m/4,\dots,1\right]$,
-where $m=2^{\left\lceil \log_{2}n\right\rceil }$ is the smallest
-power of $2$ that is no less than $n$. 
-\end{proof}
-It is interesting to note that the algorithm costs just $O^{\sim}\left(n^{\omega}s\right)$
-field operations, lower than $\Theta\left(n^{3}s\right)$, the number
-of field elements generally required to represent the inverse matrix.
-This is because the algorithm output a series of matrices $\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right]$
-and $\mathbf{B}$ that require less space to store than their product.
-Computing the product of the matrices $\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right]$
-therefore cannot be lower than $O\left(n^{3}s\right)$. The following
-section shows that a cost of $O^{\sim}(n^{3}s)$ can be achieved.
+we get
+\begin{equation} \label{eq:2by2}
+\mathbf{F} \cdot \mathbf{A}_1 \cdot \mathbf{A}_2 = 
+\left[ \begin{array}{ccccc} 2{x}^{5}&{x}^{3}  & & & \\ 2
+{x}^{4}&2x^5 + {x}^{3}+{x}^{2}-3x 
+ &  & & \\ %\hline
+& & -3 x^4 & & \\ %\hline
+& & &  - 3 x^5 - x^3 & \\%\hline 
+ & & & & x\end{array} \right] .
+\end{equation}
+It remains to diagonalize the $2 \times 2$ leading submatrix
+$\mathbf{R}_u \cdot [ \mathbf{N}_{2,\ell}^{(1)},\mathbf{N}_{2,r}^{(1)}]$
+of~(\ref{eq:2by2}).    The $(4,5,2)$-column degrees of 
+$\mathbf{N}_{2,\ell}^{(1)}$ are $(5,4)$.
+The final step of the recursion gives the
+$(5,4)$-minimal kernel bases $\mathbf{N}_{3,\ell}^{(1)}$ and
+$\mathbf{N}_{3,r}^{(1)}$. 
+$$
+[ \mathbf{N}_{3,\ell}^{(1)}, \mathbf{N}_{3,r}^{(1)} ]  = 
+\left[ \begin {array}{c|c} -3 x^4+2{x}^{2}+2x+1&1
+\\ 3{x}^{3}&-2{x}^{2}\end {array} \right]
+$$
+with
+$$
+\mathbf{R}_u \cdot [ \mathbf{N}_{2,\ell}^{(1)},\mathbf{N}_{2,r}^{(1)}]
+\cdot
+ [ \mathbf{N}_{3,\ell}^{(1)}, \mathbf{N}_{3,r}^{(1)} ] 
+ = 
+\left[ \begin {array}{c|c} x^9 - 3 x^7 + 2\,{x}^{5}&
+\\\hline &3 x^7 -2{x}^{5}-{x}^{3}\end {array}
+ \right] .
+$$
+Note that $\mathbf{A}_3$ is a block diagonal matrix with
+$4$ diagonal blocks.
+Because the original matrix dimension $5$ is not a power of two,
+the algorithm simply takes
+ $[\mathbf{N}_{k,\ell}^{(3)},\mathbf{N}_{k,r}^{(3)}]=I_1$
+for $k=2,3,4$.  Thus, with
+\begin{eqnarray*}
+\mathbf{A}_3 & = & \left[ \begin{array}{cccc} 
+[\mathbf{N}_{1,\ell}^{(3)}, \mathbf{N}_{1,r}^{(3)}] 
+ &  &  &  \\ %\hline
+ & 
+[\mathbf{N}_{2,\ell}^{(3)}, \mathbf{N}_{2,r}^{(3)}] 
+&  &  \\ %\hline
+ &  & 
+[\mathbf{N}_{3,\ell}^{(3)}, \mathbf{N}_{3,r}^{(3)}] 
+ &  \\ %\hline
+ &  &  &  
+[\mathbf{N}_{4,\ell}^{(3)}, \mathbf{N}_{4,r}^{(3)}] 
+\end{array} \right ]\\ &&\\
+ & = & \left[ \begin {array}{ccccc} 1+2{x}^{2}+2x-3{x}^{4}&1&&&
+\\ 3{x}^{3}&-2{x}^{2}&&&\\ %\hline
+&&1&&\\%\hline 
+&&&1&\\ %\hline 
+&&&&1
+\end {array} \right]
+\end{eqnarray*}
+we obtain the final diagonal form as
+$$
+\mathbf{F} \cdot \mathbf{A}_1 \cdot \mathbf{A}_2 \cdot \mathbf{A}_3 = \mathbf{B} = \left[ \begin{array}{ccccc} 
+x^9 -3 x^7 + 2 x^5  &   & & & \\ %\hline
+ & 3 x^7 - 2 x^5 - x^3 &  & & \\ %\hline
+& & -3 x^4 & & \\ %\hline
+& & &  - 3 x^5 - x^3 & \\ %\hline  
+& & & & x \end{array} \right] .
+$$
+\qed
+\end{exm}
 
+\begin{algorithm}[t]
+\caption{$\inv(\mathbf{F},\vec{s})$}
+\label{alg:matrixInverse}
+\begin{algorithmic}[1]
+\REQUIRE{$\mathbf{F}\in\mathbb{K}\left[x\right]^{n\times n}$, $\vec{s} \in 
+\mathbb{Z}_{\geq 0}^n$ 
+such that entries of $\vec{s}$ bound the corresponding column
+degrees of $\mathbf{F}$}
+\ENSURE{$\mathcal{A}=\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right],\mathbf{B}$
+with $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times n}$
+such that $\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}=\mathbf{F}^{-1}$
+if $\mathbf{F}$ is nonsingular, or fail if $\mathbf{F}$ is singular.}
 
-\subsection{Cost of multiplying output matrices}
+\STATE{\textbf{if} $\mathbf{F}=0$
+\textbf{then} fail \textbf{endfi};\\
+\textbf{if} $n=1$ 
+\textbf{then return} $\{[\,], \mathbf{F}\}$
+\textbf{endif};}
 
-To compute the product $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil },$
-we simply multiply the matrices in sequential order. Therefore, at
-the $i$th step for $i$ from $1$ to $\left\lceil \log n\right\rceil -1$,
-we multiply the product $\mathbf{M}_{i}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{i}$
-with $\mathbf{A}_{i+1}$. To determine the cost of this multiplication,
-it is useful to first look at $\mathbf{A}_{i}$ and to determine its
-size.
+\STATE{$\mathbf{F} := \left[ \begin{array}{c} \mathbf{F}_{u} \\ \mathbf{F}_{d} \end{array} \right]$
+with $\mathbf{F}_{u}$ consisting of the upper $\left\lceil n/2\right\rceil $
+rows of $\mathbf{F}$;}
 
-The matrix $\mathbf{A}_{i}$ consists of $2^{i-1}$ diagonal blocks
-for $i\le\log n$, that is, $\mathbf{A}_{i}=\diag\left(\left[\mathbf{A}_{i}^{\left(1\right)},\mathbf{A}_{i}^{\left(2\right)},\dots,\mathbf{A}_{i}^{\left(2^{i-1}\right)}\right]\right)$,
-each diagonal block $\mathbf{A}_{i}^{\left(k\right)}$ consists of
-two kernel bases, $\mathbf{A}_{i,L}^{\left(k\right)}$ and $\mathbf{A}_{i,R}^{\left(k\right)}$,
-computed in one of the subproblems. The product $\mathbf{M}_{i}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{i}$
-can be separated to $\mathbf{M}_{i}=\left[\mathbf{M}_{i}^{(1)},\dots,\mathbf{M}_{i}^{\left(2^{i}\right)}\right]$
-with $2^{i}$ column blocks, where the column dimensions of $\mathbf{M}_{i}^{(2k)}$
-and $\mathbf{M}_{i}^{(2k+1)}$ corresponds to the column dimensions
-of $\mathbf{A}_{i,L}^{\left(k\right)}$ and $\mathbf{A}_{i,R}^{\left(k\right)}$
-for each $k$. It is interesting to note that each $\mathbf{M}_{i}^{\left(k\right)}$
-is in the kernel of a subset of the rows of the original input matrix
-$\mathbf{F}$, which can be seen from the fact that the product $\mathbf{F}\mathbf{M}_{i}$
-is a matrix with only diagonal blocks nonzero. In fact, $\mathbf{M}_{i}^{(k)}$
-is also a $\vec{s}$-minimal kernel basis of a matrix consists of
-a subset of the rows of the original input matrix $\mathbf{F}$. 
-\begin{lem}
-\label{lem:kernelBasesFromInverse}Let $\mathbf{F}_{i}^{(k)}$ be
-a matrix consists of the rows of $\mathbf{F}$ that have the same
-indices as the column indices of $\mathbf{M}_{i}^{\left(k\right)}$
-in $\mathbf{M}_{i}$, and $\bar{\mathbf{F}}_{i}^{(k)}$ consists of
-the remaining rows of $\mathbf{F}$. Then $\mathbf{M}_{i}^{\left(k\right)}$
-is a $\vec{s}$-minimal kernel basis of $\bar{\mathbf{F}}_{i}^{(k)}$.\end{lem}
+\STATE{$\mathbf{N}_{r}:=\mnb(\mathbf{F}_{u},\vec{s} )$;
+\\$\mathbf{N}_{\ell}:=\mnb(\mathbf{F}_{d},\vec{s} )$;  \\
+\textbf{if }$\columnDimension([\mathbf{N}_{l},\mathbf{N}_r])\neq  n$ 
+\textbf{then} fail \textbf{endif}; \label{line:nullspaceBasisComputation}
+}
+
+\STATE{$\mathbf{R}_{u}:=\mathbf{F}_{u}\mathbf{N}_{\ell}$;\\
+$\mathbf{R}_{d}:=\mathbf{F}_{d}\mathbf{N}_{r}$;
+\label{line:multiplyFN}}
+
+\STATE{$\left\{ \mathcal{A}^{(1)},\mathbf{B}_{1}\right\} :=\inv(\mathbf{R}_{u},\cdeg_{\vec{s}} \mathbf{N}_l)$; \\
+$\left\{ \mathcal{A}^{(2)},\mathbf{B}_{2}\right\} :=\inv(\mathbf{R}_{d},
+\cdeg_{\vec{s}} \mathbf{N}_r)$;
+\label{line:recurse} }
+
+\STATE{$\mathcal{A}:=\left[\left[\mathbf{N}_{\ell},\mathbf{N}_{r}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$;}\\
+\# Note: If $\mathcal{A}_{\lceil \log n \rceil -1}^{(2)}$ is not defined then 
+substitute the identity matrix.
+\STATE{\textbf{return} $\left\{ \mathcal{A},\diag\left([\mathbf{B}_{1},\mathbf{B}_{2}]\right)\right\} $;}
+\end{algorithmic}
+\end{algorithm}
+
+\prettyref{alg:matrixInverse} recurses on two problems of about
+half the dimension.  The following theorem establishes a bound on
+the cost of the algorithm.  The key idea of cost analysis is to
+show that that the sum of column degrees of each of the recursive
+problems is bounded by the sum of the column degrees of $\mathbf{F}$.
+In addition to the input matrix $\mathbf{F}$ the algorithm takes
+as input a shift $\vec{s}$ that bounds the corresponding degrees
+of columns of $\mathbf{F}$.  For the top level call to the algorithm
+we can choose $\vec{s} = \cdeg \mathbf{F}$, in which case the
+parameter $s$ in the following theorem is the average column
+degree of $\mathbf{F}$ plus one.
+
+\begin{thm}
+\label{thm:inverseCost}\prettyref{alg:matrixInverse} is correct.
+The cost of the algorithm is bounded by $\sO{(n^{\omega}s)}{1}$
+field operations from $\mathbb{K}$, where $s = 1 + (\sum \vec{s})/n$.
+\end{thm}
+
 \begin{proof}
-This can be seen by following the computation process, and apply \prettyref{thm:continueComputingKernelBasisByRows}.
-One can see that the only rows not used in computing $\mathbf{M}_{i}^{\left(k\right)}$
-are the rows from $\mathbf{F}_{i}^{(k)}$.
-\end{proof}
-Knowing that $\mathbf{M}_{i}^{\left(k\right)}$ is a $\vec{s}$-minimal
-kernel basis of $\bar{\mathbf{F}}_{i}^{(k)}$ allows us to easily
-obtain a bound on its size, which then allow us to obtain a bound
-on the sizes of $\mathbf{A}_{i}$.
-\begin{lem}
-\label{lem:newKernelBasisSize}If $\vec{t}=\cdeg_{\vec{s}}\mathbf{M}_{i}^{\left(k\right)}$,
-then $\sum\vec{t}\le\sum\vec{s}$. In addition, we have $\cdeg_{\vec{t}}\mathbf{A}_{i+1,L}^{\left(k\right)}\le\vec{t}$
-and $\cdeg_{\vec{t}}\mathbf{A}_{i+1,R}^{\left(k\right)}\le\vec{t}$. \end{lem}
-\begin{proof}
-The first statement follows directly from \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis},
-since $\mathbf{M}_{i}^{\left(k\right)}$ is a $\vec{s}$-minimal kernel
-basis of $\bar{\mathbf{F}}_{i}^{(k)}$ and $\cdeg\bar{\mathbf{F}}_{i}^{(k)}\le\cdeg\mathbf{F}=\vec{s}$.
+First note that the base case $n=1$ returns a correct output.  Next,
+the algorithm will report fail at
+\prettyref{line:nullspaceBasisComputation} if and only if $\mathbf{F}$
+is singular.  Finally, \prettyref{lem:predictableDegree} gives that
+the column degrees of $\mathbf{R}_{u}$ and $\mathbf{R}_d$ are bounded
+by the corresponding $\vec{s}$-column degrees of $\mathbf{N}_{\ell}$
+and $\mathbf{N}_{r}$, respectively.  Thus, the arguments in the
+recursive calls in \prettyref{line:recurse} satisfy the precondition
+of the algorithm.  Correctness now follows using strong induction
+on $n$.
 
-Now let us look at the second statement. From $\cdeg\mathbf{F}_{i}^{(k)}\le\vec{s}$
-and $\cdeg_{\vec{s}}\mathbf{M}_{i}^{\left(k\right)}=\vec{t}$, \prettyref{lem:predictableDegree}
-implies that the matrix $\mathbf{R}=\mathbf{F}_{i}^{(k)}\cdot\mathbf{M}_{i}^{\left(k\right)}$
-satisfies $\cdeg\mathbf{R}\le\vec{t}$. The matrix $\mathbf{R}$ is
-then used as the input matrix for computing two kernel bases in $\mathbf{A}_{i+1}^{\left(k\right)}=\left[\mathbf{A}_{i+1,L}^{\left(k\right)},\mathbf{A}_{i+1,R}^{\left(k\right)}\right]$.
-By \prettyref{thm:boundOfSumOfShiftedDegreesOfKernelBasis} these
-two kernel bases satisfy $\cdeg_{\vec{t}}\mathbf{A}_{i+1,L}^{\left(k\right)}\le\vec{t}$
-and $\cdeg_{\vec{t}}\mathbf{A}_{i+1,R}^{\left(k\right)}\le\vec{t}$. \end{proof}
-\begin{lem}
-The multiplications $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
-can be done with a cost of $O^{\sim}(n^{3}s)$ .\end{lem}
-\begin{proof}
-First, let us determine the cost of the multiplication $\mathbf{M}_{i}^{\left(k\right)}\mathbf{A}_{i+1,L}^{\left(k\right)}$.
-The matrix $\mathbf{M}_{i}^{\left(k\right)}$ has dimension $n\times O(n/2^{i})$.
-The matrix $\mathbf{A}_{i+1,L}^{\left(k\right)}$ has dimension $O(n/2^{i})\times O(n/2^{i})$.
-(Big $O$ notation is used here because $n/2^{i}$ may not be an integer.)
-Since $\sum\cdeg\mathbf{M}_{i}^{\left(k\right)}\le\sum\cdeg_{\vec{s}}\mathbf{M}_{i}^{\left(k\right)}=\sum\vec{t}\le\sum\vec{s}=ns$
-and $\sum\cdeg_{\vec{t}}\mathbf{A}_{i+1,L}^{\left(k\right)}\le\sum\vec{t}\le ns$,
-we can apply \prettyref{thm:multiplyUnbalancedMatrices} to obtain
-a cost of $O^{\sim}\left(2^{i}\left(n/2^{i}\right)^{\omega}\left(ns\right)/\left(n/2^{i}\right)\right)=O^{\sim}\left(2^{i\left(2-\omega\right)}n^{\omega}s\right).$
-The multiplication $\mathbf{M}_{i}^{\left(k\right)}\mathbf{A}_{i+1,R}^{\left(k\right)}$
-also has the same cost. Doing such multiplications for $k$ from 1
-to $2^{i}$ then gives the product $\mathbf{M}_{i}\mathbf{A}_{i+1}$.
-Therefore, the cost of multiplication $\mathbf{M}_{i}\mathbf{A}_{i+1}$
-is $O^{\sim}\left(2^{i\left(3-\omega\right)}n^{\omega}s\right)$.
-Take $\omega=3$, we get a cost of $O^{\sim}\left(n^{3}s\right)$.
-Doing this $\left\lceil \log n\right\rceil -1$ times for $i$ from
-1 to $\left\lceil \log n\right\rceil -1$ to compute $\mathbf{A}=\mathbf{M}_{\left\lceil \log n\right\rceil }=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
-still has an overall cost of $O^{\sim}\left(n^{3}s\right)$.
+For $\myxi \geq 1$, let $T(n,\myxi )$ be a bound on the cost of the
+algorithm with input $(\mathbf{F} \in \mathbb{K}[x]^{n \times
+n},\vec{s}\in \mathbb{Z}^n)$ that satisfies $\sum \vec{s} \leq \myxi$.
+To obtain a recurrence relation for $T$ we first claim that 
+the cost of
+the nonrecursive work done in the algorithm is bounded by
+$\sO{(n^{\omega}(1+\myxi /n))}{1}$.  Note that lines 1, 2, 6 
+and 7 do not require any field operations.
+The claim for line~\ref{line:nullspaceBasisComputation}
+follows using the algorithm supporting Theorem~\ref{thm:kerncomp}.
+By Lemma~\ref{lem:boundOfSumOfShiftedDegreesOfKernelBasis} we have
+\begin{equation}
+\label{eqn:bound}
+\sum\cdeg_{\vec{s}} \mathbf{N}_{\ell}\le\sum\vec{s}\hbox{~~and~~}
+\sum\cdeg_{\vec{s}}\mathbf{N}_{r}\le\sum\vec{s},
+\end{equation}
+so the claim for line~\ref{line:multiplyFN} follows from
+Theorem~\ref{thm:multiplyUnbalancedMatrices}.
+
+Finally, consider \prettyref{line:recurse}.  Since the column degrees
+of $\mathbf{R}_u$ are bounded by the corresponding $\vec{s}$-column
+degrees of $\mathbf{N}_{\ell}$, it follows from~(\ref{eqn:bound})
+that $\sum \cdeg\mathbf{R}_{u}\le\sum\vec{s}$.
+Similarly, $\sum \cdeg \mathbf{R}_d \le \sum \vec{s}$.
+This shows that $$T(n,\myxi) \leq T(\lfloor n/2 \rfloor,\myxi) +
+T(\lceil n/2 \rfloor,\myxi) + \sO{(n^{\omega}(1+\myxi/n))}{1}.$$  
+Solving this recurrence shows that $T(n,\myxi)$ is bounded by
+$\sO{(n^{\omega}(1+\myxi/n))}{1}$. Since $\myxi \leq n(s-1)$ the result follows.
 \end{proof}
 
-\section{Largest Invariant Factors}
+\begin{exm}
+Consider $\mathbf{F}$ from Example \ref{example2} and the intermediate
+computations given in Example \ref{example3}. In this case the input
+column degrees are $\vec s = (1, 3, 4,4,2)$ with sum $14$ and the
+initial $\vec s$-minimal kernel bases have $\vec s$-column degrees
+$(4, 5, 2)$ and $(5, 2)$, in each case summing to less than $14$.
+The initial diagonal blocks $\mathbf{R}_u$ and $\mathbf{R}_d$ then
+have column degrees bounded by $(4, 5, 2)$ and $(5, 2)$, respectively,
+and hence their sums are also less than the initial column degree sum.
+Recursing on the upper block implies sums are at most $11$ while
+on the lower block the sums are at most $7$. In all cases the sums
+are at most $14$ for any shifted minimal kernel basis computation.  \qed
+\end{exm}
 
-\label{sec:invariants}
+
+\section{Cost of multiplying the output matrices}\label{sec:complexity}
+
+Throughout this section, let $\mathbf{A}_1,\ldots,\mathbf{A}_{\lceil
+\log n \rceil},\mathbf{B}$ be the output of Algorithm~1 for an input
+$(\mathbf{F} \in \mathbb{K}[x]^{n \times n},\vec{s}\in \mathbb{Z}^n)$.
+To compute $\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil
+\log n\right\rceil }$ we simply multiply the matrices in sequential
+order. Let
+$\mathbf{M}_{i}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{i}$, $1\leq
+i\leq \lceil \log n \rceil$.  At step $i$, for $i=1,2,\ldots,
+\left\lceil \log n\right\rceil -1$, we compute the product
+$\mathbf{M}_{i+1} = \mathbf{M}_i \cdot \mathbf{A}_{i+1}$.  
+
+The
+matrix $\mathbf{A}_{i+1}$ consists of $2^{i}$ diagonal blocks, that
+is,
+$$
+\mathbf{A}_{i+1}=
+\diag (\mathbf{A}_{i+1}^{(1)},\ldots,
+\mathbf{A}_{i+1}^{(2^{i})}),$$
+with each diagonal block
+$\mathbf{A}_{i+1}^{\left(k\right)} =
+[\mathbf{N}_{i+1,\ell}^{\left(k\right)},\mathbf{N}_{i+1,r}^{\left(k\right)}]$
+consisting of two kernel bases computed in one of the
+subproblems.  
+The matrix $\mathbf{M}_{i}$ can be decomposed as $$\mathbf{M}_{i}=
+[\mathbf{M}_{i}^{(1)}, 
+\dots,
+\mathbf{M}_{i}^{\left(2^{i}\right)} ]$$ with $2^{i}$ column blocks,
+where the column dimension of $\mathbf{M}_{i}^{(k)}$ corresponds
+to the column dimension of  $\mathbf{A}_{i+1}^{(k)}$, $1\leq k\leq
+2^i$.  The matrix
+$$\mathbf{M}_{i+1} = 
+[\mathbf{M}_{i+1}^{(1)},\mathbf{M}_{i+1}^{(2)},\ldots,
+\mathbf{M}_{i+1}^{(2\cdot 2^{i}-1)},\mathbf{M}_{i+1}^{(2\cdot 2^i)}]$$
+is thus defined by the matrix products
+\begin{equation} \label{eq:prod} 
+\mathbf{M}_{i+1}^{(2k-1)} = \mathbf{M}_i^{(k)} \cdot
+\mathbf{N}_{i+1,\ell}^{\left(k\right)}
+\hbox{~~and~~}
+\mathbf{M}_{i+1}^{(2k)} = \mathbf{M}_i^{(k)} \cdot
+\mathbf{N}_{i+1,r}^{\left(k\right)}
+\end{equation}
+for $1 \leq k\leq 2^i$.
+
+It is interesting to note that each $\mathbf{M}_{i}^{\left(k\right)}$
+is in the kernel of a subset of the rows of the original input
+matrix $\mathbf{F}$. This can be seen from the fact that the product
+$\mathbf{F} \cdot \mathbf{M}_{i}$ is a matrix with only diagonal
+blocks nonzero.  The following theorem makes precise the type of
+kernel elements and the rows they annihilate.
+\begin{thm}\label{thm:kernelBasesFromInverse}
+Let $\mathbf{F}_{i}^{(k)}$ be a matrix consisting of the rows of
+$\mathbf{F}$ that have the same row indices as the column indices
+of $\mathbf{M}_{i}^{\left(k\right)}$ in $\mathbf{M}_{i}$, and
+$\bar{\mathbf{F}}_{i}^{(k)}$ consisting of the remaining rows of
+$\mathbf{F}$. Then $\mathbf{M}_{i}^{\left(k\right)}$ is a
+$\vec{s}$-minimal kernel basis of $\bar{\mathbf{F}}_{i}^{(k)}$.
+\end{thm}
+\begin{proof}
+The shifted minimal kernel basis computation in Algorithm~1 use the
+shift specified by Lemma~\ref{lem:continueComputingKernelBasisByRows}.
+The only rows of $\mathbf{F}$ not used in computing
+$\mathbf{M}_{i}^{\left(k\right)}$ are the rows from $\mathbf{F}_{i}^{(k)}$.
+\end{proof}
+We can now establish good bounds on the sizes of the
+matrices involved in the products shown in~(\ref{eq:prod}) and
+subsequently bound the cost of the multiplications.
+\begin{lem}\label{lem:newKernelBasisSize}  
+Let $\vec{t} = \cdeg_{\vec s} \mathbf{M}_i^{(k)}$. Then 
+\begin{itemize}
+\item[(a)] $\sum \vec{t} \leq \sum \vec{s}$, and
+\item[(b)] $\sum \cdeg_{\vec{t}} \mathbf{N}_{i+1,l}^{(k)}
+\le \sum \vec{s}$ 
+and $\sum \cdeg_{\vec{t}} \mathbf{N}_{i+1,r}^{(k)} \le \sum \vec{s}$.
+\end{itemize}
+\end{lem}
+\begin{proof}
+The bound for $\sum \vec{t}$ follows from
+Lemma~\ref{lem:boundOfSumOfShiftedDegreesOfKernelBasis}
+as a corollary of Theorem~\ref{thm:kernelBasesFromInverse}.
+For the second two bounds,
+Lemma~\ref{lem:predictableDegree2} gives 
+that $\cdeg_{\vec{t}} \mathbf{N}_{i+1,\ell}^{(k)}
+= \cdeg_{\vec{s}} \mathbf{M}_{i+1}^{(2k-1)}$
+and
+$\cdeg_{\vec{t}} \mathbf{N}_{i+1,r}^{(k)}
+= \cdeg_{\vec{s}} \mathbf{M}_{i+1}^{(2k)}$.
+But now the first claim in the lemma gives that 
+$\sum \cdeg_{\vec{s}}\mathbf{M}_{i+1}^{(2k-1)}\leq \sum \vec{s}$
+and $\sum \cdeg_{\vec{s}}\mathbf{M}_{i+1}^{(2k)} \leq \sum \vec{s}$ ,
+so the result follows.
+\end{proof}
+%We now bound the cost of the matrix multiplications in~(\ref{eq:prod}).
+\begin{lem} \label{lem:dkdk} For a given $i$ and $k$ the 
+matrix multiplications in~(\ref{eq:prod}) can be done in
+time $\sO{(n(n/2^i)^{\omega-1} (1+\myxi/(n/2^i))}{1}$,
+where $\myxi = \sum \vec{s}$.
+\end{lem}
+\begin{proof}
+It will suffice to bound the cost of the multiplication
+$\mathbf{M}_{i}^{\left(k\right)} \cdot
+\mathbf{N}_{i+1,\ell}^{\left(k\right)}$ since the other multiplication
+is similar.
+Let $\vec{t} = \cdeg_{\vec{s}} \mathbf{M}_{i}^{(k)}$, as in 
+Lemma~\ref{lem:newKernelBasisSize}.
+Note that $\vec{t}$ bounds the corresponding column degrees of
+$x^{\vec{s}} \cdot \mathbf{M}_i^{(k)}$. 
+By Lemma~\ref{lem:newKernelBasisSize} we have $\sum
+\cdeg (x^{\vec{s}}\cdot \mathbf{M}_i^{(k)})\leq \myxi$ and $\sum \cdeg_{\vec{t}}
+\mathbf{N}_{i+1,\ell}^{(k)} \leq \myxi$.
+Up to a factor of $2$, the column dimensions of $\mathbf{M}_{i}^{(k)}$
+and $\mathbf{N}_{i+1,\ell}^{(k)}$  are $n/2^i$, so the result now
+follows from Theorem~\ref{thm:multiplyUnbalancedMatrices}.
+\end{proof}
+The product $(((\mathbf{A}_1 \mathbf{A}_2)\mathbf{A}_3)\cdots
+\mathbf{A}_{\log _n})$ can be computed by performing the products
+in~(\ref{eq:prod}) for $i=1,2,\ldots,\lceil \log n \rceil -1$ and
+$k=1,\ldots,2^i$.  Multiplying the cost estimate of
+Lemma~\ref{lem:dkdk} by $2^i \times \log n$, substituting 
+$\myxi = \sum \vec{s}$ and $\omega=3$, and simplifying, gives the 
+following result.
+\begin{thm}  The product 
+$\mathbf{A}=\mathbf{A}_{1}\cdots\mathbf{A}_{\left\lceil
+\log n\right\rceil }$  can be computed in $\sO{(n^3 s)}{1}$
+operations from $\mathbb{K}$, where $s = 1 + (\sum \vec{s})/n$.
+\end{thm}
+
+%\begin{proof}
+%Using Lemma~\ref{matcost} to bound the cost of the matrix multiplication
+%in~(\ref{eq:prod}) for $k=1,\ldots,2^i$ show
+%that product $\mathbf{M}_{i}\mathbf{A}_{i+1}$
+%can be computed in time $\sO{(2^{i(3-\omega)}n^{\omega}s)}{1}$, which is
+%$\sO{(n^{3}s)}{1}$ for $\omega=3$.
+%Doing this $\left\lceil \log n\right\rceil -1$ times for $i$ from
+%1 to $\left\lceil \log n\right\rceil -1$ to compute $\mathbf{A}=\mathbf{M}_{\left\lceil \log n\right\rceil }=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$
+%still has an overall cost of $\sO{(n^{3}s)}{1}$.
+%\end{proof}
+%
+
+\begin{comment}
+\section{Largest invariant factor}\label{sec:invariants}
 
 The largest invariant factor of a matrix of polynomials ${\bf F}$
 is the minimal degree monic polynomial $p$ having the property that
-$p\cdot{\bf F}^{-1}$ is a matrix polynomial. Alternative it is defined
-as the ratio of the determinant and the gcd of all $n-1$ minors of
-$\mathbf{F}$ and coincides with the last diagonal entry of the Smith
-normal form of ${\bf F}$. For generic matrices this is the same as
-the determinant while when $\mathbf{F}=xI-V$ for a scalar matrix
-$V$ then the largest invariant factor is the same as the minimal
-polynomial of $V$. In this section we will show how the largest invariant
-factor can be determined from the matrix ${\bf B}$ of Algorithm \ref{alg:matrixInverse}.
- We use \emph{column basis} as a tool, so let us first briefly look
-at column basis. 
+$p\cdot{\bf F}^{-1}$ is a polynomial matrix. Alternatively it is
+defined as the ratio of the determinant and the gcd of all $n-1$
+minors of $\mathbf{F}$ and coincides with the last diagonal entry
+of the Smith normal form of ${\bf F}$.
+In this section we will show how the largest invariant factor of a
+matrix of polynomials can be determined as an application of Algorithm
+\ref{alg:matrixInverse} using only elements from the matrix ${\bf
+B}$.
 
-A column basis of $\mathbf{F}$ is a basis for the $\mathbb{K}\left[x\right]$-module
-\[
-\left\{ \mathbf{F}\mathbf{p}~|~\mathbf{p}\in\mathbb{K}\left[x\right]^{n}~\right\} ~.
-\]
-Such a basis can be represented as a full rank matrix $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$
-whose columns are the basis elements. The following lemma from \citep{ZL2013,zhou:phd2012}
-allows us to factor any matrix as the product of a column basis and
-a kernel basis.
-\begin{lem}
-\label{lem:columnBasis} Let $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-with rank $r$. Suppose $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times(n-r)}$
-is a right kernel basis of $\mathbf{F}$ and $\mathbf{G}\in\mathbb{K}\left[x\right]^{r\times n}$
-is a left kernel basis of $\mathbf{N}$. Then $\mathbf{F}=\mathbf{T}\cdot\mathbf{G}$
-with $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$ a column
-basis of $\mathbf{F}$. 
-\end{lem}
-The following result from Chapter $8$ of \citep{zhou:phd2012} shows
-when a matrix can be made unimodular by adding more rows.
-\begin{lem}
-\label{lem:unimodularCompletionCondition}A unimodular completion
-of $\mathbf{F}$ exists if and only if $\mathbf{F}$ has unimodular
-column bases. 
-\end{lem}
-The following lemma gives a relationship between the determinant of
-a column basis and the gcd of the minors of a matrix.
-\begin{lem}
-\label{lem:determinantOfColumnBasisAndGcdOfMinors}If $\mathbf{G}\in\mathbb{K}\left[x\right]^{\left(n-1\right)\times n}$
-has full row rank and $\mathbf{C}$ is a column basis of $\mathbf{G}$,
-then the gcd of all $\left(n-1\right)\times\left(n-1\right)$ minors
-of $\mathbf{G}$ equals $c\det\mathbf{C}$ for some $c\in\mathbb{K}$.\end{lem}
+A key tool in this section is the use of column bases of full rank matrices of 
+size $(n-1) \times n$. 
+%\begin{lem}\label{lem:columnBasis} 
+%Let $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$ with rank $r$. Suppose $\mathbf{N}\in\mathbb{K}\left[x\right]^{n\times(n-r)}$ is a right kernel basis of $\mathbf{F}$ and $\mathbf{G}\in\mathbb{K}\left[x\right]^{r\times n}$ is a left kernel basis of $\mathbf{N}$. Then $\mathbf{F}=\mathbf{T}\cdot\mathbf{G}$ with $\mathbf{T}\in\mathbb{K}\left[x\right]^{m\times r}$ a column basis of $\mathbf{F}$. 
+%\end{lem}
+%The following result from Chapter $8$ of \citep{zhou:phd2012} shows
+%when a matrix can be made unimodular by adding more rows.
+%\begin{lem}
+%\label{lem:unimodularCompletionCondition}A unimodular completion
+%of $\mathbf{F}$ exists if and only if $\mathbf{F}$ has unimodular
+%column bases. 
+%\end{lem}
+The following lemma gives a relationship between the gcd of the minors of such a matrix and the  determinant of a column basis of the matrix.
+
+\begin{lem}\label{lem:determinantOfColumnBasisAndGcdOfMinors}
+Let $\mathbf{G}\in\mathbb{K}\left[x\right]^{\left(n-1\right)\times n}$ have full row rank and $\mathbf{C} \in \mathbb{K}\left[x\right]^{\left(n-1\right)\times (n-1)}$ be a column basis of $\mathbf{G}$. Then the gcd of all $\left(n-1\right)\times\left(n-1\right)$ minors of $\mathbf{G}$ equals $c\det\mathbf{C}$ for some $c\in\mathbb{K}$.\end{lem}
 \begin{proof}
-Using \prettyref{lem:columnBasis} we can factor $\mathbf{G}$ as
-$\mathbf{G}=\mathbf{C}\mathbf{H}$, where $\mathbf{H}$ has an identity
-matrix gcd and can be unimodularly completed by \prettyref{lem:unimodularCompletionCondition}.
-Let $\mathbf{h}=\left[h_{1},\dots,h_{n}\right]$ be a row vector that
-gives the unimodular matrix 
-\[
-\bar{\mathbf{H}}=\begin{bmatrix}\mathbf{H}\\
-\mathbf{h}
+From Lemma \ref{lem:unimodular_kernel_columnBasis}  there exists a unimodular matrix 
+$\mathbf{U}$ such that $\mathbf{G} \cdot \mathbf{U} = [ 0, \mathbf{C} ]$. Set 
+\[\mathbf{V} = \mathbf{U}^{-1}=\begin{bmatrix} ~  ~\mathbf{V}_u~\\
+~ \mathbf{V}_d~
 \end{bmatrix},
 \]
- then $\det\bar{\mathbf{H}}=\sum\left(h_{i}\det\mathbf{H}_{i}\right)$,
-where $\det\mathbf{H}_{i}$ is the $\left(n-1\right)\times\left(n-1\right)$
-minor in $\mathbf{H}$ corresponding to $h_{i}$. Since $\bar{\mathbf{H}}$
-is unimodular, we have $\det\bar{\mathbf{H}}=\sum\left(h_{i}\det\mathbf{H}_{i}\right)\in\mathbb{K}\backslash0$.
-We can in fact scale $\mathbf{h}$ to make $\det\bar{\mathbf{H}}=\sum\left(h_{i}\det\mathbf{H}_{i}\right)=1$.
-This means that the minors $\det\mathbf{H}_{i}$ are coprime. Now
-putting back the column basis $\mathbf{C}$ gives the result.\end{proof}
-\begin{thm}
-Suppose that ${\mathbf{B}}=\mbox{ diag }(b_{1},\ldots,b_{n})$ denotes
-the final diagonal matrix polynomial in Algorithm \ref{alg:matrixInverse}.
-Then 
+%. Then we have:  
+%\[
+%\mathbf{G} = [0, \mathbf{C}] \cdot \mathbf{V} = \mathbf{C} \cdot \mathbf{V}_d  ~~ \mbox{ with } ~~ {\mathbf{V}}=\begin{bmatrix} ~  ~\mathbf{V}_u~\\
+%~ \mathbf{V}_d~
+%\end{bmatrix} ~~ \mbox{ unimodular } 
+%\]
+where $\mathbf{V}_u$ and $\mathbf{V}_d$ are the first row and the bottom $n-1$ rows of $\mathbf{V}$ respectively.  If $\mathbf{V}_u = \left[v_{1},\dots,v_{n}\right]$, then 
+%By rescaling the $w_i$ we can assume that $\det {\mathbf{V}} = 1$. 
+$\det {\mathbf{V}}=\sum (-1)^i v_{i}\det (\mathbf{V}_d)_{i}$, where $\det (\mathbf{V}_d)_{i}$ is the $\left(n-1\right)\times\left(n-1\right)$ minor in $\mathbf{V}_d$ corresponding to $v_{i}$. Since $\mathbf{V}$ is unimodular, $\det {\mathbf{V}}=\sum (-1)^i v_{i}\det (\mathbf{V}_d)_{i}$ is a nonzero constant in $\mathbb{K}$, implying $\det (\mathbf{V}_d)_{1}, \ldots , \det (\mathbf{V}_d)_{n} $ are all relatively prime. %Since \[\mathbf{G} = [0, \mathbf{C}] \cdot \mathbf{V} = \mathbf{C} \cdot \mathbf{V}_d,\]
+We also have
 \[
-\mbox{ Largest Invariant Factor of }{\mathbf{F}}=\mbox{lcm}(b_{1},\ldots,b_{n}).
-\]
+\mathbf{G} = [0, \mathbf{C}] \cdot \mathbf{V} = \mathbf{C} \cdot \mathbf{V}_d.
+\] The result then follows from the fact that the $\left(n-1\right)\times\left(n-1\right)$ minors in $\mathbf{G}$ equal
+$\det (\mathbf{C} \cdot ({\mathbf{V}_d)_i)}=\det \mathbf{C} \cdot \det ({\mathbf{V}_d)_i} $ for $i$ from $1$ to $n$, and that 
+$\det (\mathbf{V}_d)_{1}, \ldots , \det (\mathbf{V}_d)_{n} $ are all relatively prime.
+%Now multiplying  $\det \mathbf{C} $ to $\det ({\mathbf{V}_d)_i}$, we get 
+%\begin{eqnarray*}
+%\det \mathbf{C} \cdot \det {\mathbf{V}}&=&\det\mathbf{C} \cdot\sum (-1)^i v_{i}\det(\mathbf{V}_d)_{i}\\
+%&=&\sum (-1)^i v_{i}\det(\mathbf{C} \cdot (\mathbf{V}_d)_{i})\\
+%&=&\sum (-1)^i v_{i}\det\mathbf{G}_{i}.\end{eqnarray*}
+%
+%Using
+%\[
+%\left[ \begin{array}{cc} 1 & 0 \\ 0 & \mathbf{C} \end{array} \right] \cdot \mathbf{V}= \left[ \begin{array}{cc} 1 & 0 \\ 0 & \mathbf{C} \end{array} \right] \cdot \begin{bmatrix} ~\mathbf{V}_u~ \\ ~\mathbf{V}_d~ \end{bmatrix} = \begin{bmatrix} ~\mathbf{V}_u~ \\ \mathbf{G} \end{bmatrix}
+%\]
+%we have that 
+%$$\det \mathbf{C} \cdot \det {\mathbf{V}} = \sum (-1)^i v_{i}\det\mathbf{G}_{i},$$ 
+%where $\det\mathbf{G}_{i}$ is the $\left(n-1\right)\times\left(n-1\right)$ minor in $\mathbf{G}$ corresponding to $v_{i}$. Since 
+%for each $i$ we have $\mathbf{G}_{i} = \mathbf{C} \cdot (\mathbf{V}_d)_{i}$  with all
+%$\det (\mathbf{V}_d)_{i}$ relatively prime this implies that 
+%$$\det \mathbf{C} \cdot \det {\mathbf{V}} = \sum (-1)^i v_{i}\det\mathbf{G}_{i}=\sum (-1)^i v_{i}\det(\mathbf{C} \cdot (\mathbf{V}_d)_{i})=\det\mathbf{C} \cdot\sum (-1)^i v_{i}\det\mathbf{V}_d)_{i},$$ 
+%$\det \mathbf{C}$
+%is a scalar multiple of the gcd of all the $\left(n-1\right)\times\left(n-1\right)$ minors of $\mathbf{G}$.
+\end{proof}
+\begin{thm}\label{largest}
+Suppose that ${\mathbf{B}}=\mbox{ diag }(b_{1},\ldots,b_{n})$ denotes
+the final diagonal polynomial matrix in Algorithm \ref{alg:matrixInverse}.
+Then  the 
+largest invariant factor of ${\mathbf{F}}$ is equal to 
+$\lcm(b_{1},\ldots,b_{n})$.
 \end{thm}
 \begin{proof}
-Let $\mathbf{a}_{k}$ be the $k$th column of $\mathbf{A}$, and $\bar{\mathbf{F}}^{\left(k\right)}$
-be the matrix $\mathbf{F}$ with the $k$th row removed. Then from
-\prettyref{lem:kernelBasesFromInverse} we know that $\mathbf{a}^{\left(k\right)}$
-is a $\vec{s}$-minimal kernel basis of $\bar{\mathbf{F}}^{(k)}$.
-Let $\mathbf{f}_{k}$ be the $k$th row of $\mathbf{F}$. Then the
-$k$th diagonal entry of the output matrix $\mathbf{B}$ is $b_{k}=\mathbf{f}_{k}\mathbf{a}_{k}$.
+Let $\mathbf{A}=\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }$ so that
+$\mathbf{B} = \mathbf{F} \cdot \mathbf{A}$. If $\mathbf{a}_{k}$ is the $k$-th column of $\mathbf{A}$ and $\mathbf{f}_{k}$ is the $k$-th row of $\mathbf{F}$ then the
+$k$-th diagonal entry of the output matrix $\mathbf{B}$ satisfies $b_{k}=\mathbf{f}_{k} \cdot \mathbf{a}_{k}$.
 
-We can apply Lemma 9.1 from \citep{zhou:phd2012} to unimodularly
-transform $\mathbf{F}$ to 
+Let ${\mathbf{F}}^{\left(k\right)} \in \mathbb{K}[x]^{(n-1) \times n}$ be the matrix derived from $\mathbf{F}$ by removing the $k$-th row and let  $\mathbf{C}^{(k)}$ be a column basis of ${\mathbf{F}}^{\left(k\right)}$. From Theorem~\ref{thm:kernelBasesFromInverse} we know that $a_k$ is an $\vec s$-minimal kernel basis for ${\mathbf{F}}^{\left(k\right)}$. Therefore using  Lemma \ref{lem:unimodular_kernel_columnBasis}(b) we know  
+%\cite[Lemma 3.1]{ZL2013} 
+there exists a unimodular matrix $\mathbf{U}$ having $\mathbf{a}_k$ as the first column and where  
 \[
-P\mathbf{F}\mathbf{U}=\begin{bmatrix}\mathbf{C}_{k}\\
- & b_{k}
-\end{bmatrix},
+P \cdot \mathbf{F} \cdot \mathbf{U}~ =~ \begin{bmatrix} ~ b_k  & * ~~ \\ ~0 & \mathbf{C}^{(k)}.
+\end{bmatrix}.
 \]
-where $P$ is a permutation matrix that switches the $k$th row of
-$\mathbf{F}$ to the last row (for simplicity), and \textbf{$\mathbf{C}_{k}$
-}is a column basis of $\bar{\mathbf{F}}^{\left(k\right)}$. This gives
-$\det\mathbf{F}=b_{k}\det\mathbf{C}_{k}$ or $b_{k}=\det\mathbf{F}/\det\mathbf{C}_{k}$.
+Here $P$ is a permutation matrix which switches the first and $k$-th row of $\mathbf{F}$. Hence there is a constant $c_k$ such that $c_k \det\mathbf{F}~=~b_{k}\det\mathbf{C}^{(k)}$, or equivalently  $b_{k}~=~ c_k ~\det\mathbf{F}/\det\mathbf{C}^{(k)}$.
 
-From \prettyref{lem:determinantOfColumnBasisAndGcdOfMinors} $\det\mathbf{C}_{k}$
+From \prettyref{lem:determinantOfColumnBasisAndGcdOfMinors} we know that $\det\mathbf{C}^{(k)}$
 gives the gcd of all $\left(n-1\right)\times\left(n-1\right)$ minors
-of $\bar{\mathbf{F}}^{\left(k\right)}$. Hence $\gcd\left(\det\mathbf{C}_{1},\dots,\det\mathbf{C}_{n}\right)$
+of ${\mathbf{F}}^{\left(k\right)}$ and so $\gcd\left(\det\mathbf{C}^{(1)},\dots,\det\mathbf{C}^{(n)}\right)$
 equals the gcd of all $\left(n-1\right)\times\left(n-1\right)$ minors
-of $\mathbf{F}^{\left(k\right)}$. Therefore, $\det\mathbf{F}/\gcd\left(\det\mathbf{C}_{1},\dots,\det\mathbf{C}_{n}\right)$
-gives the largest invariant factor of the smith normal form of $\mathbf{F}$.
+of $\mathbf{F}$. Therefore $\det\mathbf{F}/\gcd\left(\det\mathbf{C}^{(1)},\dots,\det\mathbf{C}^{(n)}\right)$
+gives the largest invariant factor of $\mathbf{F}$.
 The result then follows from 
-\[
-\frac{\det\mathbf{F}}{\gcd\left(\det\mathbf{C}_{1},\dots,\det\mathbf{C}_{n}\right)}=\lcm\left(\frac{\det\mathbf{F}}{\det\mathbf{C}_{1}},\frac{\det\mathbf{F}}{\det\mathbf{C}_{2}},\dots,\frac{\det\mathbf{F}}{\det\mathbf{C}_{n}}\right)=\lcm\left(b_{1},\dots,b_{n}\right).
-\]
-
+\begin{eqnarray*}
+\frac{\det\mathbf{F}}{\gcd\left(\det\mathbf{C}^{(1)},\dots,\det\mathbf{C}^{(n)}\right)}&=&\lcm\left(\frac{\det\mathbf{F}}{\det\mathbf{C}^{(1)}},\frac{\det\mathbf{F}}{\det\mathbf{C}^{(2)}},\dots,\frac{\det\mathbf{F}}{\det\mathbf{C}^{(n)}}\right) \nonumber \\ & &  \\ & = & \lcm\left(b_{1},\dots,b_{n}\right).
+\end{eqnarray*}
 \end{proof}
 
+\begin{exm}
+Let $\mathbf{F}$ be given as in Example \ref{example2} with the diagonal form $\mathbf{B} 
+\in \mathbb{Z}_7[x]$ determined in Example \ref{example3}. Then the largest invariant factor is
+$$
+\mbox{ lcm } (x^9 -3 x^7 + 2 x^5 ,  3 x^7 - 2 x^5 - x^3 ,-3 x^4 ,  - 3 x^5 - x^3 , x) = x^{9} -3 x^7 + 2 x^5.
+$$
+This is verified 
+with the Smith form of $\mathbf{F} \in \mathbb{Z}_7\left[x\right]$ which, using Maple, is 
+$$
+\left[ \begin {array}{ccccc} 1&0&0&0&0\\ \noalign{\medskip}0&1&0&0&0
+\\ \noalign{\medskip}0&0&x&0&0\\ \noalign{\medskip}0&0&0&{x}^{2}&0
+\\ \noalign{\medskip}0&0&0&0&{x}^{9}-3\,{x}^{7}+2\,{x}^{5}\end {array}
+ \right] .
+$$
+\qed
+\end{exm}
 
+%\input{example}
+\end{comment}
+
+\section{Largest invariant factor}\label{sec:invariants}
+
+The largest invariant factor of a matrix of polynomials $\mathbf{F}$
+is defined as the ratio of the determinant and the gcd of all $n-1$
+minors of $\mathbf{F}$. It coincides with the last diagonal entry
+of the Smith normal form of $\mathbf{F}$.  Alternatively, the largest
+invariant factor is the minimal degree monic polynomial $p$ having
+the property that $p\cdot \mathbf{F}^{-1}$ is a polynomial matrix.
+%Because 
+From  Theorem~\ref{thm:kernelBasesFromInverse}, 
+each column $\mathbf{a}$ of $\mathbf{A} = \mathbf{A}_1\cdots \mathbf{A}_{\lceil
+\log n \rceil}$ is a kernel basis for a subset of $n-1$ rows of
+$\mathbf{F}$. It follows that the gcd $g$ of the entries in  $\mathbf{a}$ must be 1
+to allow the kernel element $\mathbf{a}/g$ to be generated by the kernel basis $\mathbf{a}$.
+Since $\mathbf{A} =
+\mathbf{F}^{-1}\mathbf{B}$, the diagonal entries of the matrix $\mathbf{B}$ 
+have the smallest possible degrees among that of all full rank diagonal matrix that can be multiplied to $\mathbf{F}^{-1}$ to get a polynomial matrix.
+The least common multiple of the diagonal
+entries of $\mathbf{B}$ is therefore equal to $p$. In particular the largest
+invariant factor of a polynomial matrix can therefore be computed deterministically
+in time~$\sO{(n^{\omega}s)}{1}$.
+
+\begin{exm}
+Let $\mathbf{F}$ be given as in Example \ref{example2} with the diagonal form $\mathbf{B} 
+\in \mathbb{Z}_7[x]$ determined in Example \ref{example3}. Then the largest invariant factor is
+$$
+\mbox{ lcm } (x^9 -3 x^7 + 2 x^5 ,  3 x^7 - 2 x^5 - x^3 ,-3 x^4 ,  - 3 x^5 - x^3 , x) = x^{9} -3 x^7 + 2 x^5.
+$$
+This is verified 
+with the Smith form of $\mathbf{F} \in \mathbb{Z}_7\left[x\right]$ which, using Maple, is 
+$$
+\left[ \begin {array}{ccccc} 1&0&0&0&0\\ \noalign{\medskip}0&1&0&0&0
+\\ \noalign{\medskip}0&0&x&0&0\\ \noalign{\medskip}0&0&0&{x}^{2}&0
+\\ \noalign{\medskip}0&0&0&0&{x}^{9}-3\,{x}^{7}+2\,{x}^{5}\end {array}
+ \right] .
+$$
+\qed
+\end{exm}
+
+On the one hand, the largest invariant factor of a matrix is a divisor
+of the determinant and plays the same role as the minimal polynomial
+of a scalar matrix. Indeed, if ${\mathbf{F}}=xI-V$ with
+$V\in\mathbb{K}^{n\times n}$ then the largest invariant factor of
+${\mathbf{F}}$ is precisely the minimal polynomial of $V$, a divisor
+of the characteristic polynomial.  Deterministic algorithms are
+already known to compute the characteristic polynomial~\cite{KellerGehrig}
+in $O(n^{\omega} \log n)$ and the minimal polynomial~\cite{Storjohann01}
+in $O(n^{\omega} (\log n)(\log \log n))$ field operations.  On the
+other hand, if we consider the matrix $\mathbf{F}=I-xV$, then the
+$x$-adic expansion $\mathbf{F}^{-1} = I + xV + x^2V^2 + \ldots$
+reveals the powers of $V$. By computing $\mathbf{F}^{-1}$ explicitly
+with the new inversion algorithm presented here, and then taking
+the truncated series expansions of the entries, we see that the
+sequence of matrix powers $I,V,V^2,\ldots,V^n$ for an arbitrary $V
+\in \mathbb{K}^{n\times n}$ can be computed deterministically in
+$\sO{(n^3)}{1}$ operations from $\mathbb{K}$.
 
 \section{Conclusion}
+For a nonsingular input matrix $\mathbf{F} \in \mathbb{K}^{n\times
+n}$ with average column degree bounded by $s\geq 1$,
+\prettyref{alg:matrixInverse}
+computes a representation of the inverse that requires only
+$O(n^{2}s\log n)$ space to write down.  This representation should
+be useful in some applications.  For example, given a row vector
+$\mathbf{v} \in \mathbb{K}^{1 \times n}$ with $\deg \mathbf{v} \in
+O(s)$, the linear system solution $\mathbf{v} \mathbf{F}^{-1}$ can
+be computed deterministically in time $\sO{(n^{\omega}s)}{1}$ via
+high-order lifting~\cite[Theorem~12]{GuptaSarkarStorjohannValeriote11}.
+However, if the representation
+$\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil
+\log n\right\rceil }\mathbf{B}^{-1}$ is already on hand, then
+$\mathbf{v}\mathbf{F}^{-1}=\mathbf{v}\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil
+\log n\right\rceil }\mathbf{B}^{-1}$ can be computed in time
+$\sO{(n^2s)}{1}$.
 
-In this paper we have extended the algorithm of Jeannerod and Villard
-for the inversion of a matrix polynomial. The algorithm is deterministic
-and has essentially optimal complexity for inversion. In addition,
-we show how the algorithm can also be used to find the largest invariant
-factor of a matrix of polynomials.
 
-Again, it is interesting to note that \prettyref{alg:matrixInverse}
-costs only $O^{\sim}\left(n^{\omega}s\right)$ and represents the
-inverse with $O\left(n^{2}s\log n\right)$ space. It is possible that
-this representation is useful in some applications. For example, if
-we wish to multiply another low degree matrix or a row vector $\mathbf{H}$
-by $\mathbf{F}^{-1}$, representing $\mathbf{F}^{-1}=\mathbf{A}\mathbf{B}^{-1}$
-requires us to multiply $\mathbf{H}$ with a high degree matrix $\mathbf{A}$.
-This can be more expensive than the multiplication using the representation
-$\mathbf{F}^{-1}=\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$,
-then $\mathbf{H}\mathbf{F}^{-1}=\mathbf{H}\mathbf{A}_{1}\mathbf{A}_{2}\cdots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}$,
-which is less expensive. It may be interesting to look for other applications
-where this smaller representation is useful.
+
+The use of shifted degrees allowed us to bound the cost of our
+inversion algorithm in terms of a bound $s \geq 1$ for 
+the \emph{average} column degree 
+instead of the \emph{maximal} column degree.  Since $\mathbf{F}^{-1}
+= ((\mathbf{F}^T)^{-1})^T$, the complexity bound $\sO{(n^3s)}{1}$
+we have established for polynomial matrix inversion holds more
+generally with $s-1$ equal to the minimum of the average of the row
+degrees and the average of the column degrees of $\mathbf{F}$.  
+
+It is also possible to efficently handle matrices which have both some rows and some columns of
+large degree. First note that an {\it a priori} bound for $\deg \det \mathbf{F}$ (and
+for the degree of any minor of $\mathbf{F}$) is given by $ns$,
+leading to the bound $O(n^3s)$ for the space required to write down
+$\mathbf{F}^{-1}$.  
+For some input matrices the upper bound  $ns$ on $\deg \det \mathbf{F}$
+can be pessimistic.  Considering only the degrees of entries,
+the best {\it a priori} bound for $\deg \det \mathbf{F}$ is
+given from the definition of the determinant:
+$\deg \det \mathbf{F} \leq \max_{\sigma \in S_n} \sum_{i=1}^n \deg \mathbf{F}_{i,\sigma}$, where $S_n$ is the set of all permutations of $(1,2,\ldots,n)$.
+Consider for example an $n \times n$ input matrix 
+with the following degree structure.
+\begin{equation} \label{exconc}
+{\rm degs~} \mathbf{F} = 
+\left [ \begin{array}{cccc} 
+nd &  nd & \cdots & nd \\
+nd &  0 & \cdots & 0 \\
+\vdots & \vdots  & \ddots & \vdots \\
+nd &  0 & \cdots & 0
+\end{array} \right ].
+\end{equation}
+The minimum of the average row degree and average column degree of
+$\mathbf{F}$ is $s = nd$. However the definition of the determinant gives $\deg \det \mathbf{F} \leq 2nd$.
+Partial linearization~\cite[Section~6]{GuptaSarkarStorjohannValeriote11}
+can be used to handle such inputs efficiently.  Up to a row and
+column permutation, assume that $\deg \mathbf{F}_{i,i}$ bounds the
+degree of all entries in the trailing submatrix $\mathbf{F}_{i\ldots
+n,i\ldots n}$, $1\leq i\leq n$, and let $E = \sum_{i=1}^n \deg
+\mathbf{F}_{i,i}$.  Then corresponding to $\mathbf{F}$ there exists
+a matrix $\bar{\mathbf{F}}$ that satisfies the following properties:
+{\rm Dimension}$(\bar{\mathbf{F}}) < 3n$; $\deg \bar{\mathbf{F}}
+\leq \lceil E/n \rceil$; the principal $n \times n$ submatrix of
+$\bar{\mathbf{F}}^{-1}$ is equal to $\mathbf{F}^{-1}$.  For example,
+the matrix shown in~(\ref{exconc}) is
+transformed~\cite[Corollary~3]{GuptaSarkarStorjohannValeriote11}
+into a matrix $\bar{\mathbf{F}}$ with dimension $3n-1$ and degree
+$d$. 
 
 \bibliographystyle{plainnat}
 \bibliography{paper}
-
 \end{document}
+\begin{exm}
+Let $\mathbf{G} \in \mathbb{K}[x]^{4 \times 8}$ having column degrees 
+$\vec t = (1, 2, 3, 4, 1, 2, 3, 4)$. % with the degrees summing to $20$. 
+Let $\mathbf{N}_1$ be a $\vec t$-minimal  kernel basis for $\mathbf{G}_1$, the first two rows of $\mathbf{G}$, having $\vec t$-column degrees $\vec u = ( 1,~2, ~4, 10)$.  Note that the sum of the $\vec t$-column degrees of the minimal kernel basis is smaller than the sum of the column degrees $\vec t$.
+Then the degrees of $\mathbf{N}_1$ are bounded by
+$$
+\left[ \begin{array}{cccccccc}
+0 & \cdot & \cdot & \cdot & 0 & \cdot & \cdot & \cdot \\
+1 & 0 & \cdot & \cdot & 1 & 0 & \cdot & \cdot \\
+3 & 2 & 1 & 0 & 3 & 2 & 1 & 0 \\
+9 & 8 & 7 & 6 & 9 & 8 & 7 & 6
+\end{array} \right]^t
+$$
+where, as in the introduction, $\cdot$ denotes a zero polynomial.
+Suppose further that $\mathbf{N}_2$ is a $\vec u$-minimal kernel basis of 
+$\mathbf{G}_2 \cdot \mathbf{N}_1$ having $\vec u$-column degree $\vec v = (1, 4, 3, 5)$.
+Then $\mathbf{N}_1 \cdot \mathbf{N}_2$ is a $\vec t$-minimal kernel basis for $\mathbf{G}$ with
+$\vec t$-column degree $\vec v$.  Hence the degrees of $\mathbf{N}_2$  are bounded by
+$$
+\left[ \begin{array}{cccc} 1 & 4 & 3 & 5\\ 0 & 3 & 2 & 4 \\ \cdot & 1 & 0 & 2 \\ \cdot & \cdot & \cdot & \cdot 
+\end{array} \right].
+$$
+\qed
+\end{exm}

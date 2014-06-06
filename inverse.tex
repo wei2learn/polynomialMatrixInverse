@@ -1,7 +1,6 @@
 %% LyX 2.0.5.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-%\documentclass[english]{elsarticle}
-\documentclass[english]{amsart}
+\documentclass[english]{elsarticle}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \usepackage{color}
@@ -303,16 +302,24 @@ $\sO{(n^{\omega}d)}{1}$, and that multiplying together the decomposition
 to obtain $\mathbf{F}^{-1}$ explicitly can be done in time
 $\sO{(n^3d)}{1}$.
 
-Our algorithm also uses a sequence of kernel basis computations to
-diagonalize the input matrix.  The main difference is that our
-extension makes use of {\em shifted} kernel bases along with an
-alternate method for measuring size during the reduction.  This
-allows us to handle efficiently non-generic inputs of arbitrary
-dimension.    The main difficulty to overcome is that the degrees
+In general however, the degrees
 of columns in the kernel basis in the $\mathbf{A}_i$ matrices need
 not be uniform. Indeed, even so-called minimal kernel basis, for
 which the sum of the column degrees is minimal, can have some columns
-of much larger degree than others. To illustrate the new algorithm
+of much larger degree than others. 
+
+To overcome this difficulty, we makes use of {\em shifted} degrees for measuring sizes and guiding the computations.
+% during the reduction.
+% kernel bases along with an
+%alternate method for measuring size during the reduction.  
+Intuitively, the shifts can be used to guide the shifted degrees of the intermediate results to fit nicely together like the pieces of jigsaw puzzles. This  allows us to obtain tight bounds on the sizes of the results and achieve efficient computations, which can be seen from some results  in the next section. On the other hand, if the standard matrix degrees are used instead, the computations can in general leave large gaps between the resulting matrix degrees and the degrees of individual matrix entries. Such gaps can blow up quickly with each combination of the intermediate results, producing subproblems with sizes too large for efficient computation. In effect, the shifted degrees
+allows us to handle efficiently non-generic inputs of arbitrary
+dimension for the inverse computation in this paper.    
+
+We use the same algorithm from~\cite{jeannerod-villard:05} and also performs a sequence of kernel basis computations to
+diagonalize the input matrix.  The main difference is that by making use of the shifted degrees, we can now effectively handle  non-generic inputs of arbitrary
+dimension for the inverse computation in this paper.    
+To illustrate the this,
 we consider a $5 \times 5$ input matrix $\mathbf{F}$.\footnote{The
 example is given explicitly
 in Section~\ref{sec:inversion}} The degrees of entries of $\mathbf{F}$
@@ -327,7 +334,7 @@ $$
 \end{array} \right ]
 $$
 with a $\cdot$ indicating a zero polynomial.
-For this input our algorithm computes the following decomposition.
+For this input the algorithm computes the following decomposition.
 $$
 \setlength{\arraycolsep}{.6\arraycolsep}
 \renewcommand{\arraystretch}{.9}
@@ -370,7 +377,7 @@ $$
 \end{array} \right ]
 }
 $$
-In general, our algorithm returns a list of matrices
+In general, the algorithm returns a list of matrices
 $\mathbf{A}_{1},\mathbf{A}_2,\dots,\mathbf{A}_{\left\lceil \log n\right\rceil
 },\mathbf{B}$ satisfying
 \begin{equation}\label{important}
@@ -383,9 +390,9 @@ having blocks of dimension bounded by $\lceil n/2
 \rceil$, $\mathbf{A}_3$ having blocks of dimension bounded
 by $\lceil \lceil n / 2 \rceil / 2 \rceil$, etc.  Our use of shifted
 kernel basis allows us to give a more general running time analysis
-of our algorithm in terms of a bound $s\geq 1$ for the average column degree.
+of the algorithm in terms of a bound $s\geq 1$ for the average column degree.
 For some inputs with skewed column degrees $s$ can be considerably smaller
-than $d$.  Our algorithm produces the output matrices
+than $d$.  The algorithm produces the output matrices
 $\mathbf{A}_1,\ldots,\mathbf{A}_{\lceil \log n \rceil},\mathbf{B}$
 in time $\sO{(n^{\omega}s)}{1}$, and we show that 
 the explicit product 
@@ -400,7 +407,7 @@ matrices $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log
 n\right\rceil },\mathbf{B}$ still require only $O(n^{2}s\log n)$
 space.
 
-As an application of our inversion algorithm we show that the
+As an application of the inversion algorithm we show that the
 largest invariant factor of the input matrix $\mathbf{F}$ can be
 recovered from the diagonalization $\mathbf{B}$ in~(\ref{important}).
 Recall that the largest invariant factor of $\mathbf{F}$ is
@@ -414,17 +421,17 @@ randomized and computes $p$ in expected time $\sO{(n^{\omega}d)}{1}$.
 
 
 The remainder of this paper is as follows. Section 2 includes some
-background on the tools required for our algorithm. The inversion
-algorithm is included in the next section followed in Section
+background on the tools required for our computation. The inversion
+computation is described in the next section followed in Section
 \ref{sec:complexity} by the theorems giving the new complexity
 results for multiplying together the $\mathbf{A}_i$ matrices.
-The paper ends with a conclusion and topics for future
-research.
+The paper ends with a conclusion with some notes on related ideas for further considerations.
+%and topics for future research.
 
 \section{Preliminaries}
 In this section we  give the basic cost model and definitions and
 properties of {\em shifted degree} and {\em kernel basis},
-which are essential for our algorithm.
+which are essential for our computation.
 % and later for our application.
 
 \subsection{Cost model}
@@ -510,11 +517,11 @@ $\mathbf{B}\in\mathbb{K}[x]^{m\times \ast}$ satisfies
 $\cdeg_{\vec{t}}\mathbf{B}=\cdeg_{\vec{s}}\left(\mathbf{A}
 \cdot \mathbf{B}\right)$.
 \end{lem}
-An essential subroutine needed in our algorithm, also based on the
+An essential subroutine needed in our computation, also based on the
 use of the shifted degrees, is the efficient multiplication of a
 pair of matrices $\mathbf{A} \cdot \mathbf{B}$ with unbalanced
 degrees.  The following result follows as a special case of~\citep[Theorem
-3.7]{zhou:phd2012}.  The notation $\sum\vec{s}$, for any list
+3.7]{ZLS2012}.  The notation $\sum\vec{s}$, for any list
 $\vec{s}$, denotes the sum of all entries in $\vec{s}$.
 
 %\begin{thm}
@@ -533,7 +540,7 @@ $\vec{s}$, denotes the sum of all entries in $\vec{s}$.
 \begin{thm}
 \label{thm:multiplyUnbalancedMatrices} Let
 $\mathbf{A}\in\mathbb{K}[x]^{n \times m}$ and
-$\mathbf{B}\in\mathbb{K}[x]^{m\times m}$ be given. 
+$\mathbf{B}\in\mathbb{K}[x]^{m\times m}$ be given with $m \le n$. 
 Assume, without loss of generality, that $\mathbf{B}$ has no zero columns.
 Suppose
 $\vec{s} \in \mathbb{Z}_{\geq 0}^n$ is a shift that bounds the
@@ -551,12 +558,13 @@ the average column degree of $\mathbf{A}$ and the average
 $\vec{s}$-column degree of $\mathbf{B}$.   
 The cost estimate uses $1+ \myxi/n$ in order to correctly handle
 the case when $\vec{s}$ contains some zero entries. 
-In particular, we always have $1+ \myxi/n \geq 1$.
+In particular, we always have $1+ \myxi/n \geq 1$. Also note that to use the proof of  ~\citep[Theorem
+3.7]{ZLS2012}, we may assume that the entries of $\vec{s}$ are ordered in increasing order, which can be done by ordering the columns of $\mathbf{A}$ and the rows of $\mathbf{B}$ in the same way as $\vec{s}$.
 
 \subsection{Kernel bases}
 Let $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 be a matrix of polynomials over a field $\mathbb{K}$. The kernel of $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
-is the $\mathbb{F}\left[x\right]$-module 
+is the $\mathbb{K}\left[x\right]$-module 
 \[
 \left\{ \mathbf{p}\in\mathbb{K}\left[x\right]^{n}\mid \mathbf{F}\cdot \mathbf{p}=0\right\} 
 \]
@@ -596,8 +604,8 @@ is a $\vec s$-minimal kernel basis of $\mathbf{F}$ satisfying $\mathbf{F}
 coefficient has full rank. 
 \qed
 \end{exm}
-We will make use of the following bound on the sizes of shifted kernel
-bases~\cite[Theorem~3.4]{ZLS2012}.  
+The followin result~\cite[Theorem~3.4]{ZLS2012} shows that the use of shifted degrees can ensure that the sizes of certain shifted kernel
+bases, such as  $\mathbf{N}$ in Example~\ref{example1}, do not get too big. 
 \begin{lem}
 \label{lem:boundOfSumOfShiftedDegreesOfKernelBasis}Suppose $\mathbf{F}\in\mathbb{K}\left[x\right]^{m\times n}$
 and $\vec{s}\in\mathbb{Z}_{\ge0}^{n}$ is a shift with entries bounding
@@ -605,7 +613,7 @@ the corresponding column degrees of $\mathbf{F}$. Then the sum of
 the $\vec{s}$-column degrees of any $\vec{s}$-minimal kernel basis
 of $\mathbf{F}$ is bounded by $\sum\vec{s}$.
 \end{lem}
-We will also need the following result~\cite[Lemma~3.3]{ZLS2012}
+We will also need the following result~\cite[Lemma~3.15]{ZLS2012}
 to compute kernel bases by rows.
 \begin{lem}
 \label{lem:continueComputingKernelBasisByRows}Let $\mathbf{G}=\left[\mathbf{G}_{1}^{T},\mathbf{G}_{2}^{T}\right]^{T}\in\mathbb{K}\left[x\right]^{m\times n}$
@@ -620,7 +628,7 @@ The second essential subroutine we need is the minimal kernel basis
 algorithm with shift recently reported by the
 authors~\cite[Theorem~4.2]{ZLS2012}.
 \begin{thm} \label{thm:kerncomp}
-Let $\mathbf{F} \in \mathbb{K}^{m \times n}$ and $\vec{s}$ be
+Let $\mathbf{F} \in \mathbb{K}^{m \times n}$ with $m\le n$ and $\vec{s}$ be
 a shift bounding the corresponding column degrees of $\mathbf{F}$.
 Then a $\vec{s}$-minimal kernel basis of $\mathbf{F}$ can be computed
 in $\sO{(n^{\omega}(1+\myxi/n))}{1}$ field operations from $\mathbb{K}$,
@@ -706,7 +714,7 @@ $$
 \\ -3x&0\\ -3&0
 \\ 0&1\end {array} \right],
 $$
-respectively, with $\mathbf{N}_r$ determined in Example~\ref{example1}.
+respectively, with $\mathbf{N}_{1,r}^{(1)}$ determined in Example~\ref{example1}.
 Multiplying $\mathbf{F}$ on the right by 
 $\mathbf{A}_1 = [ \mathbf{N}_{1,\ell}^{(1)} ,
  \mathbf{N}_{1,r}^{(1)} ]$ then gives 
@@ -718,8 +726,10 @@ $\mathbf{A}_1 = [ \mathbf{N}_{1,\ell}^{(1)} ,
 }^{2}&&\\ -2x&-{x}^{4}+2{x}^{2}+3x+1&-x&&
 \\ -{x}^{4}-x&2{x}^{5}-2{x}^{4}+3{x}^{2}-2&3
 x&&\\ \hline &&&-3{x}^{5}-{x}^{3}&0
-\\ &&&x&x\end {array} \right]  \qed
+\\ &&&x&x\end {array} \right]. 
+ \qed
 \end{eqnarray*}
+In general, the matrices  $\mathbf{F}$ and $\mathbf{A}_1$ can have unbalanced degrees. But the use of shifted degrees allows them to be multiplied based on Theorem~\ref{thm:multiplyUnbalancedMatrices}.
 \end{exm}
 The same process can then be repeated recursively on $\mathbf{R}_{u}$
 and $\mathbf{R}_{d}$, until we reach the base case where the dimension
@@ -734,7 +744,8 @@ $\mathbf{R}_d$ be the two diagonal blocks of dimension $3 \times 3$ and
 $2 \times 2$, respectively.  
 To apply Lemma~\ref{lem:continueComputingKernelBasisByRows} we base
 the subsequent shifted kernel computation on the shifted column
-degrees of the previously computed kernels.  The $\vec{s}$-column degrees
+degrees of the previously computed kernels.  
+Recall that  $\vec s = (1,3,4,4,2)$. The $\vec{s}$-column degrees
 of $\mathbf{N}_{1,\ell}^{(1)}$ and $\mathbf{N}_{1,r}^{(1)}$ are
 $(4,5,2)$ and $(5,2)$, respectively. 
 Repeating our previous
@@ -794,9 +805,9 @@ we get
 It remains to diagonalize the $2 \times 2$ leading submatrix
 $\mathbf{R}_u \cdot [ \mathbf{N}_{2,\ell}^{(1)},\mathbf{N}_{2,r}^{(1)}]$
 of~(\ref{eq:2by2}).    The $(4,5,2)$-column degrees of 
-$\mathbf{N}_{2,\ell}^{(1)}$ are $(5,4)$.
+$\mathbf{N}_{2,\ell}^{(1)}$ are $(5,6)$.
 The final step of the recursion gives the
-$(5,4)$-minimal kernel bases $\mathbf{N}_{3,\ell}^{(1)}$ and
+$(5,6)$-minimal kernel bases $\mathbf{N}_{3,\ell}^{(1)}$ and
 $\mathbf{N}_{3,r}^{(1)}$. 
 $$
 [ \mathbf{N}_{3,\ell}^{(1)}, \mathbf{N}_{3,r}^{(1)} ]  = 
@@ -861,7 +872,7 @@ such that entries of $\vec{s}$ bound the corresponding column
 degrees of $\mathbf{F}$}
 \ENSURE{$\mathcal{A}=\left[\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil }\right],\mathbf{B}$
 with $\mathbf{A}_{1},\dots,\mathbf{A}_{\left\lceil \log n\right\rceil },\mathbf{B}\in\mathbb{K}\left[x\right]^{n\times n}$
-such that $\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}=\mathbf{F}^{-1}$
+such that $\mathbf{B}$ is diagonal and $\mathbf{A}_{1}\dots\mathbf{A}_{\left\lceil \log n\right\rceil }\mathbf{B}^{-1}=\mathbf{F}^{-1}$
 if $\mathbf{F}$ is nonsingular, or fail if $\mathbf{F}$ is singular.}
 
 \STATE{\textbf{if} $\mathbf{F}=0$
@@ -876,7 +887,7 @@ rows of $\mathbf{F}$;}
 
 \STATE{$\mathbf{N}_{r}:=\mnb(\mathbf{F}_{u},\vec{s} )$;
 \\$\mathbf{N}_{\ell}:=\mnb(\mathbf{F}_{d},\vec{s} )$;  \\
-\textbf{if }$\columnDimension([\mathbf{N}_{l},\mathbf{N}_r])\neq  n$ 
+\textbf{if }$\columnDimension([\mathbf{N}_{\ell},\mathbf{N}_r])\neq  n$ 
 \textbf{then} fail \textbf{endif}; \label{line:nullspaceBasisComputation}
 }
 
@@ -884,7 +895,7 @@ rows of $\mathbf{F}$;}
 $\mathbf{R}_{d}:=\mathbf{F}_{d}\mathbf{N}_{r}$;
 \label{line:multiplyFN}}
 
-\STATE{$\left\{ \mathcal{A}^{(1)},\mathbf{B}_{1}\right\} :=\inv(\mathbf{R}_{u},\cdeg_{\vec{s}} \mathbf{N}_l)$; \\
+\STATE{$\left\{ \mathcal{A}^{(1)},\mathbf{B}_{1}\right\} :=\inv(\mathbf{R}_{u},\cdeg_{\vec{s}} \mathbf{N}_\ell)$; \\
 $\left\{ \mathcal{A}^{(2)},\mathbf{B}_{2}\right\} :=\inv(\mathbf{R}_{d},
 \cdeg_{\vec{s}} \mathbf{N}_r)$;
 \label{line:recurse} }
@@ -892,14 +903,14 @@ $\left\{ \mathcal{A}^{(2)},\mathbf{B}_{2}\right\} :=\inv(\mathbf{R}_{d},
 \STATE{$\mathcal{A}:=\left[\left[\mathbf{N}_{\ell},\mathbf{N}_{r}\right],\diag(\mathcal{A}_{1}^{(1)},\mathcal{A}_{1}^{(2)}),\dots,\diag(\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(1)},\mathcal{A}_{\left\lceil \log n\right\rceil -1}^{(2)})\right]$;}\\
 \# Note: If $\mathcal{A}_{\lceil \log n \rceil -1}^{(2)}$ is not defined then 
 substitute the identity matrix.
-\STATE{\textbf{return} $\left\{ \mathcal{A},\diag\left([\mathbf{B}_{1},\mathbf{B}_{2}]\right)\right\} $;}
+\STATE{\textbf{return} $\left\{ \mathcal{A},\diag\left(\mathbf{B}_{1},\mathbf{B}_{2}\right)\right\} $;}
 \end{algorithmic}
 \end{algorithm}
 
 \prettyref{alg:matrixInverse} recurses on two problems of about
 half the dimension.  The following theorem establishes a bound on
 the cost of the algorithm.  The key idea of cost analysis is to
-show that that the sum of column degrees of each of the recursive
+show that the sum of column degrees of each of the recursive
 problems is bounded by the sum of the column degrees of $\mathbf{F}$.
 In addition to the input matrix $\mathbf{F}$ the algorithm takes
 as input a shift $\vec{s}$ that bounds the corresponding degrees
@@ -951,7 +962,7 @@ degrees of $\mathbf{N}_{\ell}$, it follows from~(\ref{eqn:bound})
 that $\sum \cdeg\mathbf{R}_{u}\le\sum\vec{s}$.
 Similarly, $\sum \cdeg \mathbf{R}_d \le \sum \vec{s}$.
 This shows that $$T(n,\myxi) \leq T(\lfloor n/2 \rfloor,\myxi) +
-T(\lceil n/2 \rfloor,\myxi) + \sO{(n^{\omega}(1+\myxi/n))}{1}.$$  
+T(\lceil n/2 \rceil,\myxi) + \sO{(n^{\omega}(1+\myxi/n))}{1}.$$  
 Solving this recurrence shows that $T(n,\myxi)$ is bounded by
 $\sO{(n^{\omega}(1+\myxi/n))}{1}$. Since $\myxi \leq n(s-1)$ the result follows.
 \end{proof}
@@ -1043,7 +1054,7 @@ subsequently bound the cost of the multiplications.
 Let $\vec{t} = \cdeg_{\vec s} \mathbf{M}_i^{(k)}$. Then 
 \begin{itemize}
 \item[(a)] $\sum \vec{t} \leq \sum \vec{s}$, and
-\item[(b)] $\sum \cdeg_{\vec{t}} \mathbf{N}_{i+1,l}^{(k)}
+\item[(b)] $\sum \cdeg_{\vec{t}} \mathbf{N}_{i+1,\ell}^{(k)}
 \le \sum \vec{s}$ 
 and $\sum \cdeg_{\vec{t}} \mathbf{N}_{i+1,r}^{(k)} \le \sum \vec{s}$.
 \end{itemize}
@@ -1286,7 +1297,7 @@ in $O(n^{\omega} (\log n)(\log \log n))$ field operations.  On the
 other hand, if we consider the matrix $\mathbf{F}=I-xV$, then the
 $x$-adic expansion $\mathbf{F}^{-1} = I + xV + x^2V^2 + \ldots$
 reveals the powers of $V$. By computing $\mathbf{F}^{-1}$ explicitly
-with the new inversion algorithm presented here, and then taking
+with \prettyref{alg:matrixInverse}  presented here, and then taking
 the truncated series expansions of the entries, we see that the
 sequence of matrix powers $I,V,V^2,\ldots,V^n$ for an arbitrary $V
 \in \mathbb{K}^{n\times n}$ can be computed deterministically in
@@ -1313,7 +1324,7 @@ $\sO{(n^2s)}{1}$.
 
 
 The use of shifted degrees allowed us to bound the cost of our
-inversion algorithm in terms of a bound $s \geq 1$ for 
+inversion computation in terms of a bound $s \geq 1$ for 
 the \emph{average} column degree 
 instead of the \emph{maximal} column degree.  Since $\mathbf{F}^{-1}
 = ((\mathbf{F}^T)^{-1})^T$, the complexity bound $\sO{(n^3s)}{1}$
@@ -1321,7 +1332,7 @@ we have established for polynomial matrix inversion holds more
 generally with $s-1$ equal to the minimum of the average of the row
 degrees and the average of the column degrees of $\mathbf{F}$.  
 
-It is also possible to efficently handle matrices which have both some rows and some columns of
+It is also possible to efficiently handle matrices which have both some rows and some columns of
 large degree. First note that an {\it a priori} bound for $\deg \det \mathbf{F}$ (and
 for the degree of any minor of $\mathbf{F}$) is given by $ns$,
 leading to the bound $O(n^3s)$ for the space required to write down

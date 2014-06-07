@@ -312,11 +312,9 @@ To overcome this difficulty, we makes use of {\em shifted} degrees for measuring
 % during the reduction.
 % kernel bases along with an
 %alternate method for measuring size during the reduction.  
-Intuitively, the shifts can be used to guide the shifted degrees of the intermediate results to fit nicely together like the pieces of jigsaw puzzles. This  allows us to obtain tight bounds on the sizes of the results and achieve efficient computations, which can be seen from some results  in the next section. On the other hand, if the standard matrix degrees are used instead, the computations can in general leave large gaps between the resulting matrix degrees and the degrees of individual matrix entries. Such gaps can blow up quickly with each combination of the intermediate results, producing subproblems with sizes too large for efficient computation. In effect, the shifted degrees
-allows us to handle efficiently non-generic inputs of arbitrary
-dimension for the inverse computation in this paper.    
+Intuitively, this make the shifted degrees of the intermediate results fit nicely together like the pieces of jigsaw puzzles,  enabling us to obtain tight bounds on the sizes of the results and achieve efficient computations, which can be seen from some results  in the next section. On the other hand, if the standard matrix degrees are used instead, the computations can in general leave large gaps between the resulting matrix degrees and the degrees of individual matrix entries. Such gaps can blow up quickly with each combination of the intermediate results, producing subproblems with sizes too large for efficient computation. 
 
-We use the same algorithm from~\cite{jeannerod-villard:05} and also performs a sequence of kernel basis computations to
+We use the same algorithm from~\cite{jeannerod-villard:05} and perform a sequence of kernel basis computations to
 diagonalize the input matrix.  The main difference is that by making use of the shifted degrees, we can now effectively handle  non-generic inputs of arbitrary
 dimension for the inverse computation in this paper.    
 To illustrate the this,
